@@ -522,7 +522,6 @@ body.active { overflow: hidden; }
   filter: opacity(60%);
   backdrop-filter: blur(40px);
   transition: transform 0.3s, box-shadow 0.3s;
-  width: max-content;
 }
 
 .hero-content:hover {
