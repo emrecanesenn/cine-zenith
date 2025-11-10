@@ -1,0 +1,70 @@
+/* Genel Ayarlar ve Minimal Tema Renkleri */
+:root {
+    --cz-primary-color: #fbd149; /* Kırmızı vurgu */
+    --cz-dark-bg: #111111;     /* Çok koyu, neredeyse siyah */
+}
+
+/* body rengini tekrar ayarlayalım */
+body {
+    background-color: var(--cz-dark-bg);
+    color: #f0f0f0;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+/* 1. Ana Loader Konteyneri (Garanti Edilmiş Görünürlük) */
+.cz-loader-container.minimalist {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--cz-dark-bg);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    /* Kaybolma efekti: Hızlıca dağılma ve şeffaflaşma */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+/* Loader Gizlendiğinde: Işık Hüzmesi Gibi Dağılma Efekti */
+.cz-loader-container.minimalist.hidden {
+    opacity: 0;
+    transform: scale(2); /* Gizlenirken hızla büyüyerek dağılma hissi verir */
+    pointer-events: none;
+}
+
+
+/* 2. Minimal Lens Halkası Spinner'ı */
+.cz-minimal-lens-ring {
+    width: 60px;
+    height: 60px;
+    border: 3px solid rgba(255, 255, 255, 0.2); /* Dış halka (hafif) */
+    border-top-color: var(--cz-primary-color); /* Vurgu Rengi */
+    border-radius: 50%;
+    animation: simple-spin 1s linear infinite, focus-pulse 2s infinite alternate;
+    margin-bottom: 20px;
+}
+
+/* 3. Animasyonlar */
+@keyframes simple-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Odaklanma/Işık titreşimi efekti */
+@keyframes focus-pulse {
+    0% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.1); }
+    100% { box-shadow: 0 0 15px var(--cz-primary-color), 0 0 30px rgba(229, 9, 20, 0.3); }
+}
+
+/* 4. Loader Metni */
+.cz-loader-text {
+    font-size: 1.1em;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.7); /* Hafif soluk yazı */
+}

@@ -1,0 +1,6 @@
+# Hassas bilgileri içeren dosya/klasörler
+/assets/js/apiSettings.js
+
+# Derleme/build çıktılarını da eklemek iyidir (opsiyonel)
+# /node_modules
+# .DS_Store
