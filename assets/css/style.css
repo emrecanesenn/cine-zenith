@@ -579,8 +579,6 @@ body.active { overflow: hidden; }
   border-radius: 50px;
 }
 
-.upcoming .filter-btn:focus { border-color: var(--citrine); }
-
 .upcoming .movies-list > li {
   min-width: 100%;
   scroll-snap-align: start;
@@ -607,7 +605,7 @@ body.active { overflow: hidden; }
   max-width: max-content;
 }
 
-.service-banner img { width: 100%; }
+.service-banner img { width: 90%; border-radius: 50px }
 
 .service-btn {
   position: absolute;
