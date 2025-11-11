@@ -3,6 +3,7 @@
 import {API_KEY, DEFAULT_URL, IMG_DEFAULT_URL, LANG_TR} from './apiSettings.js';
 import apiList from "./apiList.js";
 
+
 async function scriptList () {
     const scriptObj = await apiList();
     const upcoming = await scriptObj.upcomingMovies()
@@ -115,6 +116,7 @@ async function upcomingSection(data) {
 async function topRated(data) {
     try{
         const movieList = document.getElementById("toprated-list")
+        movieList.innerHTML = "";
         const toprated = data.slice(0, 8);
 
         for (const movie of toprated) {
@@ -167,6 +169,15 @@ async function topRated(data) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    scriptList()
+})
+
+const topRatedSeriesButton = document.getElementById("top-rated-series");
+const topRatedMoviesButton = document.getElementById("top-rated-movies");
+topRatedMoviesButton.addEventListener("click", () => {
+    if (topRatedMoviesButton.classList.contains("onTopRated")) return;
+    topRatedMoviesButton.classList.add("onTopRated");
+    topRatedSeriesButton.classList.remove("onTopRated");
     scriptList()
 })
 //

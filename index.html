@@ -13,6 +13,7 @@
     <script src="assets/js/script.js" defer></script>
     <script src="assets/js/apiList.js" type="module" defer></script>
     <script src="assets/js/movieScript.js" type="module" defer></script>
+    <script src="assets/js/seriesScript.js" type="module" defer></script>
 
 
     <div id="page-loader" class="cz-loader-container minimalist">
@@ -106,14 +107,14 @@
               <h2 class="h2 section-title">Upcoming Movies</h2>
             </div>
 
-            <ul id="filterList" class="filter-list">
+            <ul id="filterUpcomingList" class="filter-list">
 
               <li>
-                <button class="filter-btn upcomingOnButton">Movies</button>
+                <button id="upcoming-movies" class="filter-btn upcomingOnButton">Movies</button>
               </li>
 
               <li>
-                <button class="filter-btn">TV Shows</button>
+                <button id="upcoming-series" class="filter-btn">TV Shows</button>
               </li>
 
             </ul>
@@ -141,7 +142,7 @@
 
           <div class="service-banner">
             <figure>
-              <img src="assets/images/noposter.png" width="400" alt="CineZenith poster">
+              <img src="assets/images/cineafisEn.png" width="400" alt="CineZenith poster">
             </figure>
 
           </div>
@@ -216,14 +217,14 @@
 
           <h2 class="h2 section-title">Top Rated Movies</h2>
 
-          <ul class="filter-list">
+          <ul id="filterTopRatedList" class="filter-list">
 
             <li>
-              <button class="filter-btn">Movies</button>
+              <button id="top-rated-movies" class="filter-btn onTopRated">Movies</button>
             </li>
 
             <li>
-              <button class="filter-btn">TV Shows</button>
+              <button id="top-rated-series" class="filter-btn">TV Shows</button>
             </li>
 
           </ul>

@@ -30,6 +30,21 @@ export default async function apiList() {
             } catch (e) {
                 alert(`HATA: ${e}`)
             }
+        },
+
+        async topRatedSeries() {
+            try {
+
+                const resolve = await fetch(`${DEFAULT_URL}/tv/top_rated?api_key=${API_KEY}`);
+                if (!resolve.ok) throw new Error("Top Rated Series is not loaded!");
+
+                const data = await resolve.json();
+
+                return data.results;
+
+            } catch (e) {
+                alert(`HATA: ${e}`)
+            }
         }
     }
 }

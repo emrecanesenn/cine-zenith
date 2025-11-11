@@ -1,4 +1,6 @@
 'use strict';
+
+
 /**
  * Components Fetching
  */
@@ -87,19 +89,6 @@ async function initializeApp() {
   console.log("Cine-Zenith hazır ve çalışıyor!");
 }
 
-document.addEventListener("DOMContentLoaded", initializeApp)
-
-const filterListButton = document.getElementById("filterList");
-
-for (let x = 0; x < filterListButton.childElementCount; x++) {
-  const listItem = filterList.children[x];
-
-  const buttonElement = listItem.querySelector(".filter-btn");
-
-  if (buttonElement && buttonElement.classList.contains("upcomingOnButton")) {
-    buttonElement.style.borderColor = "var(--citrine)";
-    buttonElement.style.borderStyle = "solid";
-
-    break;
-  }
-}
+document.addEventListener("DOMContentLoaded", () => {
+  initializeApp()
+})
