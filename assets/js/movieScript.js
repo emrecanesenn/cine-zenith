@@ -1,31 +1,24 @@
 "use strict";
 
 import {API_KEY, DEFAULT_URL, IMG_DEFAULT_URL, LANG_TR} from './apiSettings.js';
+import apiList from "./apiList.js";
 
-
-// Essentials List Movies
-async function listMovies() {
-    try {
-
-        const resolve = await fetch(`${DEFAULT_URL}/movie/upcoming?api_key=${API_KEY}`);
-        if (!resolve.ok) throw new Error("Upcoming Movies is not loaded!");
-
-        const data = await resolve.json();
-
-        await heroSection(data.results)
-        await upcomingSection(data.results)
-
-    } catch (e) {
-        alert(`HATA: ${e}`)
-    }
-
+async function scriptList () {
+    const scriptObj = await apiList();
+    const upcoming = await scriptObj.upcomingMovies()
+    heroSection(upcoming)
+    upcomingSection(upcoming)
+    const toprateds = await scriptObj.topRatedMovies();
+    topRated(toprateds)
 }
 
+
+
 // HERO SECTION FIRST UPCOMING FILM
-async function heroSection(upcoming) {
+async function heroSection(data) {
     try {
 
-        const resolve = await fetch(`${DEFAULT_URL}/movie/${upcoming[0].id}?api_key=${API_KEY}`)
+        const resolve = await fetch(`${DEFAULT_URL}/movie/${data[0].id}?api_key=${API_KEY}`)
         if (!resolve.ok) throw new Error(`The movie is not uploading`)
         const firstUpcoming = await resolve.json();
 
@@ -66,9 +59,10 @@ async function heroSection(upcoming) {
     }
 }
 
-async function upcomingSection(upcomings) {
+// HOME PAGE - UPCOMING MOVIES(5)
+async function upcomingSection(data) {
     const movieList = document.getElementById("upcoming-movie-list")
-    const upcoming =upcomings.slice(0, 5);
+    const upcoming = data.slice(0, 5);
     try {
         for (const movie of upcoming) {
             const resolve = await fetch(`${DEFAULT_URL}/movie/${movie.id}?api_key=${API_KEY}`)
@@ -118,7 +112,61 @@ async function upcomingSection(upcomings) {
     }
 }
 
+async function topRated(data) {
+    try{
+        const movieList = document.getElementById("toprated-list")
+        const toprated = data.slice(0, 8);
+
+        for (const movie of toprated) {
+            const resolve = await fetch(`${DEFAULT_URL}/movie/${movie.id}?api_key=${API_KEY}`)
+            if (!resolve.ok) throw new Error("Upcoming listing error")
+            const movieDetails = await resolve.json()
+
+            const li = document.createElement("li")
+            li.innerHTML = `
+            <div class="movie-card">
+
+                <a href="movie-details.html">
+                  <figure class="card-banner">
+                    <img src="${IMG_DEFAULT_URL}original${movieDetails.poster_path}" alt="${movieDetails.title} poster">
+                  </figure>
+                </a>
+
+                <div class="title-wrapper">
+                  <a href="movie-details.html">
+                    <h3 class="card-title">${movieDetails.title}</h3>
+                  </a>
+
+                  <span>${movieDetails.release_date.slice(0, 4)}</span>
+                </div>
+
+                <div class="card-meta">
+                  <div class="badge badge-outline">2K</div>
+
+                  <div class="duration">
+                    <ion-icon name="time-outline"></ion-icon>
+
+                    <span>${movieDetails.runtime} min</span>
+                  </div>
+
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+
+                    <data>${movieDetails.vote_average.toFixed(1)}</data>
+                  </div>
+                </div>
+
+              </div>
+            `
+            movieList.appendChild(li)
+        }
+
+    } catch (e) {
+        alert(`HATA: ${e}`)
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-    listMovies();
+    scriptList()
 })
 //
