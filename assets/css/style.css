@@ -259,7 +259,7 @@ body.active { overflow: hidden; }
  * MOVIE CARD
  */
 
-.movies-list {
+.movies-series-list {
   display: grid;
   gap: 50px;
 }
@@ -350,7 +350,7 @@ body.active { overflow: hidden; }
  * CUSTOM SLIDER & SCROLLBAR
  */
 
-.movies-list.has-scrollbar {
+.movies-series-list.has-scrollbar {
   display: flex;
   justify-content: flex-start;
   gap: 30px;
@@ -550,16 +550,16 @@ body.active { overflow: hidden; }
  * #UPCOMING
 \*-----------------------------------*/
 
-.upcoming {
+.onTheAir {
   background: url("../images/upcoming-bg.png") no-repeat;
   background-size: cover;
   background-position: center;
   padding-block: var(--section-padding);
 }
 
-.upcoming .flex-wrapper { margin-bottom: 50px; }
+.onTheAir .flex-wrapper { margin-bottom: 50px; }
 
-.upcoming .section-title { margin-bottom: 30px; }
+.onTheAir .section-title { margin-bottom: 30px; }
 
 .filter-list {
   display: flex;
@@ -569,7 +569,7 @@ body.active { overflow: hidden; }
   gap: 10px;
 }
 
-.upcoming .filter-btn {
+.onTheAir .filter-btn {
   color: var(--white);
   background: var(--raisin-black);
   font-size: var(--fs-11);
@@ -579,17 +579,17 @@ body.active { overflow: hidden; }
   border-radius: 50px;
 }
 
-.upcoming .filter-btn:hover {
+.onTheAir .filter-btn:hover {
   color: var(--citrine);
   text-shadow: 0 3px 25px hsla(57, 97%, 45%, 0.5);
 }
 
-.upcoming .movies-list > li {
+.onTheAir .movies-series-list > li {
   min-width: 100%;
   scroll-snap-align: start;
 }
 
-.upcoming .onUpComing {
+.onTheAir .onTheAir {
   color: var(--citrine);
   text-shadow: 0 3px 25px hsla(57, 97%, 45%, 0.5);
   border-color: var(--light-gray);
@@ -754,6 +754,11 @@ body.active { overflow: hidden; }
   border-color: var(--light-gray);
   border-style: solid;
   border-width: 1px;
+}
+
+.top-rated .movies-series-list > li {
+  min-width: 100%;
+  scroll-snap-align: start;
 }
 
 
@@ -1131,7 +1136,7 @@ body.active { overflow: hidden; }
 
   /* MOVIE CARD */
 
-  .movies-list {
+  .movies-series-list {
     grid-template-columns: 1fr 1fr;
     gap: 60px 30px;
   }
@@ -1152,7 +1157,7 @@ body.active { overflow: hidden; }
    * UPCOMING
    */
 
-  .upcoming .movies-list > li { min-width: calc(50% - 15px); }
+  .onTheAir .movies-series-list > li { min-width: calc(50% - 15px); }
 
 
 
@@ -1363,7 +1368,7 @@ body.active { overflow: hidden; }
 
   /* MOVIE CARD */
 
-  .movies-list { grid-template-columns: repeat(3, 1fr); }
+  .movies-series-list { grid-template-columns: repeat(3, 1fr); }
 
 
 
@@ -1425,17 +1430,17 @@ body.active { overflow: hidden; }
    * UPCOMING
    */
 
-  .upcoming .flex-wrapper {
+  .onTheAir .flex-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  .upcoming :is(.section-subtitle, .section-title) { text-align: left; }
+  .onTheAir :is(.section-subtitle, .section-title) { text-align: left; }
 
-  .upcoming .section-title { margin-bottom: 0; }
+  .onTheAir .section-title { margin-bottom: 0; }
 
-  .upcoming .movies-list > li { min-width: calc(33.33% - 20px); }
+  .onTheAir .movies-series-list > li { min-width: calc(33.33% - 20px); }
 
 
 
@@ -1545,7 +1550,7 @@ body.active { overflow: hidden; }
 
   /* MOVIE CARD */
 
-  .movies-list { grid-template-columns: repeat(4, 1fr); }
+  .movies-series-list { grid-template-columns: repeat(4, 1fr); }
 
 
 
@@ -1576,7 +1581,7 @@ body.active { overflow: hidden; }
    * UPCOMING
    */
 
-  .upcoming .movies-list > li { min-width: calc(25% - 22.5px); }
+  .onTheAir .movies-series-list > li { min-width: calc(25% - 22.5px); }
 
 
 

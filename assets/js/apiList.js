@@ -2,7 +2,7 @@ import {API_KEY, DEFAULT_URL} from "./apiSettings.js";
 
 export default async function apiList() {
     return {
-        async upcomingMovies() {
+        async onTheAirMovies() {
             try {
 
                 const resolve = await fetch(`${DEFAULT_URL}/movie/now_playing?api_key=${API_KEY}`);

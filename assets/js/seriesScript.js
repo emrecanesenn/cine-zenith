@@ -3,12 +3,33 @@
 import {API_KEY, DEFAULT_URL, IMG_DEFAULT_URL, LANG_TR} from './apiSettings.js';
 import apiList from "./apiList.js";
 
-async function scriptList () {
+const cacheApi = {
+    ontheair: null,
+    toprated: null
+}
+
+async function scriptList (eventDetail) {
     const scriptObj = await apiList();
-    const topRatedSeries = await scriptObj.topRatedSeries();
-    await topRated(topRatedSeries)
-    const onTheAirSerie = await scriptObj.onTheAirSeries()
-    await  onTheAirSection(onTheAirSerie)
+    const isOnTheAir = cacheApi.ontheair;
+    const isTopRated = cacheApi.toprated;
+    if (eventDetail === "toprated") {
+        if (isTopRated) {
+            await topRatedSection(cacheApi.toprated)
+        } else {
+            const topRatedSeries = await scriptObj.topRatedSeries();
+            await topRatedSection(topRatedSeries)
+            cacheApi.toprated = topRatedSeries;
+        }
+    }
+    if (eventDetail === "ontheair") {
+        if (isOnTheAir) {
+            await onTheAirSection(cacheApi.ontheair)
+        } else {
+            const onTheAirSeries = await scriptObj.onTheAirSeries()
+            await onTheAirSection(onTheAirSeries)
+            cacheApi.ontheair = onTheAirSeries;
+        }
+    }
 }
 
 async function onTheAirSection(onTheAir) {
@@ -74,7 +95,7 @@ async function onTheAirSection(onTheAir) {
     }
 }
 
-async function topRated(data) {
+async function topRatedSection(data) {
     try{
         const seriesList = document.getElementById("toprated-list")
         seriesList.innerHTML = "";
@@ -136,15 +157,15 @@ topRatedSeriesButton.addEventListener("click", () => {
     topRatedSeriesButton.classList.add("onTopRated");
     topRatedMoviesButton.classList.remove("onTopRated");
     document.getElementById("tprated-movie-series").innerHTML = "Series";
-    scriptList();
+    scriptList("toprated");
 })
 
-const upcomingSeriesButton = document.getElementById("upcoming-series");
-const upcomingMoviesButton = document.getElementById("upcoming-movies");
-upcomingSeriesButton.addEventListener("click", () => {
-    if (upcomingSeriesButton.classList.contains("onUpComing")) return;
-    upcomingSeriesButton.classList.add("onUpComing");
-    upcomingMoviesButton.classList.remove("onUpComing");
-    document.getElementById("upcmng-movie-series").innerHTML = "Series";
-    scriptList()
+const ontheairSeriesButton = document.getElementById("on-the-air-series");
+const ontheairMoviesButton = document.getElementById("on-the-air-movies");
+ontheairSeriesButton.addEventListener("click", () => {
+    if (ontheairSeriesButton.classList.contains("onTheAir")) return;
+    ontheairSeriesButton.classList.add("onTheAir");
+    ontheairMoviesButton.classList.remove("onTheAir");
+    document.getElementById("ontheair-movie-series").innerHTML = "Series";
+    scriptList("ontheair")
 })

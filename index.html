@@ -96,7 +96,7 @@
         - #UPCOMING
       -->
 
-      <section class="upcoming">
+      <section class="onTheAir">
         <div class="container">
 
           <div class="flex-wrapper">
@@ -104,27 +104,32 @@
             <div class="title-wrapper">
               <p class="section-subtitle">Cine-Zenith Library</p>
 
-              <h2 class="h2 section-title">On the Air <b style="color: #f1d57a" id="upcmng-movie-series">Movies</b> </h2>
+              <h2 class="h2 section-title">On the Air <b style="color: #f1d57a" id="ontheair-movie-series">Movies</b> </h2>
             </div>
 
             <ul id="filterUpcomingList" class="filter-list">
 
               <li>
-                <button id="upcoming-movies" class="filter-btn onUpComing">Movies</button>
+                <button id="on-the-air-movies" class="filter-btn onTheAir">Movies</button>
               </li>
 
               <li>
-                <button id="upcoming-series" class="filter-btn">TV Shows</button>
+                <button id="on-the-air-series" class="filter-btn">TV Shows</button>
               </li>
 
             </ul>
+
 
           </div>
 
           <!--
             - UPCOMING MOVIE LIST SECTION
           -->
-          <ul id="on-the-air-list" class="movies-list  has-scrollbar"></ul>
+          <ul id="on-the-air-list" class="movies-series-list  has-scrollbar"></ul>
+
+          <!-- <div id="movie-loader" class="loader-container">
+            <div class="spinner"></div>
+          </div> -->
 
         </div>
       </section>
@@ -232,7 +237,7 @@
           <!--
             TOP RATED MOVIE LIST
           -->
-          <ul id="toprated-list" class="movies-list"> </ul>
+          <ul id="toprated-list" class="movies-series-list"> </ul>
 
         </div>
       </section>
@@ -252,7 +257,7 @@
 
           <h2 class="h2 section-title">World Best TV Series</h2>
 
-          <ul class="movies-list">
+          <ul class="movies-series-list">
 
             <li>
               <div class="movie-card">

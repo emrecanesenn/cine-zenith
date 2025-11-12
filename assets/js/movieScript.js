@@ -3,25 +3,47 @@
 import {API_KEY, DEFAULT_URL, IMG_DEFAULT_URL, LANG_TR} from './apiSettings.js';
 import apiList from "./apiList.js";
 
+const cacheApi = {
+    ontheair: null,
+    toprated: null
+}
 
-async function scriptList () {
+async function scriptList (eventDetail) {
     const scriptObj = await apiList();
-    const upcoming = await scriptObj.upcomingMovies()
-    heroSection(upcoming)
-    upcomingSection(upcoming)
-    const toprateds = await scriptObj.topRatedMovies();
-    topRated(toprateds)
+    const isOnTheAir = cacheApi.ontheair;
+    const isTopRated = cacheApi.toprated;
+    if (eventDetail === "ontheair") {
+        if (isOnTheAir) {
+            await heroSection(cacheApi.ontheair)
+            await onTheAirSection(cacheApi.ontheair)
+        } else {
+            const ontheair = await scriptObj.onTheAirMovies()
+            await heroSection(ontheair)
+            await onTheAirSection(ontheair)
+            cacheApi.ontheair = ontheair;
+        }
+    }
+
+    if (eventDetail === "toprated") {
+        if (isTopRated) {
+            await topRatedSection(cacheApi.toprated)
+        } else {
+            const toprateds = await scriptObj.topRatedMovies();
+            await topRatedSection(toprateds)
+            cacheApi.toprated = toprateds;
+        }
+    }
 }
 
 
 
-// HERO SECTION FIRST UPCOMING FILM
+// HERO SECTION FIRST ON THE AIR FILM
 async function heroSection(data) {
     try {
 
         const resolve = await fetch(`${DEFAULT_URL}/movie/${data[0].id}?api_key=${API_KEY}`)
         if (!resolve.ok) throw new Error(`The movie is not uploading`)
-        const firstUpcoming = await resolve.json();
+        const firstOnTheAir = await resolve.json();
 
         // DOM Variables
         const title = document.getElementById("hero-title")
@@ -32,14 +54,14 @@ async function heroSection(data) {
         const heroBackground = document.getElementById("heroSection");
 
         // Hero Displaying Settins
-        title.innerHTML = firstUpcoming.title;
-        tagline.innerHTML = firstUpcoming.tagline || `This <strong>Movie</strong>, will be released soon.`;
-        releaseDate.innerHTML = firstUpcoming.release_date.slice(0, 4);
-        runtime.innerHTML = `${firstUpcoming.runtime} min`;
+        title.innerHTML = firstOnTheAir.title;
+        tagline.innerHTML = firstOnTheAir.tagline || `This <strong>Movie</strong>, will be released soon.`;
+        releaseDate.innerHTML = firstOnTheAir.release_date.slice(0, 4);
+        runtime.innerHTML = `${firstOnTheAir.runtime} min`;
 
         // Genres Displaying
         genres.innerHTML = "";
-        const genreNames = firstUpcoming.genres.map(genre => genre.name);
+        const genreNames = firstOnTheAir.genres.map(genre => genre.name);
         genreNames.sort()
 
         for (let x = 0; x < genreNames.length; x++) {
@@ -50,7 +72,7 @@ async function heroSection(data) {
         }
 
         // Hero Background Settings
-        heroBackground.style.background = `url("${IMG_DEFAULT_URL}original${firstUpcoming.backdrop_path}")`;
+        heroBackground.style.background = `url("${IMG_DEFAULT_URL}original${firstOnTheAir.backdrop_path}")`;
         heroBackground.style.backgroundSize = 'cover';
         heroBackground.style.backgroundPosition = 'center';
 
@@ -61,12 +83,12 @@ async function heroSection(data) {
 }
 
 // HOME PAGE - UPCOMING MOVIES(5)
-async function upcomingSection(data) {
+async function onTheAirSection(data) {
     const movieList = document.getElementById("on-the-air-list")
     movieList.innerHTML = "";
-    const upcoming = data.slice(0, 5);
+    const onTheAir = data.slice(0, 5);
     try {
-        for (const movie of upcoming) {
+        for (const movie of onTheAir) {
             const resolve = await fetch(`${DEFAULT_URL}/movie/${movie.id}?api_key=${API_KEY}`)
             if (!resolve.ok) throw new Error("Upcoming listing error")
             const movieDetails = await resolve.json()
@@ -114,7 +136,7 @@ async function upcomingSection(data) {
     }
 }
 
-async function topRated(data) {
+async function topRatedSection(data) {
     try{
         const movieList = document.getElementById("toprated-list")
         movieList.innerHTML = "";
@@ -170,7 +192,8 @@ async function topRated(data) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    scriptList()
+    scriptList("toprated")
+    scriptList("ontheair")
 })
 
 const topRatedSeriesButton = document.getElementById("top-rated-series");
@@ -180,16 +203,16 @@ topRatedMoviesButton.addEventListener("click", () => {
     topRatedMoviesButton.classList.add("onTopRated");
     topRatedSeriesButton.classList.remove("onTopRated");
     document.getElementById("tprated-movie-series").innerHTML = "Movies";
-    scriptList()
+    scriptList("toprated")
 })
 
-const upcomingSeriesButton = document.getElementById("upcoming-series");
-const upcomingMoviesButton = document.getElementById("upcoming-movies");
-upcomingMoviesButton.addEventListener("click", () => {
-    if (upcomingMoviesButton.classList.contains("onUpComing")) return;
-    upcomingMoviesButton.classList.add("onUpComing");
-    upcomingSeriesButton.classList.remove("onUpComing");
-    document.getElementById("upcmng-movie-series").innerHTML = "Movies";
-    scriptList()
+const ontheairSeriesButton = document.getElementById("on-the-air-series");
+const ontheairMoviesButton = document.getElementById("on-the-air-movies");
+ontheairMoviesButton.addEventListener("click", () => {
+    if (ontheairMoviesButton.classList.contains("onTheAir")) return;
+    ontheairMoviesButton.classList.add("onTheAir");
+    ontheairSeriesButton.classList.remove("onTheAir");
+    document.getElementById("ontheair-movie-series").innerHTML = "Movies";
+    scriptList("ontheair")
 })
 //

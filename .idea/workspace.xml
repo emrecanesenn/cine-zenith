@@ -6,11 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="93892eae-53c0-4c88-8185-6d884f6a28aa" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/css/loader.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/loader.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/apiList.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/apiList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/movieScript.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/movieScript.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/seriesScript.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/seriesScript.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/movie-details.html" beforeDir="false" afterPath="$PROJECT_DIR$/movie-details.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +130,9 @@
       <workItem from="1762896277477" duration="2524000" />
       <workItem from="1762949299429" duration="700000" />
       <workItem from="1762967325073" duration="8161000" />
-      <workItem from="1762976153380" duration="25000" />
+      <workItem from="1762976153380" duration="104000" />
+      <workItem from="1762982657646" duration="2467000" />
+      <workItem from="1762985175997" duration="98000" />
     </task>
     <servers />
   </component>

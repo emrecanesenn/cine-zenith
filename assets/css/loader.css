@@ -68,3 +68,38 @@ body {
     letter-spacing: 1px;
     color: rgba(255, 255, 255, 0.7); /* Hafif soluk yazı */
 }
+
+
+
+
+
+
+
+
+
+/* Listing Loader */
+
+/* Yükleyiciyi Ortalamak ve Liste Üzerine Koymak İçin */
+.loader-container {
+    display: none; /* JS ile gösterilene kadar gizli */
+    justify-content: center;
+    align-items: center;
+    min-height: 200px; /* Loader'ın kaymayı önlemesi için bir yükseklik verin */
+    width: 100%;
+}
+
+/* Spinner'ın Kendisi */
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3); /* Açık renkli halka */
+    border-top: 4px solid var(--citrine); /* Dönen kısım */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite; /* Dönme animasyonu */
+}
+
+/* Dönme Animasyonu */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
