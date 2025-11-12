@@ -579,11 +579,23 @@ body.active { overflow: hidden; }
   border-radius: 50px;
 }
 
+.upcoming .filter-btn:hover {
+  color: var(--citrine);
+  text-shadow: 0 3px 25px hsla(57, 97%, 45%, 0.5);
+}
+
 .upcoming .movies-list > li {
   min-width: 100%;
   scroll-snap-align: start;
 }
 
+.upcoming .onUpComing {
+  color: var(--citrine);
+  text-shadow: 0 3px 25px hsla(57, 97%, 45%, 0.5);
+  border-color: var(--light-gray);
+  border-style: solid;
+  border-width: 1px;
+}
 
 
 

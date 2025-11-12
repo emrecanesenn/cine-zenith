@@ -62,7 +62,8 @@ async function heroSection(data) {
 
 // HOME PAGE - UPCOMING MOVIES(5)
 async function upcomingSection(data) {
-    const movieList = document.getElementById("upcoming-movie-list")
+    const movieList = document.getElementById("on-the-air-list")
+    movieList.innerHTML = "";
     const upcoming = data.slice(0, 5);
     try {
         for (const movie of upcoming) {
@@ -89,7 +90,7 @@ async function upcomingSection(data) {
                       </div>
 
                       <div class="card-meta">
-                          <div class="badge badge-outline">HD</div>
+                          <div class="badge badge-outline">MOVIE</div>
 
                           <div class="duration">
                               <ion-icon name="time-outline"></ion-icon>
@@ -178,6 +179,17 @@ topRatedMoviesButton.addEventListener("click", () => {
     if (topRatedMoviesButton.classList.contains("onTopRated")) return;
     topRatedMoviesButton.classList.add("onTopRated");
     topRatedSeriesButton.classList.remove("onTopRated");
+    document.getElementById("tprated-movie-series").innerHTML = "Movies";
+    scriptList()
+})
+
+const upcomingSeriesButton = document.getElementById("upcoming-series");
+const upcomingMoviesButton = document.getElementById("upcoming-movies");
+upcomingMoviesButton.addEventListener("click", () => {
+    if (upcomingMoviesButton.classList.contains("onUpComing")) return;
+    upcomingMoviesButton.classList.add("onUpComing");
+    upcomingSeriesButton.classList.remove("onUpComing");
+    document.getElementById("upcmng-movie-series").innerHTML = "Movies";
     scriptList()
 })
 //

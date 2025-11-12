@@ -5,8 +5,8 @@ export default async function apiList() {
         async upcomingMovies() {
             try {
 
-                const resolve = await fetch(`${DEFAULT_URL}/movie/upcoming?api_key=${API_KEY}`);
-                if (!resolve.ok) throw new Error("Upcoming Movies is not loaded!");
+                const resolve = await fetch(`${DEFAULT_URL}/movie/now_playing?api_key=${API_KEY}`);
+                if (!resolve.ok) throw new Error("now_playing Movies is not loaded!");
 
                 const data = await resolve.json();
 
@@ -15,6 +15,20 @@ export default async function apiList() {
             } catch (e) {
                 alert(`HATA: ${e}`)
             }
+        },
+
+        async onTheAirSeries() {
+            try {
+                const resolve = await fetch(`${DEFAULT_URL}/tv/on_the_air?api_key=${API_KEY}`);
+                if (!resolve.ok) throw new Error("on_the_air Series is not loaded!");
+                const data = await resolve.json();
+                console.log("on_the_air Series Datası işlendi");
+
+                return data.results
+            } catch (e) {
+                alert(`HATA: ${e}`)
+            }
+
         },
 
         async topRatedMovies() {
