@@ -107,7 +107,13 @@ async function initializeApp() {
 // Kapatma Elementlerine tıklama olayı ekle
   for (let i = 0; i < searchClosers.length; i++) {
     if (searchClosers[i]) {
-      searchClosers[i].addEventListener("click", closeSearchModal);
+      searchClosers[i].addEventListener("click", () => {
+        closeSearchModal()
+        setTimeout(() => {
+          document.getElementById("search-modal-input").value = "";
+          document.getElementById("search-results-list").innerHTML = "";
+        }, 250)
+      });
     }
   }
 

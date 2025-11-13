@@ -721,6 +721,7 @@ body .service .container {
 }
 
 .service .service-card .card-icon {
+  margin: auto;
   color: var(--citrine);
   font-size: 30px;
   width: 50px;
@@ -732,6 +733,7 @@ body .service .container {
 }
 
 .service .service-card .card-title {
+  text-align: center;
   font-size: var(--fs-5);
   margin-bottom: 0;
 }
@@ -751,6 +753,7 @@ body .service .container {
 
 .service .service-card .tmdb-attribution {
   max-width: 200px;
+  margin: auto;
   margin-top: auto;
   padding-top: 20px;
   opacity: 0.7;
@@ -919,6 +922,14 @@ body .service .container {
 
 .cta .btn {
   margin: auto;
+  background: #1c1c19;
+  color: aliceblue;
+  transition-duration: 300ms;
+}
+
+.cta .btn:hover {
+  background: aliceblue;
+  color: #1c1c19;
 }
 
 

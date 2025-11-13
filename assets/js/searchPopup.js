@@ -53,6 +53,7 @@ async function displayResults(results) {
     relevantResults.forEach(item => {
         const title = item.name || item.title;
         const mediaType = item.media_type === "tv" ? "Series" : "Movie";
+
         // Yılı almak için tarihi parse et (eğer varsa)
         const date = item.release_date || item.first_air_date;
         const year = date ? date.split('-')[0] : 'N/A';
