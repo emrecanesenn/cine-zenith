@@ -32,121 +32,181 @@ async function scriptList (eventDetail) {
     }
 }
 
+function generateSkeletonCards(count) {
+    let skeletons = "";
+    for (let i = 0; i < count; i++) {
+        skeletons += `
+            <li>
+                <div class="movie-card skeleton-card">
+                    <div class="card-banner skeleton-banner"></div>
+                    <div class="title-wrapper">
+                         <div class="skeleton-title"></div>
+                    </div>
+                    <div class="card-meta">
+                        <div class="skeleton-meta"></div>
+                    </div>
+                </div>
+            </li>
+        `;
+    }
+    return skeletons;
+}
+
 async function onTheAirSection(onTheAir) {
-    const seriesList = document.getElementById("on-the-air-list")
-    seriesList.innerHTML = "";
-    let count = 0;
+    const seriesList = document.getElementById("on-the-air-list");
+
+    // Minimum süre ve başlangıç zamanı
+    const MINIMUM_DURATION = 250;
+    const startTime = Date.now();
+
+    // 1. İskeletleri bas (5 tane)
+    seriesList.innerHTML = generateSkeletonCards(5);
+
+    // 2. Orijinal kodunda 5 adet bulana kadar devam ediyordun.
+    // Hız için ilk 10'unu paralel çekip, 5 geçerli olanı alacağız.
+    const seriesToFetch = onTheAir.slice(0, 10);
+
     try {
-        for (const series of onTheAir) {
-            if (count >= 5) break;
-            const resolve = await fetch(`${DEFAULT_URL}/tv/${series.id}?api_key=${API_KEY}`)
-            if (!resolve.ok) throw new Error("Upcoming listing error")
-            const seriesDetails = await resolve.json()
+        // 3. 10 dizinin detayını AYNI ANDA (Paralel) iste
+        const seriesDetailPromises = seriesToFetch.map(series =>
+            fetch(`${DEFAULT_URL}/tv/${series.id}?api_key=${API_KEY}`)
+                .then(res => res.json())
+        );
 
-            let activeSeasonNumber = seriesDetails.last_episode_to_air?.season_number;
+        const allSeriesDetails = await Promise.all(seriesDetailPromises);
 
-            if (activeSeasonNumber) {
-                activeSeasonNumber = `S.${activeSeasonNumber}/Ep.${seriesDetails.last_episode_to_air?.episode_number}`
-            } else {
-                continue;
-            }
+        // 4. Gelen veriyi filtrele ve ilk 5 geçerli dizi için HTML oluştur
+        let validCount = 0;
+        const seriesHTML = allSeriesDetails
+            .map(seriesDetails => {
+                if (validCount >= 5) return ""; // 5 tane bulduysak dur
 
-            const li = document.createElement("li")
-            li.innerHTML = `
-                <div class="movie-card">
+                let activeSeasonNumber = seriesDetails.last_episode_to_air?.season_number;
 
-                      <a href="movie-details.html">
-                          <figure class="card-banner">
-                              <img src="${IMG_DEFAULT_URL}original/${seriesDetails.poster_path}" alt="${seriesDetails.name} poster">
-                          </figure>
-                      </a>
+                if (activeSeasonNumber) {
+                    activeSeasonNumber = `S.${activeSeasonNumber}/Ep.${seriesDetails.last_episode_to_air?.episode_number}`;
+                    validCount++;
+                    // Geçerli HTML'i döndür
+                    return `
+                        <li>
+                            <div class="movie-card">
+                                  <a href="movie-details.html">
+                                      <figure class="card-banner">
+                                          <img src="${IMG_DEFAULT_URL}original/${seriesDetails.poster_path}" alt="${seriesDetails.name} poster">
+                                      </figure>
+                                  </a>
+                                  <div class="title-wrapper">
+                                      <a href="movie-details.html">
+                                          <h3 class="card-title">${seriesDetails.name}</h3>
+                                      </a>
+                                      <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 12px;"> ${seriesDetails.number_of_seasons} Seasons</span>
+                                  </div>
+                                  <div class="card-meta">
+                                      <div class="badge badge-outline">TV</div>
+                                      <div class="duration">
+                                          <ion-icon name="tv-outline"></ion-icon>
+                                          <span>${activeSeasonNumber} is on air</span>
+                                      </div>
+                                      <div class="rating">
+                                          <ion-icon name="star"></ion-icon>
+                                          <data>${seriesDetails.vote_average.toFixed(1)}</data>
+                                      </div>
+                                  </div>
+                              </div>
+                        </li>
+                    `;
+                }
+                return ""; // Geçerli değilse boş string döndür
+            })
+            .join(''); // Tüm HTML'leri birleştir
 
-                      <div class="title-wrapper">
-                          <a href="movie-details.html">
-                              <h3 class="card-title">${seriesDetails.name}</h3>
-                          </a>
-                          <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 12px;"> ${seriesDetails.number_of_seasons} Seasons</span>
-                          
-                      </div>
+        // 5. SÜRE KONTROLÜ
+        const elapsedTime = Date.now() - startTime;
+        const delay = Math.max(0, MINIMUM_DURATION - elapsedTime); // 1 saniyeden azsa farkı al, uzunsa 0 al
 
-                      <div class="card-meta">
-                          <div class="badge badge-outline">TV</div>
+        setTimeout(() => {
+            seriesList.innerHTML = seriesHTML || "<li>Yayında olan dizi bulunamadı.</li>";
+        }, delay);
 
-                          <div class="duration">
-                              <ion-icon name="tv-outline"></ion-icon>
-
-                              <span>${activeSeasonNumber} is on air</span>
-                          </div>
-
-                          <div class="rating">
-                              <ion-icon name="star"></ion-icon>
-
-                              <data>${seriesDetails.vote_average.toFixed(1)}</data>
-                          </div>
-                      </div>
-
-                  </div>
-        `
-            seriesList.appendChild(li)
-            count++;
-        }
     } catch (error) {
-        alert(`HATA: ${error}`)
+        alert(`HATA: ${error}`);
+        // Hata durumunda da bekle
+        const errorElapsedTime = Date.now() - startTime;
+        const errorDelay = Math.max(0, MINIMUM_DURATION - errorElapsedTime);
+
+        setTimeout(() => {
+            seriesList.innerHTML = "<li>Veriler yüklenemedi.</li>";
+        }, errorDelay);
     }
 }
 
 async function topRatedSection(data) {
+    const seriesList = document.getElementById("toprated-list");
+    const toprated = data.slice(0, 8); // 8 tane al
+
+    // Minimum süre ve başlangıç zamanı
+    const MINIMUM_DURATION = 250;
+    const startTime = Date.now();
+
+    // 1. İskeletleri bas (8 tane)
+    seriesList.innerHTML = generateSkeletonCards(8);
+
     try{
-        const seriesList = document.getElementById("toprated-list")
-        seriesList.innerHTML = "";
-        const toprated = data.slice(0, 8);
+        // 2. 8 dizinin detayını AYNI ANDA (Paralel) iste
+        const seriesDetailPromises = toprated.map(series =>
+            fetch(`${DEFAULT_URL}/tv/${series.id}?api_key=${API_KEY}`)
+                .then(res => res.json())
+        );
 
-        for (const series of toprated) {
-            const resolve = await fetch(`${DEFAULT_URL}/tv/${series.id}?api_key=${API_KEY}`)
-            if (!resolve.ok) throw new Error("Upcoming listing error");
-            const seriesDetails = await resolve.json()
+        const allSeriesDetails = await Promise.all(seriesDetailPromises);
 
-            const li = document.createElement("li")
-            li.innerHTML = `
-            <div class="movie-card">
-
-                <a href="movie-details.html">
-                  <figure class="card-banner">
-                    <img src="${IMG_DEFAULT_URL}original${seriesDetails.poster_path}" alt="${seriesDetails.name} poster">
-                  </figure>
-                </a>
-
-                <div class="title-wrapper">
-                  <a href="movie-details.html">
-                    <h3 class="card-title">${seriesDetails.name}</h3>
-                  </a>
-
-                  <span>${seriesDetails.first_air_date.slice(0, 4)}</span>
-                </div>
-
-                <div class="card-meta">
-                  <div class="badge badge-outline">2K</div>
-
-                  <div class="duration">
-                    <ion-icon name="time-outline"></ion-icon>
-
-                    <span>${seriesDetails.number_of_seasons} Seasons</span>
+        // 3. Gelen verilerle HTML'i oluştur
+        const seriesHTML = allSeriesDetails.map(seriesDetails => `
+            <li>
+                <div class="movie-card">
+                    <a href="movie-details.html">
+                      <figure class="card-banner">
+                        <img src="${IMG_DEFAULT_URL}original${seriesDetails.poster_path}" alt="${seriesDetails.name} poster">
+                      </figure>
+                    </a>
+                    <div class="title-wrapper">
+                      <a href="movie-details.html">
+                        <h3 class="card-title">${seriesDetails.name}</h3>
+                      </a>
+                      <span>${seriesDetails.first_air_date.slice(0, 4)}</span>
+                    </div>
+                    <div class="card-meta">
+                      <div class="badge badge-outline">2K</div>
+                      <div class="duration">
+                        <ion-icon name="bookmark-outline"></ion-icon>
+                        <span>${seriesDetails.number_of_seasons} Seasons</span>
+                      </div>
+                      <div class="rating">
+                        <ion-icon name="star"></ion-icon>
+                        <data>${seriesDetails.vote_average.toFixed(1)}</data>
+                      </div>
+                    </div>
                   </div>
+            </li>
+        `).join(''); // Tüm HTML'leri birleştir
 
-                  <div class="rating">
-                    <ion-icon name="star"></ion-icon>
+        // 4. SÜRE KONTROLÜ
+        const elapsedTime = Date.now() - startTime;
+        const delay = Math.max(0, MINIMUM_DURATION - elapsedTime);
 
-                    <data>${seriesDetails.vote_average.toFixed(1)}</data>
-                  </div>
-                </div>
-
-              </div>
-            `
-            seriesList.appendChild(li)
-        }
+        setTimeout(() => {
+            seriesList.innerHTML = seriesHTML;
+        }, delay);
 
     } catch (e) {
-        alert(`HATA: ${e}`)
+        alert(`HATA: ${e}`);
+        // Hata durumunda da bekle
+        const errorElapsedTime = Date.now() - startTime;
+        const errorDelay = Math.max(0, MINIMUM_DURATION - errorElapsedTime);
+
+        setTimeout(() => {
+            seriesList.innerHTML = "<li>Veriler yüklenemedi.</li>";
+        }, errorDelay);
     }
 }
 

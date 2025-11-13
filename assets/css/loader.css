@@ -2,6 +2,9 @@
 :root {
     --cz-primary-color: #fbd149; /* Kırmızı vurgu */
     --cz-dark-bg: #111111;     /* Çok koyu, neredeyse siyah */
+    --gunmetal-1: hsl(229, 15%, 21%);
+    --gunmetal-2: hsl(216, 22%, 18%);
+    --raisin-black: hsl(228, 13%, 15%);
 }
 
 /* body rengini tekrar ayarlayalım */
@@ -73,33 +76,63 @@ body {
 
 
 
+/*
+ * # SKELETON LOADER (İSKELET YÜKLEYİCİ)
+ * -----------------------------------*/
 
-
-
-
-/* Listing Loader */
-
-/* Yükleyiciyi Ortalamak ve Liste Üzerine Koymak İçin */
-.loader-container {
-    display: none; /* JS ile gösterilene kadar gizli */
-    justify-content: center;
-    align-items: center;
-    min-height: 200px; /* Loader'ın kaymayı önlemesi için bir yükseklik verin */
-    width: 100%;
+/* Ana iskelet kart, movie-card ile aynı alanı kaplar */
+.skeleton-card {
+    background: var(--raisin-black); /* Kartın arka planı */
+    border-radius: 6px;
+    overflow: hidden; /* Animasyonun taşmasını engeller */
 }
 
-/* Spinner'ın Kendisi */
-.spinner {
-    border: 4px solid rgba(255, 255, 255, 0.3); /* Açık renkli halka */
-    border-top: 4px solid var(--citrine); /* Dönen kısım */
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite; /* Dönme animasyonu */
+/* Posterin geleceği yer (aspect-ratio'yu korur) */
+.skeleton-banner {
+    background: var(--gunmetal-1); /* Daha koyu poster alanı */
+    aspect-ratio: 2 / 3; /* Bu, style.css'teki .movie-card .card-banner ile aynı olmalı */
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
 }
 
-/* Dönme Animasyonu */
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+/* Başlığın geleceği yer */
+.skeleton-title {
+    height: 20px;
+    width: 80%;
+    background: var(--gunmetal-1);
+    border-radius: 4px;
+    margin-bottom: 10px; /* .title-wrapper'daki boşluk simülasyonu */
+}
+
+/* Metanın geleceği yer */
+.skeleton-meta {
+    height: 15px;
+    width: 60%;
+    background: var(--gunmetal-1);
+    border-radius: 4px;
+}
+
+/* Tüm iskelet parçalarına uygulanacak parlama animasyonu */
+.skeleton-banner,
+.skeleton-title,
+.skeleton-meta {
+    background-image: linear-gradient(
+            90deg,
+            var(--gunmetal-1) 0%,
+            var(--gunmetal-2) 50%,
+            var(--gunmetal-1) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+}
+
+/* Parlama (Shimmer) Animasyonu */
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
 }

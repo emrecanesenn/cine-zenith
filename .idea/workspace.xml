@@ -12,7 +12,6 @@
       <change beforePath="$PROJECT_DIR$/assets/js/movieScript.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/movieScript.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/seriesScript.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/seriesScript.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie-details.html" beforeDir="false" afterPath="$PROJECT_DIR$/movie-details.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,6 +132,7 @@
       <workItem from="1762976153380" duration="104000" />
       <workItem from="1762982657646" duration="2467000" />
       <workItem from="1762985175997" duration="98000" />
+      <workItem from="1763041515274" duration="4866000" />
     </task>
     <servers />
   </component>

@@ -59,6 +59,19 @@ export default async function apiList() {
             } catch (e) {
                 alert(`HATA: ${e}`)
             }
+        },
+
+        async trendingAllWeek() {
+            try {
+                // 'all' -> film ve dizileri karıştırır
+                // 'week' -> haftalık trendi çeker
+                const resolve = await fetch(`${DEFAULT_URL}/trending/all/week?api_key=${API_KEY}`);
+                if (!resolve.ok) throw new Error("Trending All Week is not loaded!");
+                const data = await resolve.json();
+                return data.results; // Popüler listesini döndür
+            } catch (e) {
+                alert(`HATA: ${e}`);
+            }
         }
     }
 }

@@ -350,28 +350,64 @@ body.active { overflow: hidden; }
  * CUSTOM SLIDER & SCROLLBAR
  */
 
-.movies-series-list.has-scrollbar {
+/* 1. Ana Liste Konteyneri */
+.horizontal-scroll-list {
   display: flex;
   justify-content: flex-start;
-  gap: 30px;
-  overflow-x: auto;
+  gap: 30px; /* Kartlar arası boşluk */
+  overflow-x: auto; /* Yatayda kaydırmayı etkinleştir */
+  overflow-y: hidden; /* Dikeyde taşmayı gizle */
   scroll-snap-type: inline mandatory;
-  padding-bottom: 25px;
+  padding-bottom: 25px; /* Kaydırma çubuğu için boşluk */
+
+  /* Yeni Scrollbar Stilleri (Webkit) */
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--gunmetal-2);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--citrine);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: hsl(57, 97%, 55%);
+  }
+
+  /* Yeni Scrollbar Stilleri (Firefox) */
+  scrollbar-width: thin;
+  scrollbar-color: var(--citrine) var(--gunmetal-2);
 }
 
-.has-scrollbar::-webkit-scrollbar { height: 8px; }
+/* 2. "DEV OLMA" SORUNUNU ÇÖZEN KART GENİŞLİKLERİ */
+/* Bu liste içindeki her bir 'li' elemanının genişliğini ayarlar */
 
-.has-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-  box-shadow: 0 0 0 2px var(--citrine);
-  border-radius: 10px;
+.horizontal-scroll-list > li {
+  min-width: 100%; /* Mobil */
+  scroll-snap-align: start;
 }
 
-.has-scrollbar::-webkit-scrollbar-thumb {
-  background: var(--gainsboro);
-  border-radius: 10px;
-  box-shadow: inset 0 1px 0 var(--black),
-              inset 0 -1px 0 var(--black);
+@media (min-width: 550px) {
+  .horizontal-scroll-list > li {
+    min-width: calc(50% - 15px); /* 2 Kart */
+  }
+}
+
+@media (min-width: 992px) {
+  .horizontal-scroll-list > li {
+    min-width: calc(33.33% - 20px); /* 3 Kart */
+  }
+}
+
+@media (min-width: 1200px) {
+  .horizontal-scroll-list > li {
+    min-width: calc(25% - 22.5px); /* 4 Kart */
+  }
 }
 
 
@@ -547,7 +583,7 @@ body.active { overflow: hidden; }
 
 
 /*-----------------------------------*\
- * #UPCOMING
+ * #ONTHEAIR
 \*-----------------------------------*/
 
 .onTheAir {
@@ -740,14 +776,6 @@ body.active { overflow: hidden; }
   text-shadow: 0 3px 25px hsla(57, 97%, 45%, 0.5);
 }
 
-.upcomingOnButton {
-  color: var(--citrine);
-  text-shadow: 0 3px 25px hsla(57, 97%, 45%, 0.5);
-  border-color: var(--light-gray);
-  border-style: solid;
-  border-width: 1px;
-}
-
 .top-rated .onTopRated {
   color: var(--citrine);
   text-shadow: 0 3px 25px hsla(57, 97%, 45%, 0.5);
@@ -756,17 +784,12 @@ body.active { overflow: hidden; }
   border-width: 1px;
 }
 
-.top-rated .movies-series-list > li {
-  min-width: 100%;
-  scroll-snap-align: start;
-}
-
 
 
 
 
 /*-----------------------------------*\
- * #TV SEREIS
+ * #TRENDING
 \*-----------------------------------*/
 
 .tv-series {
