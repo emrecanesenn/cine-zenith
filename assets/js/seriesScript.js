@@ -60,11 +60,11 @@ async function onTheAirSection(onTheAir) {
     const startTime = Date.now();
 
     // 1. İskeletleri bas (5 tane)
-    seriesList.innerHTML = generateSkeletonCards(5);
+    seriesList.innerHTML = generateSkeletonCards(8);
 
-    // 2. Orijinal kodunda 5 adet bulana kadar devam ediyordun.
-    // Hız için ilk 10'unu paralel çekip, 5 geçerli olanı alacağız.
-    const seriesToFetch = onTheAir.slice(0, 10);
+    // 2. Orijinal kodunda 8 adet bulana kadar devam ediyordun.
+    // Hız için ilk 15'ini paralel çekip, 8 geçerli olanı alacağız.
+    const seriesToFetch = onTheAir.slice(0, 15);
 
     try {
         // 3. 10 dizinin detayını AYNI ANDA (Paralel) iste
@@ -75,11 +75,11 @@ async function onTheAirSection(onTheAir) {
 
         const allSeriesDetails = await Promise.all(seriesDetailPromises);
 
-        // 4. Gelen veriyi filtrele ve ilk 5 geçerli dizi için HTML oluştur
+        // 4. Gelen veriyi filtrele ve ilk 8 geçerli dizi için HTML oluştur
         let validCount = 0;
         const seriesHTML = allSeriesDetails
             .map(seriesDetails => {
-                if (validCount >= 5) return ""; // 5 tane bulduysak dur
+                if (validCount >= 8) return ""; // 8 tane bulduysak dur
 
                 let activeSeasonNumber = seriesDetails.last_episode_to_air?.season_number;
 
@@ -176,7 +176,7 @@ async function topRatedSection(data) {
                       <span>${seriesDetails.first_air_date.slice(0, 4)}</span>
                     </div>
                     <div class="card-meta">
-                      <div class="badge badge-outline">2K</div>
+                      <div class="badge badge-outline">TV</div>
                       <div class="duration">
                         <ion-icon name="bookmark-outline"></ion-icon>
                         <span>${seriesDetails.number_of_seasons} Seasons</span>

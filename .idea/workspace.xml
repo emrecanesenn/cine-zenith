@@ -5,11 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="93892eae-53c0-4c88-8185-6d884f6a28aa" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/assets/js/searchPopup.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/loader.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/loader.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/footer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/menu.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/movie-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/movie-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/movie-3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/movie-5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/movie-6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/movie-7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/movie-8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/service-banner.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/upcoming-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/upcoming-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/upcoming-3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/upcoming-4.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/apiList.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/apiList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/movieScript.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/movieScript.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/seriesScript.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/seriesScript.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
@@ -132,7 +147,7 @@
       <workItem from="1762976153380" duration="104000" />
       <workItem from="1762982657646" duration="2467000" />
       <workItem from="1762985175997" duration="98000" />
-      <workItem from="1763041515274" duration="4866000" />
+      <workItem from="1763041515274" duration="16648000" />
     </task>
     <servers />
   </component>

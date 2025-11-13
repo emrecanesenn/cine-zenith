@@ -66,6 +66,53 @@ async function initializeApp() {
 
 
   /**
+   * search modal (pop-up) logic
+   */
+      // Ana Pop-up Elementleri
+  const searchModal = document.getElementById("search-modal");
+  const searchOverlay = document.getElementById("search-overlay");
+  const modalCloseBtn = document.getElementById("search-modal-close-btn");
+
+// Pop-up'ı Açacak Butonlar
+  const headerSearchBtn = document.getElementById("header-search-open-btn");
+  const ctaSearchBtn = document.getElementById("cta-search-open-btn");
+
+// Hepsini bir diziye toplayalım
+  const searchTriggers = [headerSearchBtn, ctaSearchBtn];
+  const searchClosers = [modalCloseBtn, searchOverlay];
+
+// Açma Fonksiyonu
+  const openSearchModal = function () {
+    if (searchModal) searchModal.classList.add("active");
+    if (searchOverlay) searchOverlay.classList.add("active");
+    // Arka planın kaymasını engelle
+    document.body.classList.add("active");
+  }
+
+// Kapatma Fonksiyonu
+  const closeSearchModal = function () {
+    if (searchModal) searchModal.classList.remove("active");
+    if (searchOverlay) searchOverlay.classList.remove("active");
+    document.body.classList.remove("active");
+  }
+
+// Açma Butonlarına tıklama olayı ekle
+  for (let i = 0; i < searchTriggers.length; i++) {
+    // Butonun var olup olmadığını kontrol et (header dinamik yüklendiği için)
+    if (searchTriggers[i]) {
+      searchTriggers[i].addEventListener("click", openSearchModal);
+    }
+  }
+
+// Kapatma Elementlerine tıklama olayı ekle
+  for (let i = 0; i < searchClosers.length; i++) {
+    if (searchClosers[i]) {
+      searchClosers[i].addEventListener("click", closeSearchModal);
+    }
+  }
+
+
+  /**
    * go top
    */
 

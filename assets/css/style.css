@@ -637,107 +637,190 @@ body.active { overflow: hidden; }
 
 
 /*-----------------------------------*\
- * #SERVICE
+ * #SERVICE (SATIR BAZLI FİNAL ÇÖZÜM)
 \*-----------------------------------*/
 
+/*
+ * KESİN SIFIRLAMA:
+ * Önceki tüm 'display: grid', 'display: flex' veya 'sütun'
+ * çakışmalarını engellemek için .container'ı normal blok
+ * haline getiriyoruz. YAMULMA SORUNUNUN ÇÖZÜMÜ BUDUR.
+*/
+body .service .container {
+  display: block !important;
+  max-width: 1320px !important;
+  /* Diğer tüm grid/flex ayarlarını eziyoruz */
+  grid-template-columns: none !important;
+}
+
 .service {
-  background: url("../images/service-bg.jpg") no-repeat;
-  background-size: cover;
-  background-position: center;
+  background: var(--eerie-black);
   padding-block: var(--section-padding);
 }
 
-.service-banner {
-  position: relative;
-  margin-bottom: 50px;
-  max-width: max-content;
+
+/* SATIR 1: GİRİŞ METNİ */
+.service .service-intro-block {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 60px auto;
 }
 
-.service-banner img { width: 90%; border-radius: 50px }
-
-.service-btn {
-  position: absolute;
-  bottom: 0;
-  right: 86px;
-  background: var(--citrine);
-  color: var(--rich-black-fogra-29);
+.service .service-intro-block .service-subtitle {
+  color: var(--citrine);
   font-size: var(--fs-11);
-  text-transform: uppercase;
-  font-weight: var(--fw-500);
-  letter-spacing: 5px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  transform: rotate(0.25turn);
-  transform-origin: bottom right;
-  padding: 28px 35px;
-  border-radius: 6px;
-}
-
-.service-btn ion-icon {
-  font-size: 30px;
-  transform: rotate(-0.25turn);
-}
-
-.service-subtitle {
-  position: relative;
-  color: var(--gainsboro);
-  font-size: var(--fs-11);
-  font-weight: var(--fw-500);
+  font-weight: var(--fw-700);
   text-transform: uppercase;
   letter-spacing: 1px;
-  padding-left: 50px;
   margin-bottom: 10px;
 }
 
-.service-subtitle::before {
-  content: "";
-  position: absolute;
-  top: 7px;
-  left: 0;
-  width: 40px;
-  height: 3px;
-  background: var(--citrine);
+.service .service-intro-block .service-title {
+  margin: auto auto 20px;
 }
 
-.service-title { margin-bottom: 20px; }
-
-.service-text,
-.service-card .card-text {
+.service .service-intro-block .service-text {
   color: var(--gray-x);
   font-size: var(--fs-9);
   font-weight: var(--fw-500);
   line-height: 1.8;
 }
 
-.service-text { margin-bottom: 40px; }
 
-.service-list > li:first-child {
-  padding-bottom: 20px;
-  border-bottom: 1px dashed hsla(0, 0%, 100%, 0.1);
-  margin-bottom: 30px;
+/* SATIR 2: KART GRID'İ */
+.service .service-feature-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 60px 0;
+  display: grid;
+  gap: 25px;
+  /* * MOBİL (İstediğin gibi):
+   * Tek sütun. Hiçbir şey sıkışmayacak.
+  */
+  grid-template-columns: 1fr;
 }
 
-.service-card .card-icon {
-  color: var(--white);
-  width: 85px;
-  height: 85px;
+/* KART TASARIMI */
+.service .service-card {
+  background: var(--raisin-black);
+  border: 1px solid var(--gunmetal-2);
+  border-radius: 8px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  transition: var(--transition-2);
+  height: 100%;
+  user-select: none;
+}
+
+.service .service-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--citrine);
+  box-shadow: 0 5px 20px hsla(57, 97%, 45%, 0.1);
+}
+
+.service .service-card .card-icon {
+  color: var(--citrine);
+  font-size: 30px;
+  width: 50px;
+  height: 50px;
   display: grid;
   place-items: center;
-  font-size: 40px;
+  background: var(--gunmetal-1);
   border-radius: 50%;
-  outline: 1px dashed var(--citrine);
-  outline-offset: 5px;
-  margin: 5px;
-  margin-bottom: 20px;
-  transition: var(--transition-2);
 }
 
-.service-card:hover .card-icon { background: var(--citrine); }
+.service .service-card .card-title {
+  font-size: var(--fs-5);
+  margin-bottom: 0;
+}
 
-.service-card .card-title { margin-bottom: 10px; }
+.service .service-card .card-text {
+  text-align: center;
+  color: var(--gray-x);
+  font-size: var(--fs-9);
+  line-height: 1.7;
+  flex-grow: 1;
+}
+
+/* TMDb KARTI */
+.service .service-card.tmdb-card {
+  background: var(--gunmetal-1);
+}
+
+.service .service-card .tmdb-attribution {
+  max-width: 200px;
+  margin-top: auto;
+  padding-top: 20px;
+  opacity: 0.7;
+  transition: var(--transition-1);
+}
+
+.service .service-card .tmdb-attribution:hover { opacity: 1; }
+.service .service-card .tmdb-logo { width: 100%; }
 
 
+/* SATIR 3: CTA BÖLÜMÜ */
+.service .service-cta-wrapper {
+  padding-top: 40px;
+  border-top: 1px dashed hsla(0, 0%, 100%, 0.1);
+  background: var(--raisin-black);
+  border-radius: 8px;
+  padding: 30px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.service .service-cta-content .cta-title {
+  font-size: var(--fs-4);
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.service .service-cta-content .cta-text {
+  color: var(--gray-x);
+  font-size: var(--fs-9);
+  max-width: 400px;
+}
+
+.service .service-read-more {
+  padding: 13px 30px;
+  white-space: nowrap;
+}
+
+
+/*--- MEDYA SORGULARI (Sadece Kart Grid'i için) ---*/
+
+@media (min-width: 768px) {
+  /*
+   * TABLET VE ÜSTÜ (İstediğin gibi 2x2):
+   * Kartları 2 sütuna çıkarır.
+  */
+  .service .service-feature-grid {
+    grid-template-columns: 1fr 1fr; /* 2 sütun */
+  }
+
+  /* CTA'yı yan yana getir */
+  .service .service-cta-wrapper {
+    flex-direction: row; /* Yan yana */
+    text-align: left;
+  }
+}
+
+@media (min-width: 1200px) {
+  /*
+   * GENİŞ EKRAN (Bonus):
+   * 4 kartı yanyana dizer, daha şık durur.
+  */
+  .service .service-feature-grid {
+    grid-template-columns: repeat(4, 1fr); /* 4 sütun */
+  }
+}
 
 
 
@@ -834,35 +917,190 @@ body.active { overflow: hidden; }
   line-height: 1.8;
 }
 
-.cta .email-field {
-  color: var(--eerie-black);
-  font-size: var(--fs-9);
-  padding: 18px 32px;
-  border-radius: 4px;
-  box-shadow: 0 3px 4px hsla(0, 0%, 0%, 0.2);
-  margin-bottom: 15px;
+.cta .btn {
+  margin: auto;
 }
 
-.cta-form-btn {
+
+/*-----------------------------------*\
+ * #SEARCH MODAL (POP-UP)
+\*-----------------------------------*/
+
+.search-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* İstediğin gibi %70 opaklıkta */
+  background: hsla(228, 13%, 9%, 0.7); /* --raisin-black'e benzer */
+  backdrop-filter: blur(5px);
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition-2);
+}
+
+.search-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* Başlangıçta küçük ve görünmez */
+  transform: translate(-50%, -50%) scale(0.9);
   background: var(--eerie-black);
-  color: var(--citrine);
-  font-size: var(--fs-9);
-  font-weight: var(--fw-700);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border: 2px solid var(--eerie-black);
-  padding: 15px 34px;
-  border-radius: 4px;
-  margin-inline: auto;
+  width: 90%;
+  max-width: 600px;
+  padding: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--gunmetal-2);
+  z-index: 11;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition-2);
+}
+
+/* Pop-up Aktif Olduğunda */
+.search-overlay.active,
+.search-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.search-modal.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.search-modal .section-title {margin-bottom: 20px; color: var(--citrine)}
+
+/* Pop-up İçindeki Arama Çubuğu */
+.search-modal .search-modal-input {
+  width: 100%;
+  background: var(--raisin-black);
+  color: var(--white);
+  font-size: var(--fs-4); /* Daha büyük, odaklanmış yazı */
+  padding: 15px 20px;
+  border-radius: 6px;
+  border: 1px solid var(--gunmetal-2);
+  margin-bottom: 20px;
+  outline: none;
+}
+
+.search-modal .search-modal-input::placeholder {
+  color: var(--gray-x);
+}
+
+.search-modal .search-modal-input:focus {
+  border-color: var(--citrine);
+  box-shadow: 0 0 10px hsla(57, 97%, 45%, 0.1);
+}
+
+/* Arama Sonuçları Kapsayıcısı */
+.search-results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.search-results-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.search-results-list::-webkit-scrollbar-thumb {
+  background: var(--citrine);
+  border-radius: 10px;
+}
+
+/* Tekil Arama Kartı (LI) */
+.search-result-card {
+  border-radius: 6px;
+  overflow: hidden; /* Posterin köşelerini yuvarlatmak için */
+}
+
+/* Tıklanabilir Kart Linki (A) */
+.search-card-link {
+  display: flex;
+  align-items: center; /* Dikeyde ortala */
+  gap: 15px; /* Poster ve metin arası boşluk */
+  padding: 8px;
+  border-radius: 6px;
   transition: var(--transition-1);
 }
 
-.cta-form-btn:is(:hover, :focus) {
-  background: var(--citrine);
-  color: var(--eerie-black);
+.search-card-link:is(:hover, :focus) {
+  background: var(--gunmetal-1);
 }
 
+/* Poster (FIGURE) */
+.search-card-poster {
+  /* w92 (92px) poster için ideal */
+  width: 60px;
+  flex-shrink: 0; /* Daralma */
+  aspect-ratio: 2 / 3; /* Poster en/boy oranı */
+  background: var(--gunmetal-2);
+  border-radius: 4px;
+  overflow: hidden;
+}
 
+.search-card-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Bilgi (DIV) */
+.search-card-info {
+  /* Genişleyebilmesi için */
+  min-width: 0;
+}
+
+.search-card-title {
+  color: var(--white);
+  font-size: var(--fs-7);
+  font-weight: var(--fw-700);
+  margin-bottom: 3px;
+  /* Uzun başlıklar için... */
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.search-card-link:is(:hover, :focus) .search-card-title {
+  color: var(--citrine);
+}
+
+.search-card-meta {
+  color: var(--gray-x);
+  font-size: var(--fs-10);
+  font-weight: var(--fw-500);
+}
+
+.search-results-list .search-no-result,
+.search-results-list .search-loading {
+  color: var(--gray-x);
+  font-size: var(--fs-7);
+  padding: 20px 10px;
+  text-align: center;
+  font-style: italic;
+}
+
+.search-more-link {
+  text-align: center;
+  padding-top: 10px;
+  margin-top: 5px;
+  border-top: 1px dashed var(--gunmetal-2);
+}
+
+.search-more-link a {
+  color: var(--citrine);
+  font-size: var(--fs-7);
+  font-weight: var(--fw-700);
+  text-transform: uppercase;
+  padding: 5px; /* Tıklama alanını genişlet */
+  display: block; /* Tüm satırı kapla */
+}
+
+.search-more-link a:hover {
+  text-decoration: underline;
+}
 
 
 

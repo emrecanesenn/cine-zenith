@@ -109,7 +109,7 @@ async function heroSection(data) {
 async function onTheAirSection(data) {
     const movieList = document.getElementById("on-the-air-list")
     movieList.innerHTML = "";
-    const onTheAir = data.slice(0, 5);
+    const onTheAir = data.slice(0, 8);
 
     const MINIMUM_DURATION = 250;
     const startTime = Date.now();
@@ -221,7 +221,7 @@ async function topRatedSection(data) {
                       <span>${movieDetails.release_date.slice(0, 4)}</span>
                     </div>
                     <div class="card-meta">
-                      <div class="badge badge-outline">2K</div>
+                      <div class="badge badge-outline">MOVIE</div>
                       <div class="duration">
                         <ion-icon name="time-outline"></ion-icon>
                         <span>${movieDetails.runtime} min</span>

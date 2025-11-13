@@ -72,6 +72,21 @@ export default async function apiList() {
             } catch (e) {
                 alert(`HATA: ${e}`);
             }
+        },
+
+        async searchAll(query) {
+            try {
+                const encodedQuery = encodeURIComponent(query);
+
+                const resolve = await fetch(`${DEFAULT_URL}/search/multi?api_key=${API_KEY}&query=${encodedQuery}`);
+                if (!resolve.ok) throw new Error("Search results could not be loaded!");
+
+                const data = await resolve.json();
+                return data.results; // Arama sonuçlarını (film, dizi, kişi) döndür
+
+            } catch (e) {
+                alert(`HATA: ${e}`);
+            }
         }
     }
 }
