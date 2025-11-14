@@ -1924,7 +1924,7 @@ body .service .container {
   padding: 12px 26px;
   border-radius: 50px;
   margin: 50px auto auto;
-  width: 35rem;
+  width: 50%;
   transition-duration: 500ms;
 }
 
