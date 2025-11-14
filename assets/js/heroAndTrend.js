@@ -191,13 +191,13 @@ async function trendingSection(data) {
             return `
                 <li>
                     <div class="movie-card">
-                        <a href="movie-details.html">
+                        <a href="details.html">
                             <figure class="card-banner">
                                 <img src="${IMG_DEFAULT_URL}original${details.poster_path}" alt="${title} poster">
                             </figure>
                         </a>
                         <div class="title-wrapper">
-                            <a href="movie-details.html">
+                            <a href="details.html">
                                 <h3 class="card-title">${title}</h3>
                             </a>
                             <span>${releaseDate}</span>
@@ -232,6 +232,6 @@ async function trendingSection(data) {
 
 document.addEventListener("DOMContentLoaded", () => {
     heroAndTrending()
-    setInterval(heroSection, 10000)
+    setInterval(heroSection, 12000)
 })
 

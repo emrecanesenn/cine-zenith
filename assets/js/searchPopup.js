@@ -62,7 +62,7 @@ async function displayResults(results) {
 
         const card = `
       <li class="search-result-card">
-        <a href="movie-details.html" class="search-card-link">
+        <a href="details.html" class="search-card-link">
           <figure class="search-card-poster">
             <img src="${poster}" alt="${title}">
           </figure>

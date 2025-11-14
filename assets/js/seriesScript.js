@@ -90,13 +90,13 @@ async function onTheAirSection(onTheAir) {
                     return `
                         <li>
                             <div class="movie-card">
-                                  <a href="movie-details.html">
+                                  <a href="details.html">
                                       <figure class="card-banner">
                                           <img src="${IMG_DEFAULT_URL}original/${seriesDetails.poster_path}" alt="${seriesDetails.name} poster">
                                       </figure>
                                   </a>
                                   <div class="title-wrapper">
-                                      <a href="movie-details.html">
+                                      <a href="details.html">
                                           <h3 class="card-title">${seriesDetails.name}</h3>
                                       </a>
                                       <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 12px;"> ${seriesDetails.number_of_seasons} Seasons</span>
@@ -164,13 +164,13 @@ async function topRatedSection(data) {
         const seriesHTML = allSeriesDetails.map(seriesDetails => `
             <li>
                 <div class="movie-card">
-                    <a href="movie-details.html">
+                    <a href="details.html">
                       <figure class="card-banner">
                         <img src="${IMG_DEFAULT_URL}original${seriesDetails.poster_path}" alt="${seriesDetails.name} poster">
                       </figure>
                     </a>
                     <div class="title-wrapper">
-                      <a href="movie-details.html">
+                      <a href="details.html">
                         <h3 class="card-title">${seriesDetails.name}</h3>
                       </a>
                       <span>${seriesDetails.first_air_date.slice(0, 4)}</span>

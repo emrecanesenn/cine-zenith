@@ -81,13 +81,13 @@ async function onTheAirSection(data) {
         const movieHTML = allMovieDetails.map(movieDetails => `
             <li>
                 <div class="movie-card">
-                    <a href="movie-details.html">
+                    <a href="details.html">
                         <figure class="card-banner">
                             <img src="${IMG_DEFAULT_URL}original/${movieDetails.poster_path}" alt="${movieDetails.title} poster">
                         </figure>
                     </a>
                     <div class="title-wrapper">
-                        <a href="movie-details.html">
+                        <a href="details.html">
                             <h3 class="card-title">${movieDetails.title}</h3>
                         </a>
                         <span>${movieDetails.release_date.slice(0, 4)}</span>
@@ -161,13 +161,13 @@ async function topRatedSection(data) {
         const movieHTML = allMovieDetails.map(movieDetails => `
             <li>
                 <div class="movie-card">
-                    <a href="movie-details.html">
+                    <a href="details.html">
                       <figure class="card-banner">
                         <img src="${IMG_DEFAULT_URL}original${movieDetails.poster_path}" alt="${movieDetails.title} poster">
                       </figure>
                     </a>
                     <div class="title-wrapper">
-                      <a href="movie-details.html">
+                      <a href="details.html">
                         <h3 class="card-title">${movieDetails.title}</h3>
                       </a>
                       <span>${movieDetails.release_date.slice(0, 4)}</span>
