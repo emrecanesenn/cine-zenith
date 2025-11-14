@@ -14,7 +14,9 @@
     <script src="assets/js/apiList.js" type="module" defer></script>
     <script src="assets/js/movieScript.js" type="module" defer></script>
     <script src="assets/js/seriesScript.js" type="module" defer></script>
+    <script src="assets/js/heroAndTrend.js" type="module" defer></script>
     <script src="assets/js/searchPopup.js" type="module" defer></script>
+
 
 
 
@@ -63,7 +65,7 @@
             <div class="meta-wrapper">
 
               <div class="badge-wrapper">
-                <div class="badge badge-fill">PG 18</div>
+                <div class="badge badge-fill"></div>
 
                 <div class="badge badge-outline">HD</div>
               </div>
@@ -75,7 +77,6 @@
               </div>
 
               <div class="date-time">
-
                 <div>
                   <ion-icon name="calendar-outline"></ion-icon>
 
@@ -88,6 +89,10 @@
                   <span id="hero-runtime"></span>
                 </div>
 
+                <div class="rating">
+                  <ion-icon name="star"></ion-icon>
+                  <span id="hero-rating"></span>
+                </div>
               </div>
 
             </div>
@@ -141,6 +146,8 @@
             - ONTHEAIR LIST SECTION
           -->
           <ul id="on-the-air-list" class="horizontal-scroll-list"></ul>
+
+          <button class="more-btn">MORE</button>
 
         </div>
       </section>
@@ -249,6 +256,8 @@
             TOP RATED MOVIE LIST
           -->
           <ul id="toprated-list" class="horizontal-scroll-list"></ul>
+
+          <button class="more-btn">MORE</button>
 
         </div>
       </section>

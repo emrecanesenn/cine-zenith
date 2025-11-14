@@ -74,6 +74,18 @@ export default async function apiList() {
             }
         },
 
+        async heroSectionData() {
+            try {
+                // 'week' -> haftalık trendi çeker
+                const resolve = await fetch(`${DEFAULT_URL}/trending/movie/week?api_key=${API_KEY}`);
+                if (!resolve.ok) throw new Error("Trending Hero Movie is not loaded!");
+                const data = await resolve.json();
+                return data.results; // Popüler listesini döndür
+            } catch (e) {
+                alert(`HATA: ${e}`);
+            }
+        },
+
         async searchAll(query) {
             try {
                 const encodedQuery = encodeURIComponent(query);

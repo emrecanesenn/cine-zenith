@@ -547,6 +547,12 @@ body.active { overflow: hidden; }
   justify-content: flex-start;
   align-items: center;
   padding-block: var(--section-padding);
+  transition: background-image 0.6s ease-in-out;
+}
+
+#heroSection.is-loading {
+  opacity: 0.1; /* Örneğin hafifçe karartın. */
+  /* pointer-events: none; Kullanıcının tıklamasını engeller (opsiyonel) */
 }
 
 .hero-content {
@@ -555,14 +561,20 @@ body.active { overflow: hidden; }
   border-radius: 50px;
   padding: 30px;
   margin-top: 60px;
-  filter: opacity(60%);
+  filter: opacity(0.6);
   backdrop-filter: blur(40px);
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s, opacity 0.6s ease-in-out;
+  transition-duration: 400ms;
+}
+
+#heroSection.is-loading .hero-content {
+  opacity: 0;
 }
 
 .hero-content:hover {
   transform: translateY(-5px); /* Hafifçe yukarı kaydır */
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+  filter: opacity(1);
 }
 
 .hero-subtitle {
@@ -886,7 +898,6 @@ body .service .container {
 }
 
 .tv-series .section-title { margin-bottom: 50px; }
-
 
 
 
@@ -1903,3 +1914,45 @@ body .service .container {
   }
 
 }
+
+.more-btn {
+  color: var(--white);
+  background: var(--raisin-black);
+  font-size: var(--fs-11);
+  font-weight: var(--fw-500);
+  border: 2px solid var(--gunmetal-1);
+  padding: 12px 26px;
+  border-radius: 50px;
+  margin: 50px auto auto;
+  width: 35rem;
+  transition-duration: 500ms;
+}
+
+.more-btn:hover {
+  color: var(--citrine);
+  text-shadow: 0 3px 25px hsla(57, 97%, 45%, 0.5);
+  border-color: var(--citrine);
+  letter-spacing: 7px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -14,11 +14,9 @@ async function scriptList (eventDetail) {
     const isTopRated = cacheApi.toprated;
     if (eventDetail === "ontheair") {
         if (isOnTheAir) {
-            await heroSection(cacheApi.ontheair)
             await onTheAirSection(cacheApi.ontheair)
         } else {
             const ontheair = await scriptObj.onTheAirMovies()
-            await heroSection(ontheair)
             await onTheAirSection(ontheair)
             cacheApi.ontheair = ontheair;
         }
@@ -60,52 +58,7 @@ function generateSkeletonCards(count) {
     return skeletons;
 }
 
-// HERO SECTION FIRST ON THE AIR FILM
-async function heroSection(data) {
-    try {
-
-        const resolve = await fetch(`${DEFAULT_URL}/movie/${data[0].id}?api_key=${API_KEY}`)
-        if (!resolve.ok) throw new Error(`The movie is not uploading`)
-        const firstOnTheAir = await resolve.json();
-
-        // DOM Variables
-        const title = document.getElementById("hero-title")
-        const tagline = document.getElementById("hero-tagline")
-        const genres = document.getElementById("hero-genres")
-        const releaseDate = document.getElementById("hero-release-date")
-        const runtime = document.getElementById("hero-runtime")
-        const heroBackground = document.getElementById("heroSection");
-
-        // Hero Displaying Settins
-        title.innerHTML = firstOnTheAir.title;
-        tagline.innerHTML = firstOnTheAir.tagline || `This <strong>Movie</strong>, will be released soon.`;
-        releaseDate.innerHTML = firstOnTheAir.release_date.slice(0, 4);
-        runtime.innerHTML = `${firstOnTheAir.runtime} min`;
-
-        // Genres Displaying
-        genres.innerHTML = "";
-        const genreNames = firstOnTheAir.genres.map(genre => genre.name);
-        genreNames.sort()
-
-        for (let x = 0; x < genreNames.length; x++) {
-            if (x === ( genreNames.length - 1 ))
-                genres.innerHTML += `<a href="#">${genreNames[x]}</a>`; // Last genre
-                else
-                    genres.innerHTML += `<a href="#">${genreNames[x]},</a>`;
-        }
-
-        // Hero Background Settings
-        heroBackground.style.background = `url("${IMG_DEFAULT_URL}original${firstOnTheAir.backdrop_path}")`;
-        heroBackground.style.backgroundSize = 'cover';
-        heroBackground.style.backgroundPosition = 'center';
-
-
-    } catch (e) {
-        alert(`HATA: ${e}`)
-    }
-}
-
-// HOME PAGE - ON THE AIR MOVIES(5)
+// HOME PAGE - ON THE AIR MOVIES(8)
 async function onTheAirSection(data) {
     const movieList = document.getElementById("on-the-air-list")
     movieList.innerHTML = "";
@@ -181,8 +134,7 @@ async function onTheAirSection(data) {
     }
 }
 
-// 'topRatedSection' olarak gönderdiğin fonksiyonu,
-// script dosya'ndaki adıyla 'topRated' olarak düzenledim.
+// TOP RATED SECTION
 async function topRatedSection(data) {
     const movieList = document.getElementById("toprated-list");
     const toprated = data.slice(0, 8); // İlk 8 filmi al
@@ -264,111 +216,9 @@ async function topRatedSection(data) {
     }
 }
 
-async function trendingSection(data) {
-    // index.html'deki statik listeyi bul.
-    // ID'sini sen belirle, ben 'trending-list' diyorum.
-    const trendingList = document.getElementById("trending-list");
-    const trends = data.slice(0, 8); // İlk 8 popüler öğeyi al
-
-    const MINIMUM_DURATION = 1000;
-    const startTime = Date.now();
-
-    // 1. İskeletleri bas (8 tane)
-    trendingList.innerHTML = generateSkeletonCards(8);
-
-    try {
-        // 2. Trend listesindeki HER BİR öğenin detayını çek
-        // media_type'a göre URL değişecek!
-        const detailPromises = trends.map(item => {
-            const mediaType = item.media_type;
-            const itemId = item.id;
-            // Film ise film API'sine, dizi ise dizi API'sine istek at
-            return fetch(`${DEFAULT_URL}/${mediaType}/${itemId}?api_key=${API_KEY}`)
-                .then(res => res.json());
-        });
-
-        const allDetails = await Promise.all(detailPromises);
-
-        // 3. HTML'i oluştur
-        const trendingHTML = allDetails.map((details, index) => {
-            const item = trends[index]; // Orijinal trend verisi
-            const mediaType = item.media_type;
-            let cardMetaHTML = "";
-
-            // 4. EĞER DİZİ İSE (TV)
-            if (mediaType === 'tv') {
-                cardMetaHTML = `
-                    <div class="badge badge-outline">TV</div>
-                    <div class="duration">
-                        <ion-icon name="bookmark-outline"></ion-icon>
-                        <span>${details.number_of_seasons} Seasons</span>
-                    </div>
-                    <div class="rating">
-                        <ion-icon name="flame-outline"></ion-icon> <data>${item.popularity.toFixed(0)}</data> </div>
-                `;
-                // EĞER FİLM İSE (MOVIE)
-            } else if (mediaType === 'movie') {
-                cardMetaHTML = `
-                    <div class="badge badge-outline">MOVIE</div>
-                    <div class="duration">
-                        <ion-icon name="time-outline"></ion-icon>
-                        <span>${details.runtime} min</span>
-                    </div>
-                    <div class="rating">
-                        <ion-icon name="flame-outline"></ion-icon> <data>${item.popularity.toFixed(0)}</data> </div>
-                `;
-            }
-
-            // 'name' diziler için, 'title' filmler için kullanılır
-            const title = details.name || details.title;
-            const releaseDate = (details.first_air_date || details.release_date || "").slice(0, 4);
-
-            return `
-                <li>
-                    <div class="movie-card">
-                        <a href="movie-details.html">
-                            <figure class="card-banner">
-                                <img src="${IMG_DEFAULT_URL}original${details.poster_path}" alt="${title} poster">
-                            </figure>
-                        </a>
-                        <div class="title-wrapper">
-                            <a href="movie-details.html">
-                                <h3 class="card-title">${title}</h3>
-                            </a>
-                            <span>${releaseDate}</span>
-                        </div>
-                        <div class="card-meta">
-                            ${cardMetaHTML}
-                        </div>
-                    </div>
-                </li>
-            `;
-        }).join('');
-
-        // 5. SÜRE KONTROLÜ
-        const elapsedTime = Date.now() - startTime;
-        const delay = Math.max(0, MINIMUM_DURATION - elapsedTime);
-
-        setTimeout(() => {
-            trendingList.innerHTML = trendingHTML;
-        }, delay);
-
-    } catch (e) {
-        alert(`HATA: ${e}`);
-        // Hata durumunda da bekle
-        const errorElapsedTime = Date.now() - startTime;
-        const errorDelay = Math.max(0, MINIMUM_DURATION - errorElapsedTime);
-
-        setTimeout(() => {
-            trendingList.innerHTML = "<li>Trendler yüklenemedi.</li>";
-        }, errorDelay);
-    }
-}
-
 document.addEventListener("DOMContentLoaded", () => {
     scriptList("toprated")
     scriptList("ontheair")
-    scriptList("trending")
 })
 
 const topRatedSeriesButton = document.getElementById("top-rated-series");
