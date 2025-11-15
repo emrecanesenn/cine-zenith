@@ -1,7 +1,7 @@
 "use strict";
 
 
-import {API_KEY, DEFAULT_URL, IMG_DEFAULT_URL, LANG_TR} from './apiSettings.js';
+import {IMG_DEFAULT_URL} from './apiSettings.js';
 import apiList from "./apiList.js";
 
 /**
@@ -62,7 +62,7 @@ async function displayResults(results) {
 
         const card = `
       <li class="search-result-card">
-        <a href="details.html" class="search-card-link">
+        <a href="details.html?id=${item.id}&type=${item.media_type}" class="search-card-link">
           <figure class="search-card-poster">
             <img src="${poster}" alt="${title}">
           </figure>

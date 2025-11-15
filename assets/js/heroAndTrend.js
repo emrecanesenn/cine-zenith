@@ -1,4 +1,4 @@
-import {API_KEY, IMG_DEFAULT_URL, DEFAULT_URL, LANG_TR} from "./apiSettings.js";
+import {API_KEY, IMG_DEFAULT_URL, DEFAULT_URL, LANG} from "./apiSettings.js";
 import apiList from "./apiList.js";
 
 async function heroAndTrending() {
@@ -48,7 +48,7 @@ async function heroSection(data) {
             count = 0;
             return;
         } else {
-            const resolve = await fetch(`${DEFAULT_URL}/movie/${heroData[count].id}?api_key=${API_KEY}`)
+            const resolve = await fetch(`${DEFAULT_URL}/movie/${heroData[count].id}?api_key=${API_KEY}&${LANG}`)
             if (!resolve.ok) throw new Error(`The movie is not uploading`)
             movieData = await resolve.json();
             count++;
@@ -148,7 +148,7 @@ async function trendingSection(data) {
             const mediaType = item.media_type;
             const itemId = item.id;
             // Film ise film API'sine, dizi ise dizi API'sine istek at
-            return fetch(`${DEFAULT_URL}/${mediaType}/${itemId}?api_key=${API_KEY}`)
+            return fetch(`${DEFAULT_URL}/${mediaType}/${itemId}?api_key=${API_KEY}&${LANG}`)
                 .then(res => res.json());
         });
 
@@ -191,13 +191,13 @@ async function trendingSection(data) {
             return `
                 <li>
                     <div class="movie-card">
-                        <a href="details.html">
+                        <a href="details.html?id=${item.id}&type=${item.media_type}">
                             <figure class="card-banner">
                                 <img src="${IMG_DEFAULT_URL}original${details.poster_path}" alt="${title} poster">
                             </figure>
                         </a>
                         <div class="title-wrapper">
-                            <a href="details.html">
+                            <a href="details.html?id=${details.id}&type=${details.media_type}">
                                 <h3 class="card-title">${title}</h3>
                             </a>
                             <span>${releaseDate}</span>

@@ -1,5 +1,18 @@
 'use strict';
 
+import apiList from "./apiList.js";
+
+async function language() {
+  const apiScript = await apiList()
+  const lang = await apiScript.language()
+
+  document.querySelector(".header-actions .favoriteButton").innerHTML = lang.menuFavoritesButton;
+  document.querySelector(".navbar-list .home").innerHTML = lang.menuHome;
+  document.querySelector(".navbar-list .movies").innerHTML = lang.menuMovies;
+  document.querySelector(".navbar-list .series").innerHTML = lang.menuSeries;
+  document.querySelector(".navbar-list .webSeries").innerHTML = lang.menuWebSeries;
+  document.querySelector(".navbar-list .about").innerHTML = lang.menuAbout;
+}
 
 /**
  * Components Fetching
@@ -144,4 +157,5 @@ async function initializeApp() {
 
 document.addEventListener("DOMContentLoaded", () => {
   initializeApp()
+  language()
 })

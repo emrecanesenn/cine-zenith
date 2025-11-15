@@ -1259,11 +1259,27 @@ body .service .container {
 \*-----------------------------------*/
 
 .movie-detail {
-  background: url("../images/movie-detail-bg.png") no-repeat;
+  background: url("../images/movie-detail-bg.png") no-repeat center;
   background-size: cover;
-  background-position: center;
   padding-top: 160px;
   padding-bottom: var(--section-padding);
+}
+
+.detail-backdrop-overlay {
+  position: absolute; /* Ana hero'ya göre konumlandır */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* Hafif koyuluk katmanı (isteğe bağlı) */
+  backdrop-filter: blur(5px); /* Bulanıklık efekti */
+  transition: backdrop-filter 0.6s ease-in-out; /* Bulanıklık geçişi için */
+  z-index: 1; /* İçerikten (hero-content) daha altta olmalı */
+}
+
+.movie-detail .container {
+  position: relative; /* İçeriği overlay'in üzerine çıkarmak için */
+  z-index: 2; /* Overlay'den daha yüksek z-index */
 }
 
 .movie-detail-banner {
@@ -1360,23 +1376,6 @@ body .service .container {
 }
 
 .details-actions .btn-primary:is(:hover, :focus) { background: var(--citrine); }
-
-.download-btn {
-  max-width: max-content;
-  background: var(--citrine);
-  color: var(--rich-black-fogra-29);
-  font-size: var(--fs-11);
-  font-weight: var(--fw-500);
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 20px 35px;
-  letter-spacing: 5px;
-  border-radius: 6px;
-}
-
-.download-btn ion-icon { font-size: 16px; }
 
 
 
@@ -1790,12 +1789,6 @@ body .service .container {
   .movie-detail-banner,
   .details-actions { margin: 0; }
 
-  .download-btn {
-    position: absolute;
-    left: 15px;
-    bottom: -80px;
-  }
-
 }
 
 
@@ -1898,20 +1891,6 @@ body .service .container {
   .movie-detail-content { max-width: 620px; }
 
   .detail-title { --fs-1: 60px; }
-
-  .download-btn {
-    left: auto;
-    right: 15px;
-    bottom: 0;
-    transform: rotate(0.25turn) translateY(100%);
-    transform-origin: bottom right;
-    padding: 40px 50px;
-  }
-
-  .download-btn ion-icon {
-    font-size: 30px;
-    transform: rotate(-0.25turn);
-  }
 
 }
 

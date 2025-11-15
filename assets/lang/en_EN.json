@@ -1,0 +1,51 @@
+{
+  "minute" : "min.",
+  "season" : "Season",
+  "episode" : "Episode",
+  "sectionMoreButton" : "MORE",
+
+  "loaderSectionTitle" : "Cine-Zenith Library",
+  "loaderInputPlaceholder" : "Search for movies and TV shows...",
+
+  "menuFavoritesButton" : "Favorites",
+  "menuHome" : "Home",
+  "menuMovies" : "Movies",
+  "menuSeries" : "Series",
+  "menuWebSeries" : "Web Series",
+  "menuAbout" : "About",
+
+  "heroSectionFavoriteButton" : "Favorite",
+
+  "onTheAirSectionSubtitle" : "Cine-Zenith Library",
+  "onTheAirSectionTitle" : "On the Air ",
+  "onTheAirSectionMoviesButton" : "Movies",
+  "onTheAirSectionSeriesButton" : "Series",
+
+  "serviceSectionSubtitle" : "WHAT IS CINE-ZENITH?",
+  "serviceSectionTitle" : "A New Way to Discover.",
+  "serviceSectionText" : "Cine-Zenith isn't just a library; it's your personal guide to the universe of cinema. We leverage powerful data to bring you a clean, fast, and modern discovery experience.",
+  "serviceSectionCardTitleOne" : "Discover Trends",
+  "serviceSectionCardTextOne" : "Explore the weekly trending movies and TV shows before anyone else.",
+  "serviceSectionCardTitleTwo" : "Explore Top Rated",
+  "serviceSectionCardTextTwo" : "Find critically acclaimed masterpieces and the highest-rated titles of all time.",
+  "serviceSectionCardTitleThree" : "Stay Updated",
+  "serviceSectionCardTextThree" : "Get the latest list of movies and series that are currently \"On the Air.\"",
+  "serviceSectionTMDbCardTitle" : "Powered by Data",
+  "serviceSectionTMDbCardText" : "Our entire library is powered by the TMDb API, providing real-time data.",
+  "serviceSectionCtaTitle" : "Want to know more?",
+  "serviceSectionCtaText" : "Learn more about the project, the technology stack, and the developer.",
+  "serviceSectionCtaButtonText" : "Learn More About The Project",
+
+  "topRatedSectionSubtitle" : "Cine-Zenith Library",
+  "topRatedSectionTitle" : "Top Rated ",
+  "topRatedSectionMoviesButton" : "Movies",
+  "topRatedSectionSeriesButton" : "Series",
+
+  "trendingWeekSectionSubtitle" : "Cine-Zenith Library",
+  "trendingWeekSectionTitle" : "Weekly Trends",
+
+  "homePageSearchSectionTitle" : "Find Your Favorite Movie.",
+  "homePageSearchSectionText" : "Explore our entire database. Search for any movie or TV show.",
+  "homePageSearchSectionButton" : "Search Now"
+
+}

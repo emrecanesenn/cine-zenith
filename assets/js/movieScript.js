@@ -1,6 +1,6 @@
 "use strict";
 
-import {API_KEY, DEFAULT_URL, IMG_DEFAULT_URL, LANG_TR} from './apiSettings.js';
+import {API_KEY, DEFAULT_URL, IMG_DEFAULT_URL, LANG} from './apiSettings.js';
 import apiList from "./apiList.js";
 
 const cacheApi = {
@@ -72,7 +72,7 @@ async function onTheAirSection(data) {
     try {
 
         const movieDetailPromises = onTheAir.map(movie =>
-            fetch(`${DEFAULT_URL}/movie/${movie.id}?api_key=${API_KEY}`)
+            fetch(`${DEFAULT_URL}/movie/${movie.id}?api_key=${API_KEY}&${LANG}`)
                 .then(res => res.json())
         );
 
@@ -81,13 +81,13 @@ async function onTheAirSection(data) {
         const movieHTML = allMovieDetails.map(movieDetails => `
             <li>
                 <div class="movie-card">
-                    <a href="details.html">
+                    <a href="details.html?id=${movieDetails.id}&type=movie">
                         <figure class="card-banner">
                             <img src="${IMG_DEFAULT_URL}original/${movieDetails.poster_path}" alt="${movieDetails.title} poster">
                         </figure>
                     </a>
                     <div class="title-wrapper">
-                        <a href="details.html">
+                        <a href="details.html?id=${movieDetails.id}&type=movie">
                             <h3 class="card-title">${movieDetails.title}</h3>
                         </a>
                         <span>${movieDetails.release_date.slice(0, 4)}</span>
@@ -150,7 +150,7 @@ async function topRatedSection(data) {
     try {
         // 3. ADIM: 8 filmin detayını AYNI ANDA (Paralel) iste
         const movieDetailPromises = toprated.map(movie =>
-            fetch(`${DEFAULT_URL}/movie/${movie.id}?api_key=${API_KEY}`)
+            fetch(`${DEFAULT_URL}/movie/${movie.id}?api_key=${API_KEY}&${LANG}`)
                 .then(res => res.json())
         );
 
@@ -161,13 +161,13 @@ async function topRatedSection(data) {
         const movieHTML = allMovieDetails.map(movieDetails => `
             <li>
                 <div class="movie-card">
-                    <a href="details.html">
+                    <a href="details.html?id=${movieDetails.id}&type=movie">
                       <figure class="card-banner">
                         <img src="${IMG_DEFAULT_URL}original${movieDetails.poster_path}" alt="${movieDetails.title} poster">
                       </figure>
                     </a>
                     <div class="title-wrapper">
-                      <a href="details.html">
+                      <a href="details.html?id=${movieDetails.id}&type=movie">
                         <h3 class="card-title">${movieDetails.title}</h3>
                       </a>
                       <span>${movieDetails.release_date.slice(0, 4)}</span>

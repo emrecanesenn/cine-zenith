@@ -1,6 +1,6 @@
 "use strict"
 
-import {API_KEY, DEFAULT_URL, IMG_DEFAULT_URL, LANG_TR} from './apiSettings.js';
+import {API_KEY, DEFAULT_URL, IMG_DEFAULT_URL, LANG} from './apiSettings.js';
 import apiList from "./apiList.js";
 
 const cacheApi = {
@@ -69,7 +69,7 @@ async function onTheAirSection(onTheAir) {
     try {
         // 3. 10 dizinin detayını AYNI ANDA (Paralel) iste
         const seriesDetailPromises = seriesToFetch.map(series =>
-            fetch(`${DEFAULT_URL}/tv/${series.id}?api_key=${API_KEY}`)
+            fetch(`${DEFAULT_URL}/tv/${series.id}?api_key=${API_KEY}&${LANG}`)
                 .then(res => res.json())
         );
 
@@ -90,13 +90,13 @@ async function onTheAirSection(onTheAir) {
                     return `
                         <li>
                             <div class="movie-card">
-                                  <a href="details.html">
+                                  <a href="details.html?id=${seriesDetails.id}&type=tv">
                                       <figure class="card-banner">
                                           <img src="${IMG_DEFAULT_URL}original/${seriesDetails.poster_path}" alt="${seriesDetails.name} poster">
                                       </figure>
                                   </a>
                                   <div class="title-wrapper">
-                                      <a href="details.html">
+                                      <a href="details.html?id=${seriesDetails.id}&type=tv">
                                           <h3 class="card-title">${seriesDetails.name}</h3>
                                       </a>
                                       <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 12px;"> ${seriesDetails.number_of_seasons} Seasons</span>
@@ -154,7 +154,7 @@ async function topRatedSection(data) {
     try{
         // 2. 8 dizinin detayını AYNI ANDA (Paralel) iste
         const seriesDetailPromises = toprated.map(series =>
-            fetch(`${DEFAULT_URL}/tv/${series.id}?api_key=${API_KEY}`)
+            fetch(`${DEFAULT_URL}/tv/${series.id}?api_key=${API_KEY}&${LANG}`)
                 .then(res => res.json())
         );
 
@@ -164,13 +164,13 @@ async function topRatedSection(data) {
         const seriesHTML = allSeriesDetails.map(seriesDetails => `
             <li>
                 <div class="movie-card">
-                    <a href="details.html">
+                    <a href="details.html?id=${seriesDetails.id}&type=tv">
                       <figure class="card-banner">
                         <img src="${IMG_DEFAULT_URL}original${seriesDetails.poster_path}" alt="${seriesDetails.name} poster">
                       </figure>
                     </a>
                     <div class="title-wrapper">
-                      <a href="details.html">
+                      <a href="details.html?id=${seriesDetails.id}&type=tv">
                         <h3 class="card-title">${seriesDetails.name}</h3>
                       </a>
                       <span>${seriesDetails.first_air_date.slice(0, 4)}</span>
