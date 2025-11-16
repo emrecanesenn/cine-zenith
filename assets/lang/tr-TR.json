@@ -1,0 +1,50 @@
+{
+  "minute" : "dk.",
+  "season" : "Sezon",
+  "episode" : "Bölüm",
+  "sectionMoreButton" : "DAHA FAZLA",
+
+  "searchPopupSectionTitle" : "Cine-Zenith Kütüphanesi",
+  "searchPopupInputPlaceholder" : "Film ve dizilerde arama yapın...",
+
+  "menuFavoritesButton" : "Favorilerim",
+  "menuHome" : "Anasayfa",
+  "menuMovies" : "Filmler",
+  "menuSeries" : "Diziler",
+  "menuWebSeries" : "Web Dizileri",
+  "menuAbout" : "Hakkında",
+
+  "heroSectionFavoriteButton" : "Favori",
+
+  "onTheAirSectionSubtitle" : "Cine-Zenith Kütüphanesi",
+  "onTheAirSectionTitle" : "Şu Anda Yayında <b style=\"color: #f1d57a\" id=\"ontheair-movie-series\">Filmler</b>",
+  "onTheAirSectionMoviesButton" : "Filmler",
+  "onTheAirSectionSeriesButton" : "Diziler",
+
+  "serviceSectionSubtitle" : "CINE-ZENITH NEDİR?",
+  "serviceSectionTitle" : "Keşfetmenin Yeni Yolu.",
+  "serviceSectionText" : "Cine-Zenith sadece bir kütüphane değil; sinema evrenine açılan kişisel rehberinizdir. Size temiz, hızlı ve modern bir keşif deneyimi sunmak için güçlü verileri kullanıyoruz.",
+  "serviceSectionCardTitleOne" : "Trendleri Keşfet",
+  "serviceSectionCardTextOne" : "Haftalık trend olan filmleri ve dizileri herkesten önce keşfedin.",
+  "serviceSectionCardTitleTwo" : "En İyileri İncele",
+  "serviceSectionCardTextTwo" : "Tüm zamanların eleştirmenlerce beğenilen başyapıtlarını ve en yüksek puanlı yapımlarını bulun.",
+  "serviceSectionCardTitleThree" : "Güncel Kalın",
+  "serviceSectionCardTextThree" : "Şu anda \"Yayında Olan\" film ve dizilerin en güncel listesine ulaşın.",
+  "serviceSectionTMDbCardTitle" : "Veri Desteği",
+  "serviceSectionTMDbCardText" : "Tüm kütüphanemiz, gerçek zamanlı veri sağlayan TMDb API'si tarafından desteklenmektedir.",
+  "serviceSectionCtaTitle" : "Daha fazlasını bilmek ister misiniz?",
+  "serviceSectionCtaText" : "Proje, kullanılan teknoloji yığını ve geliştirici hakkında daha fazla bilgi edinin.",
+  "serviceSectionCtaButtonText" : "Proje Hakkında Daha Fazla Bilgi Edinin",
+
+  "topRatedSectionSubtitle" : "Cine-Zenith Kütüphanesi",
+  "topRatedSectionTitle" : "En Çok Puan Alan <b style=\"color: #f1d57a\" id=\"tprated-movie-series\">Filmler</b>",
+  "topRatedSectionMoviesButton" : "Filmler",
+  "topRatedSectionSeriesButton" : "Diziler",
+
+  "trendingWeekSectionSubtitle" : "Cine-Zenith Kütüphanesi",
+  "trendingWeekSectionTitle" : "Haftalık Trendler",
+
+  "homePageSearchSectionTitle" : "Favori Filminizi Bulun.",
+  "homePageSearchSectionText" : "Tüm veri tabanımızı keşfedin. Herhangi bir film veya dizi arayın.",
+  "homePageSearchSectionButton" : "Şimdi Ara"
+}

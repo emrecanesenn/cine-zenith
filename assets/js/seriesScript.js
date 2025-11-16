@@ -1,7 +1,8 @@
 "use strict"
 
-import {API_KEY, DEFAULT_URL, IMG_DEFAULT_URL, LANG} from './apiSettings.js';
+import {API_KEY, DEFAULT_URL, IMG_DEFAULT_URL, language} from './apiSettings.js';
 import apiList from "./apiList.js";
+let LANG = language();
 
 const cacheApi = {
     ontheair: null,

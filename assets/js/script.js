@@ -2,16 +2,35 @@
 
 import apiList from "./apiList.js";
 
-async function language() {
+async function language(langFiles) {
   const apiScript = await apiList()
-  const lang = await apiScript.language()
+  const lang = await apiScript.language(langFiles)
 
-  document.querySelector(".header-actions .favoriteButton").innerHTML = lang.menuFavoritesButton;
-  document.querySelector(".navbar-list .home").innerHTML = lang.menuHome;
-  document.querySelector(".navbar-list .movies").innerHTML = lang.menuMovies;
-  document.querySelector(".navbar-list .series").innerHTML = lang.menuSeries;
-  document.querySelector(".navbar-list .webSeries").innerHTML = lang.menuWebSeries;
-  document.querySelector(".navbar-list .about").innerHTML = lang.menuAbout;
+  // 1. data-i18n özelliğine sahip TÜM elementleri seç
+  document.querySelectorAll('[data-i18n]').forEach(element => {
+    const key = element.getAttribute('data-i18n');
+    const translation = lang[key]; // Çeviri metni
+
+    if (translation) {
+
+      // 2. Hangi özelliğin hedeflendiğini kontrol et
+      const targetAttr = element.getAttribute('data-i18n-attr');
+
+      if (targetAttr) {
+        // Eğer data-i18n-attr varsa (Örn: "placeholder")
+        // Elementin o özelliğini (placeholder) çeviri metniyle güncelle
+        element.setAttribute(targetAttr, translation);
+
+      } else {
+        // Varsayılan: Eğer data-i18n-attr yoksa, iç içeriği (innerHTML) güncelle
+        element.innerHTML = translation;
+      }
+    }
+  });
+
+
+  document.querySelector("#search-modal #search-modal-input").placeholder = lang.searchPopupInputPlaceholder;
+
 }
 
 /**
@@ -38,11 +57,24 @@ async function compFetch(sectionID, filePath) {
 async function initializeApp() {
   const loader = document.getElementById('page-loader');
 
-  await Promise.all([
-    compFetch("footer", `assets/components/footer.html`),
-    compFetch("header", `assets/components/header.html`),
-    compFetch("menu", `assets/components/menu.html`)
-  ]);
+  let lang = localStorage.getItem("lang")
+
+  if (lang) {
+    await language(lang.toString())
+  } else {
+    localStorage.setItem("lang", "tr-TR")
+    lang = localStorage.getItem("lang")
+    await language(lang.toString())
+  }
+
+  if (lang === "en-US") {
+    document.querySelector("#language #tr-TR").selected = false;
+    document.querySelector("#language #en-US").selected = true;
+  } if (lang === "tr-TR") {
+    document.querySelector("#language #en-US").selected = false;
+    document.querySelector("#language #tr-TR").selected = true;
+  }
+
 
 
   /**
@@ -155,7 +187,25 @@ async function initializeApp() {
   console.log("Cine-Zenith hazır ve çalışıyor!");
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  initializeApp()
-  language()
+function selectedFunction() {
+  document.querySelector("#language").addEventListener("change", function(event) {
+    const langId = event.target.options[event.target.selectedIndex].id
+    localStorage.setItem("lang", langId)
+    window.location.reload()
+  })
+}
+
+document.addEventListener("DOMContentLoaded", async function()  {
+
+  await Promise.all([
+    compFetch("footer", `assets/components/footer.html`),
+    compFetch("header", `assets/components/header.html`),
+    compFetch("menu", `assets/components/menu.html`)
+  ])
+
+  await initializeApp()
+
+  selectedFunction()
 })
+
+

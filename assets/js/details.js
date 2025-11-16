@@ -1,5 +1,5 @@
-import {API_KEY, DEFAULT_URL, IMG_DEFAULT_URL, LANG} from "./apiSettings.js";
-
+import {API_KEY, DEFAULT_URL, IMG_DEFAULT_URL, language} from "./apiSettings.js";
+let LANG = language();
 let mediaType, mediaId;
 
 async function theMedia(mediaType, ID) {

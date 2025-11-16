@@ -1,17 +1,17 @@
-import {API_KEY, DEFAULT_URL, LANG} from "./apiSettings.js";
+import {API_KEY, DEFAULT_URL, language} from "./apiSettings.js";
 
 export default async function apiList() {
+    let LANG = language();
     return {
         /**
          * LANGUAGES CHOICE
          */
 
-        async language() {
+        async language(langFiles) {
             try {
-                const resolve = await fetch("assets/lang/en_EN.json")
+                const resolve = await fetch(`assets/lang/${langFiles}.json`)
                 if (!resolve.ok) throw new Error("Language Files is not loading");
-                const language = await resolve.json()
-                return language;
+                return await resolve.json();
 
             } catch (e) {
                 alert("Error: " + e)

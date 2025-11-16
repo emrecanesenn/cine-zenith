@@ -1,5 +1,6 @@
-import {API_KEY, IMG_DEFAULT_URL, DEFAULT_URL, LANG} from "./apiSettings.js";
+import {API_KEY, IMG_DEFAULT_URL, DEFAULT_URL, language} from "./apiSettings.js";
 import apiList from "./apiList.js";
+let LANG = language();
 
 async function heroAndTrending() {
     const scriptObj = await apiList();

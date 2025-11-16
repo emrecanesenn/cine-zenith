@@ -1259,13 +1259,18 @@ body .service .container {
 \*-----------------------------------*/
 
 .movie-detail {
+  position: relative;
   background: url("../images/movie-detail-bg.png") no-repeat center;
   background-size: cover;
   padding-top: 160px;
   padding-bottom: var(--section-padding);
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
 }
 
-.detail-backdrop-overlay {
+.movie-detail .detail-backdrop-overlay {
   position: absolute; /* Ana hero'ya göre konumlandır */
   top: 0;
   left: 0;

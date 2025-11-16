@@ -5,20 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="93892eae-53c0-4c88-8185-6d884f6a28aa" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/css/details.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/js/details.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/lang/en_EN.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/lang/tr_TR.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/js/language.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/lang/tr-TR.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/components/menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/menu.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/apiList.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/apiList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/apiSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/apiSettings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/details.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/details.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/heroAndTrend.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/heroAndTrend.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/movieScript.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/movieScript.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/searchPopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/searchPopup.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/seriesScript.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/seriesScript.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/lang/en_EN.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/lang/en-US.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/lang/tr_TR.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/details.html" beforeDir="false" afterPath="$PROJECT_DIR$/details.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
@@ -68,32 +68,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "JavaScript Debug.details.html.executor": "Run",
-    "JavaScript Debug.index.html.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Node.js.apiFetch.js.executor": "Run",
-    "Node.js.movieScript.js.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/sched/Desktop/github/cine-zenith/assets/images",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "settings.sync",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;JavaScript Debug.details.html.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Node.js.apiFetch.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.movieScript.js.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/sched/Desktop/github/cine-zenith/assets/images&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\sched\Desktop\github\cine-zenith\assets\images" />
@@ -146,6 +146,7 @@
       <workItem from="1763068595193" duration="1903000" />
       <workItem from="1763142301249" duration="10597000" />
       <workItem from="1763228907050" duration="14346000" />
+      <workItem from="1763313240340" duration="8551000" />
     </task>
     <servers />
   </component>

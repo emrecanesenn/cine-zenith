@@ -5,13 +5,14 @@
     <link rel="stylesheet" href="assets/css/loader.css">
 </head>
 
-<body id="top">
+<body id="top" class="pageHome">
 
     <!--
       - custom js link
     -->
     <script src="assets/js/script.js" type="module" defer></script>
     <script src="assets/js/apiList.js" type="module" defer></script>
+    <script src="assets/js/language.js" type="module" defer></script>
     <script src="assets/js/movieScript.js" type="module" defer></script>
     <script src="assets/js/seriesScript.js" type="module" defer></script>
     <script src="assets/js/heroAndTrend.js" type="module" defer></script>
@@ -26,10 +27,10 @@
     </div>
 
     <div class="search-modal" id="search-modal">
-      <h2 class="h3 section-title">CINE-ZENITH LIBRARY</h2>
+      <h2 class="h3 section-title" data-i18n="searchPopupSectionTitle"></h2>
 
       <div class="search-modal-content">
-        <input type="search" name="search" placeholder="Search for movies and TV shows..." class="search-modal-input" id="search-modal-input">
+        <input type="search" name="search" placeholder="" data-i18n="searchPopupInputPlaceholder" data-i18n-attr="placeholder" class="search-modal-input" id="search-modal-input">
 
         <ul class="search-results-list" id="search-results-list">
         </ul>
@@ -100,7 +101,7 @@
             <button class="btn btn-primary">
               <ion-icon name="add-outline"></ion-icon>
 
-              <span>Favorite</span>
+              <span data-i18n="heroSectionFavoriteButton"></span>
             </button>
 
           </div>
@@ -122,19 +123,19 @@
           <div class="flex-wrapper">
 
             <div class="title-wrapper">
-              <p class="section-subtitle">Cine-Zenith Library</p>
+              <p class="section-subtitle" data-i18n="onTheAirSectionSubtitle"></p>
 
-              <h2 class="h2 section-title">On the Air <b style="color: #f1d57a" id="ontheair-movie-series">Movies</b> </h2>
+              <h2 class="h2 section-title" data-i18n="onTheAirSectionTitle"> </h2>
             </div>
 
             <ul id="filterUpcomingList" class="filter-list">
 
               <li>
-                <button id="on-the-air-movies" class="filter-btn onTheAir">Movies</button>
+                <button id="on-the-air-movies" class="filter-btn onTheAir" data-i18n="onTheAirSectionMoviesButton"></button>
               </li>
 
               <li>
-                <button id="on-the-air-series" class="filter-btn">Series</button>
+                <button id="on-the-air-series" class="filter-btn" data-i18n="onTheAirSectionSeriesButton"></button>
               </li>
 
             </ul>
@@ -147,7 +148,7 @@
           -->
           <ul id="on-the-air-list" class="horizontal-scroll-list"></ul>
 
-          <button class="more-btn">MORE</button>
+          <button class="more-btn" data-i18n="sectionMoreButton"></button>
 
         </div>
       </section>
@@ -164,12 +165,9 @@
         <div class="container">
 
           <div class="service-intro-block">
-            <p class="service-subtitle">WHAT IS CINE-ZENITH?</p>
-            <h2 class="h2 service-title">A New Way to Discover.</h2>
-            <p class="service-text">
-              Cine-Zenith isn't just a library; it's your personal guide to the universe of cinema. We leverage powerful
-              data to bring you a clean, fast, and modern discovery experience.
-            </p>
+            <p class="service-subtitle" data-i18n="serviceSectionSubtitle"></p>
+            <h2 class="h2 service-title" data-i18n="serviceSectionTitle"></h2>
+            <p class="service-text" data-i18n="serviceSectionText"></p>
           </div>
 
           <ul class="service-feature-grid">
@@ -178,37 +176,29 @@
               <div class="card-icon">
                 <ion-icon name="flame-outline"></ion-icon>
               </div>
-              <h3 class="h3 card-title">Discover Trends</h3>
-              <p class="card-text">
-                Explore the weekly trending movies and TV shows before anyone else.
-              </p>
+              <h3 class="h3 card-title card-one-title" data-i18n="serviceSectionCardTitleOne"></h3>
+              <p class="card-text card-one-text" data-i18n="serviceSectionCardTextOne"> </p>
             </li>
 
             <li class="service-card">
               <div class="card-icon">
                 <ion-icon name="star-outline"></ion-icon>
               </div>
-              <h3 class="h3 card-title">Explore Top Rated</h3>
-              <p class="card-text">
-                Find critically acclaimed masterpieces and the highest-rated titles of all time.
-              </p>
+              <h3 class="h3 card-title card-two-title" data-i18n="serviceSectionCardTitleTwo"></h3>
+              <p class="card-text card-two-text" data-i18n="serviceSectionCardTextTwo"> </p>
             </li>
 
             <li class="service-card">
               <div class="card-icon">
                 <ion-icon name="sync-outline"></ion-icon>
               </div>
-              <h3 class="h3 card-title">Stay Updated</h3>
-              <p class="card-text">
-                Get the latest list of movies and series that are currently "On the Air."
-              </p>
+              <h3 class="h3 card-title card-three-title" data-i18n="serviceSectionCardTitleThree"></h3>
+              <p class="card-text card-three-text" data-i18n="serviceSectionCardTextThree"></p>
             </li>
 
             <li class="service-card tmdb-card">
-              <h3 class="h3 card-title">Powered by Data</h3>
-              <p class="card-text">
-                Our entire library is powered by the TMDb API, providing real-time data.
-              </p>
+              <h3 class="h3 card-title tmdb-card-title" data-i18n="serviceSectionTMDbCardTitle"></h3>
+              <p class="card-text tmdb-card-text" data-i18n="serviceSectionTMDbCardText"></p>
               <a href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer" class="tmdb-attribution">
                 <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_long_2-9665a76b1ae401a510ec1e0ca40ddcb3b0cfe45f1d51b77a308fea0845885648.svg" alt="TMDb Logo" class="tmdb-logo">
               </a>
@@ -217,10 +207,10 @@
 
           <div class="service-cta-wrapper">
             <div class="service-cta-content">
-              <h3 class="cta-title">Want to know more?</h3>
-              <p class="cta-text">Learn more about the project, the technology stack, and the developer.</p>
+              <h3 class="cta-title" data-i18n="serviceSectionCtaTitle"></h3>
+              <p class="cta-text" data-i18n="serviceSectionCtaText"></p>
             </div>
-            <a href="#" class="btn btn-primary service-read-more">Learn More About The Project</a>
+            <a href="#" class="btn btn-primary service-read-more" data-i18n="serviceSectionCtaButtonText"></a>
           </div>
 
         </div>
@@ -237,18 +227,18 @@
       <section class="top-rated">
         <div class="container">
 
-          <p class="section-subtitle">Cine-Zenith Library</p>
+          <p class="section-subtitle" data-i18n="topRatedSectionSubtitle"></p>
 
-          <h2 class="h2 section-title">Top Rated <b style="color: #f1d57a" id="tprated-movie-series">Movies</b></h2>
+          <h2 class="h2 section-title" data-i18n="topRatedSectionTitle"></h2>
 
           <ul id="filterTopRatedList" class="filter-list">
 
             <li>
-              <button id="top-rated-movies" class="filter-btn onTopRated">Movies</button>
+              <button id="top-rated-movies" class="filter-btn onTopRated" data-i18n="topRatedSectionMoviesButton"></button>
             </li>
 
             <li>
-              <button id="top-rated-series" class="filter-btn">Series</button>
+              <button id="top-rated-series" class="filter-btn" data-i18n="topRatedSectionSeriesButton"></button>
             </li>
 
           </ul>
@@ -258,7 +248,7 @@
           -->
           <ul id="toprated-list" class="horizontal-scroll-list"></ul>
 
-          <button class="more-btn">MORE</button>
+          <button class="more-btn" data-i18n="sectionMoreButton"></button>
 
         </div>
       </section>
@@ -274,9 +264,9 @@
       <section class="tv-series">
         <div class="container">
 
-          <p class="section-subtitle">Cine-Zenith Library</p>
+          <p class="section-subtitle" data-i18n="trendingWeekSectionSubtitle"></p>
 
-          <h2 class="h2 section-title">Weekly Trends</h2>
+          <h2 class="h2 section-title" data-i18n="trendingWeekSectionTitle"></h2>
 
           <ul id="trending-list" class="horizontal-scroll-list"></ul>
 
@@ -295,15 +285,13 @@
         <div class="container">
 
           <div class="title-wrapper">
-            <h2 class="cta-title">Find Your Favorite Movie.</h2>
-            <p class="cta-text">
-              Explore our entire database. Search for any movie or TV show.
-            </p>
+            <h2 class="cta-title" data-i18n="homePageSearchSectionTitle"></h2>
+            <p class="cta-text" data-i18n="homePageSearchSectionText"> </p>
           </div>
 
           <button class="btn" id="cta-search-open-btn">
             <ion-icon name="search-outline"></ion-icon>
-            <span>Search Now</span>
+            <span data-i18n="homePageSearchSectionButton"></span>
           </button>
 
         </div>

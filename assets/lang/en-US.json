@@ -4,8 +4,8 @@
   "episode" : "Episode",
   "sectionMoreButton" : "MORE",
 
-  "loaderSectionTitle" : "Cine-Zenith Library",
-  "loaderInputPlaceholder" : "Search for movies and TV shows...",
+  "searchPopupSectionTitle" : "Cine-Zenith Library",
+  "searchPopupInputPlaceholder" : "Search for movies and TV shows...",
 
   "menuFavoritesButton" : "Favorites",
   "menuHome" : "Home",
@@ -17,7 +17,7 @@
   "heroSectionFavoriteButton" : "Favorite",
 
   "onTheAirSectionSubtitle" : "Cine-Zenith Library",
-  "onTheAirSectionTitle" : "On the Air ",
+  "onTheAirSectionTitle" : "On the Air <b style=\"color: #f1d57a\" id=\"ontheair-movie-series\">Movies</b>",
   "onTheAirSectionMoviesButton" : "Movies",
   "onTheAirSectionSeriesButton" : "Series",
 
@@ -37,7 +37,7 @@
   "serviceSectionCtaButtonText" : "Learn More About The Project",
 
   "topRatedSectionSubtitle" : "Cine-Zenith Library",
-  "topRatedSectionTitle" : "Top Rated ",
+  "topRatedSectionTitle" : "Top Rated <b style=\"color: #f1d57a\" id=\"tprated-movie-series\">Movies</b>",
   "topRatedSectionMoviesButton" : "Movies",
   "topRatedSectionSeriesButton" : "Series",
 
