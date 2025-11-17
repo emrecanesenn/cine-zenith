@@ -6,19 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="93892eae-53c0-4c88-8185-6d884f6a28aa" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/components/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/footer.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/apiList.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/apiList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/apiSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/apiSettings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/details.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/details.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/hero-bg.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/heroAndTrend.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/heroAndTrend.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/movieScript.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/movieScript.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/searchPopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/searchPopup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/seriesScript.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/seriesScript.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/lang/en-US.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/lang/en-US.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/lang/tr-TR.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/lang/tr-TR.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/details.html" beforeDir="false" afterPath="$PROJECT_DIR$/details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,6 +99,16 @@
       <recent name="C:\Users\sched\Desktop\jspath\cinezenith\images" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/cine-zenith/cinezeniths/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.index.html" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -145,6 +148,7 @@
       <workItem from="1763142301249" duration="10597000" />
       <workItem from="1763228907050" duration="14346000" />
       <workItem from="1763313240340" duration="27045000" />
+      <workItem from="1763392308002" duration="2147000" />
     </task>
     <servers />
   </component>

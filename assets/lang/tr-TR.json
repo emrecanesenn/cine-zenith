@@ -25,6 +25,7 @@
   "menuAbout" : "Hakkında",
 
   "heroSectionFavoriteButton" : "Favori",
+  "heroSectionDefaultText" : "Editörün Seçimi",
 
   "onTheAirSectionSubtitle" : "Cine-Zenith Kütüphanesi",
   "onTheAirSectionTitle" : "Şu Anda Yayında <b style=\"color: #f1d57a\" id=\"ontheair-movie-series\">Filmler</b>",

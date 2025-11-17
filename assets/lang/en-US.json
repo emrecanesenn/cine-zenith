@@ -25,6 +25,7 @@
   "menuAbout" : "About",
 
   "heroSectionFavoriteButton" : "Favorite",
+  "heroSectionDefaultText" : "Editor's Pick",
 
   "onTheAirSectionSubtitle" : "Cine-Zenith Library",
   "onTheAirSectionTitle" : "On the Air <b style=\"color: #f1d57a\" id=\"ontheair-movie-series\">Movies</b>",

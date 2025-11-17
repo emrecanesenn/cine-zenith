@@ -1,14 +1,15 @@
 import {API_KEY, IMG_DEFAULT_URL, DEFAULT_URL, language} from "./apiSettings.js";
 import apiList from "./apiList.js";
 let LANG = language(), langLoad;
+let lang;
 
 async function heroAndTrending() {
     const scriptObj = await apiList();
-    const lang = await scriptObj.language(localStorage.getItem("lang"))
+    lang = await scriptObj.language(localStorage.getItem("lang"))
     const trendData = await scriptObj.trendingAllWeek();
     const heroData = await scriptObj.heroSectionData()
     await trendingSection(trendData, lang)
-    await heroSection(heroData)
+    await heroSection(heroData, lang)
     langLoad = await scriptObj.languageLoad
 }
 
@@ -34,7 +35,7 @@ function generateSkeletonCards(count) {
 // HERO SECTION FIRST ON THE AIR FILM
 
 let count = 0, heroData;
-async function heroSection(data) {
+async function heroSection(data, langu = lang) {
     const heroSectionEl = document.getElementById("heroSection");
     const heroContentEl = heroSectionEl.querySelector('.hero-content');
 
@@ -68,7 +69,7 @@ async function heroSection(data) {
         // 2. DOM'u Yeni Verilerle Güncelle (Gizli durumda yapılır)
 
         // Slogan (Tagline) ve Özet (Overview) Güncellemesi
-        const defaultMessage = `A trending cinematic masterpiece.`;
+        const defaultMessage = langu.heroSectionDefaultText;
 
         if (movieData.tagline) {
             taglineEl.innerHTML = movieData.tagline;
