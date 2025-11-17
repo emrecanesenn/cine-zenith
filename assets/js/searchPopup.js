@@ -4,6 +4,8 @@
 import {IMG_DEFAULT_URL} from './apiSettings.js';
 import apiList from "./apiList.js";
 
+let scriptObj, lang;
+
 /**
  * Debounce Fonksiyonu (Asansör kapısı)
  * @param {Function} func - Çalıştırılacak fonksiyon (API isteği)
@@ -45,14 +47,14 @@ async function displayResults(results) {
     );
 
     if (relevantResults.length === 0) {
-        resultsList.innerHTML = `<li class="search-no-result">No results found.</li>`;
+        resultsList.innerHTML = `<li class="search-no-result" data-i18n="notFoundText"></li>`;
         return;
     }
 
     // HTML oluştur
     relevantResults.forEach(item => {
         const title = item.name || item.title;
-        const mediaType = item.media_type === "tv" ? "Series" : "Movie";
+        const mediaType = item.media_type === "tv" ? lang.serieText : lang.movieText;
 
         // Yılı almak için tarihi parse et (eğer varsa)
         const date = item.release_date || item.first_air_date;
@@ -74,13 +76,16 @@ async function displayResults(results) {
       </li>
     `;
         resultsList.innerHTML += card;
+        scriptObj.languageLoad(lang);
     });
 
     resultsList.innerHTML += `
             <li class="search-more-link">
-                <a href="#">DEEP SEARCH</a>
+                <a href="#" data-i18n="deepSearchText">DEEP SEARCH</a>
             </li>
         `
+
+    scriptObj.languageLoad(lang);
 }
 
 /**
@@ -97,9 +102,9 @@ async function performSearch(query) {
     }
 
     // Yükleniyor... (Opsiyonel)
-    resultsList.innerHTML = `<li class="search-loading">Loading...</li>`;
-
+    resultsList.innerHTML = `<li class="search-loading" data-i18n="loadingText"></li>`;
     const scriptObj = await apiList();
+    scriptObj.languageLoad(lang);
     const results = await scriptObj.searchAll(query); // 'searchAll' fonksiyonunu çağır
 
     displayResults(results); // Sonuçları ekrana bas
@@ -113,11 +118,11 @@ async function performSearch(query) {
 const debouncedSearch = debounce(performSearch, 500);
 
 // 2. Sayfa yüklendiğinde arama input'unu dinlemeye başla
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async function()  {
     const searchInput = document.getElementById("search-modal-input");
-
+    scriptObj = await apiList();
+    lang = await scriptObj.language(localStorage.getItem("lang"));
     if (searchInput) {
-        // 'keyup' event'i ile debounced fonksiyonu tetikle
         searchInput.addEventListener("input", (e) => {
             const query = e.target.value;
             debouncedSearch(query);

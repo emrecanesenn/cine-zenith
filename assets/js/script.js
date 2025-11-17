@@ -5,32 +5,7 @@ import apiList from "./apiList.js";
 async function language(langFiles) {
   const apiScript = await apiList()
   const lang = await apiScript.language(langFiles)
-
-  // 1. data-i18n özelliğine sahip TÜM elementleri seç
-  document.querySelectorAll('[data-i18n]').forEach(element => {
-    const key = element.getAttribute('data-i18n');
-    const translation = lang[key]; // Çeviri metni
-
-    if (translation) {
-
-      // 2. Hangi özelliğin hedeflendiğini kontrol et
-      const targetAttr = element.getAttribute('data-i18n-attr');
-
-      if (targetAttr) {
-        // Eğer data-i18n-attr varsa (Örn: "placeholder")
-        // Elementin o özelliğini (placeholder) çeviri metniyle güncelle
-        element.setAttribute(targetAttr, translation);
-
-      } else {
-        // Varsayılan: Eğer data-i18n-attr yoksa, iç içeriği (innerHTML) güncelle
-        element.innerHTML = translation;
-      }
-    }
-  });
-
-
-  document.querySelector("#search-modal #search-modal-input").placeholder = lang.searchPopupInputPlaceholder;
-
+  apiScript.languageLoad(lang)
 }
 
 /**

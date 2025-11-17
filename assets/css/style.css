@@ -18,6 +18,15 @@
 
 :root {
 
+  /* Renkler */
+  --light-color: #ebebeb; /* veya istediğiniz ana açık renk */
+  --dark-background: #151515;
+
+  /* Font Kalınlıkları (fw) */
+  --fw-400: 400; /* Normal */
+  --fw-500: 500; /* Orta */
+  --fw-700: 700; /* Kalın */
+
   /**
    * colors
    */
@@ -1285,6 +1294,7 @@ body .service .container {
 .movie-detail .container {
   position: relative; /* İçeriği overlay'in üzerine çıkarmak için */
   z-index: 2; /* Overlay'den daha yüksek z-index */
+  margin-bottom: 40px;
 }
 
 .movie-detail-banner {
@@ -1329,58 +1339,152 @@ body .service .container {
 .movie-detail .meta-wrapper { margin-bottom: 30px; }
 
 .storyline {
-  color: var(--gray-x);
-  font-size: var(--fs-9);
-  font-weight: var(--fw-500);
-  line-height: 1.8;
+  /* ARKA PLAN VE ŞEFFAFLIK DÜZELTMELERİ */
+  background: hsla(0, 0%, 10%, 0.85);
+  backdrop-filter: blur(8px);
+
+  /* YUVARLAKLIK VE GÖLGE */
+  border-radius: 18px;
+  box-shadow: 0 4px 15px hsla(0, 0%, 0%, 0.3);
+
+  /* İÇERİK DÜZENİ */
+  padding: 25px 30px;
+
+  /* METİN VE OKUNURLUK */
+  color: var(--light-color, #ebebeb);
+  font-size: var(--fs-8);
+  font-weight: var(--fw-400);
+  line-height: 1.65;
+  text-shadow: 0 1px 1px hsla(0, 0%, 0%, 0.1);
   margin-bottom: 40px;
+
+  max-height: 170px; /* Başlık ve 4-5 satır metni göstermek için sabit yükseklik */
+  overflow: hidden;  /* Sınırı aşan metni gizle */
+  cursor: pointer;   /* Kullanıcıya tıklanabilir/etkileşimli olduğunu hissettirir */
+
+  transition: max-height 0.4s ease-out;
+  will-change: max-height;
 }
 
-.details-actions {
+.storyline:hover {
+  max-height: 170px; /* Çok uzun metinler için yeterli genişlik (veya istediğiniz maksimum yükseklik) */
+  overflow-y: auto;
+}
+
+.storyline::-webkit-scrollbar {
+  width: 8px; /* Dikey çubuk genişliği */
+  height: 8px; /* Yatay çubuk yüksekliği */
+
+}
+
+/* 2. Scrollbar rayının (izinin) rengi (arka planı) */
+.storyline::-webkit-scrollbar-track {
+  background: #252525; /* Koyu, hafif opak arka plan rengi */
+  border-radius: 18px;
+}
+
+/* 3. Scrollbar parçasının (thumb/tutacak) rengi ve şekli */
+.storyline::-webkit-scrollbar-thumb {
+  background-color: var(--yellow-color, #ffc107); /* Sitenizin ana vurgu rengi */
+  border-radius: 18px;
+  border: 2px solid #252525; /* Tutacağın etrafına kenarlık ekleyerek belirginleştirir */
+}
+
+/* 4. Mouse tutacağın üzerindeyken renk değişimi */
+.storyline::-webkit-scrollbar-thumb:hover {
+  background-color: #ffda7d; /* Hover rengi */
+}
+
+.storyline .title {
+  color: var(--citrine)
+}
+
+.watch-providers-container {
+  position: absolute;
+  /* Konteynerin kendisi için arkaplan stilini koruyun */
+  width: 400px; /* Genişliği sabitleyin (Örnek değer) */
+  background: #151515;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+
+  /* İstenen DİNAMİK ALAN AYARLARI */
+  max-height: 60px; /* Sadece 1 öğenin yüksekliği (80px içerik + 5px padding/margin) */
+  overflow-y: hidden; /* Fazla içeriği başlangıçta gizle */
+  transition: max-height 0.3s ease-in-out, overflow-y 0.5s linear 0.4s; /* Geçiş animasyonu */
+  will-change: max-height; /* Performans ipucu */
+}
+
+/* Hover olduğunda konteyneri genişlet ve kaydırma çubuğunu göster */
+.watch-providers-container:hover {
+  max-height: 120px; /* 3 öğe göstermek için yeterli yükseklik (3 x 80px + boşluk) */
+  overflow-y: auto; /* Kaydırma çubuğunu göster */
+  /* Transition'ı kaldırmayız, sadece overflow'un görünmesini geciktirebiliriz */
+}
+
+/* Her bir öğenin stili */
+.provider-item {
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px 40px;
-  max-width: 460px;
-  background: var(--gunmetal-2);
-  padding: 25px;
-  border: 1px solid var(--jet);
-  border-radius: 4px;
-  margin-bottom: 30px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Ayırıcı çizgi */
+  height: 60px; /* Item yüksekliği */
+  cursor: pointer;
 }
 
-.details-actions .share ion-icon {
-  font-size: 25px;
-  color: var(--white);
-  margin-inline: auto;
+.provider-item:last-child {
+  border-bottom: none; /* Son öğede çizgi olmasın */
 }
 
-.details-actions .share span {
-  color: var(--gainsboro);
-  font-size: var(--fs-11);
-  transition: var(--transition-1);
+.provider-info {
+  flex-grow: 1;
+  margin-left: 10px;
 }
 
-.details-actions .share:is(:hover, :focus) span { color: var(--citrine); }
-
-.details-actions .title {
-  color: var(--white);
-  font-weight: var(--fw-700);
+.provider-info strong {
+  display: block;
+  color: white;
+  font-size: 16px;
 }
 
-.details-actions .text {
-  font-size: var(--fs-11);
-  color: var(--gainsboro);
+.provider-info span {
+  color: #a9a9a9;
+  font-size: 12px;
 }
 
-.details-actions .btn-primary {
-  font-size: 10px;
-  padding: 13px 26px;
-  letter-spacing: 0;
+.watch-btn {
+  /* İzleme butonunun mevcut stilini buraya uygulayın */
+  padding: 8px 15px;
+  border: 1px solid var(--yellow-color, #ffc107);
+  border-radius: 5px;
   background: transparent;
+  color: var(--yellow-color, #ffc107);
+  cursor: pointer;
 }
 
-.details-actions .btn-primary:is(:hover, :focus) { background: var(--citrine); }
+/* Ana element: Kaydırma çubuğunun genişliğini belirler */
+.watch-providers-container::-webkit-scrollbar {
+  width: 8px; /* Dikey çubuk genişliği */
+  height: 8px; /* Yatay çubuk yüksekliği */
+}
+
+/* 2. Scrollbar rayının (izinin) rengi (arka planı) */
+.watch-providers-container::-webkit-scrollbar-track {
+  background: #252525; /* Koyu, hafif opak arka plan rengi */
+  border-radius: 10px;
+}
+
+/* 3. Scrollbar parçasının (thumb/tutacak) rengi ve şekli */
+.watch-providers-container::-webkit-scrollbar-thumb {
+  background-color: var(--yellow-color, #ffc107); /* Sitenizin ana vurgu rengi */
+  border-radius: 10px;
+  border: 2px solid #252525; /* Tutacağın etrafına kenarlık ekleyerek belirginleştirir */
+}
+
+/* 4. Mouse tutacağın üzerindeyken renk değişimi */
+.watch-providers-container::-webkit-scrollbar-thumb:hover {
+  background-color: #ffda7d; /* Hover rengi */
+}
 
 
 

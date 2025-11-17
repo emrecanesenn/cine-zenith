@@ -6,31 +6,37 @@ let LANG = language();
 
 const cacheApi = {
     ontheair: null,
-    toprated: null
+    toprated: null,
+    scriptObj: null
 }
 
 async function scriptList (eventDetail) {
-    const scriptObj = await apiList();
+    if (!cacheApi.scriptObj) {
+        cacheApi.scriptObj = await apiList();
+    }
+    const scriptObj = cacheApi.scriptObj;
+    const lang = await scriptObj.language(localStorage.getItem("lang"))
     const isOnTheAir = cacheApi.ontheair;
     const isTopRated = cacheApi.toprated;
     if (eventDetail === "toprated") {
         if (isTopRated) {
-            await topRatedSection(cacheApi.toprated)
+            await topRatedSection(cacheApi.toprated, lang)
         } else {
             const topRatedSeries = await scriptObj.topRatedSeries();
-            await topRatedSection(topRatedSeries)
+            await topRatedSection(topRatedSeries, lang)
             cacheApi.toprated = topRatedSeries;
         }
     }
     if (eventDetail === "ontheair") {
         if (isOnTheAir) {
-            await onTheAirSection(cacheApi.ontheair)
+            await onTheAirSection(cacheApi.ontheair, lang)
         } else {
             const onTheAirSeries = await scriptObj.onTheAirSeries()
-            await onTheAirSection(onTheAirSeries)
+            await onTheAirSection(onTheAirSeries, lang)
             cacheApi.ontheair = onTheAirSeries;
         }
     }
+
 }
 
 function generateSkeletonCards(count) {
@@ -53,7 +59,7 @@ function generateSkeletonCards(count) {
     return skeletons;
 }
 
-async function onTheAirSection(onTheAir) {
+async function onTheAirSection(onTheAir, lang) {
     const seriesList = document.getElementById("on-the-air-list");
 
     // Minimum süre ve başlangıç zamanı
@@ -85,7 +91,7 @@ async function onTheAirSection(onTheAir) {
                 let activeSeasonNumber = seriesDetails.last_episode_to_air?.season_number;
 
                 if (activeSeasonNumber) {
-                    activeSeasonNumber = `S.${activeSeasonNumber}/Ep.${seriesDetails.last_episode_to_air?.episode_number}`;
+                    activeSeasonNumber = `<i data-i18n="seasonShort"></i> ${activeSeasonNumber} / <i data-i18n="episodeShort"></i> ${seriesDetails.last_episode_to_air?.episode_number}`;
                     validCount++;
                     // Geçerli HTML'i döndür
                     return `
@@ -100,13 +106,13 @@ async function onTheAirSection(onTheAir) {
                                       <a href="details.html?id=${seriesDetails.id}&type=tv">
                                           <h3 class="card-title">${seriesDetails.name}</h3>
                                       </a>
-                                      <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 12px;"> ${seriesDetails.number_of_seasons} Seasons</span>
+                                      <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 12px;"> ${seriesDetails.number_of_seasons} <i data-i18n="season"></i></span>
                                   </div>
                                   <div class="card-meta">
-                                      <div class="badge badge-outline">TV</div>
+                                      <div class="badge badge-outline" data-i18n="onTheAirSectionListSeriesBadge"></div>
                                       <div class="duration">
                                           <ion-icon name="tv-outline"></ion-icon>
-                                          <span>${activeSeasonNumber} is on air</span>
+                                          <span>${activeSeasonNumber} <i data-i18n="isOnAirText"></i></span>
                                       </div>
                                       <div class="rating">
                                           <ion-icon name="star"></ion-icon>
@@ -125,8 +131,11 @@ async function onTheAirSection(onTheAir) {
         const elapsedTime = Date.now() - startTime;
         const delay = Math.max(0, MINIMUM_DURATION - elapsedTime); // 1 saniyeden azsa farkı al, uzunsa 0 al
 
+
         setTimeout(() => {
             seriesList.innerHTML = seriesHTML || "<li>Yayında olan dizi bulunamadı.</li>";
+            cacheApi.scriptObj.languageLoad(lang, "topRatedSectionTitle");
+            document.getElementById("ontheair-movie-series").innerHTML = lang.seriesText;
         }, delay);
 
     } catch (error) {
@@ -136,12 +145,12 @@ async function onTheAirSection(onTheAir) {
         const errorDelay = Math.max(0, MINIMUM_DURATION - errorElapsedTime);
 
         setTimeout(() => {
-            seriesList.innerHTML = "<li>Veriler yüklenemedi.</li>";
+            seriesList.innerHTML = "<li>Failed to load data / Veriler Yüklenemedi</li>";
         }, errorDelay);
     }
 }
 
-async function topRatedSection(data) {
+async function topRatedSection(data, lang) {
     const seriesList = document.getElementById("toprated-list");
     const toprated = data.slice(0, 8); // 8 tane al
 
@@ -177,10 +186,10 @@ async function topRatedSection(data) {
                       <span>${seriesDetails.first_air_date.slice(0, 4)}</span>
                     </div>
                     <div class="card-meta">
-                      <div class="badge badge-outline">TV</div>
+                      <div class="badge badge-outline" data-i18n="topRatedSectionListSeriesBadge"></div>
                       <div class="duration">
                         <ion-icon name="bookmark-outline"></ion-icon>
-                        <span>${seriesDetails.number_of_seasons} Seasons</span>
+                        <span>${seriesDetails.number_of_seasons} <i data-i18n="seasonShort"></i></span>
                       </div>
                       <div class="rating">
                         <ion-icon name="star"></ion-icon>
@@ -197,6 +206,8 @@ async function topRatedSection(data) {
 
         setTimeout(() => {
             seriesList.innerHTML = seriesHTML;
+            cacheApi.scriptObj.languageLoad(lang, "onTheAirSectionTitle");
+            document.getElementById("tprated-movie-series").innerHTML = lang.seriesText;
         }, delay);
 
     } catch (e) {
@@ -217,7 +228,6 @@ topRatedSeriesButton.addEventListener("click", () => {
     if (topRatedSeriesButton.classList.contains("onTopRated")) return;
     topRatedSeriesButton.classList.add("onTopRated");
     topRatedMoviesButton.classList.remove("onTopRated");
-    document.getElementById("tprated-movie-series").innerHTML = "Series";
     scriptList("toprated");
 })
 
@@ -227,6 +237,5 @@ ontheairSeriesButton.addEventListener("click", () => {
     if (ontheairSeriesButton.classList.contains("onTheAir")) return;
     ontheairSeriesButton.classList.add("onTheAir");
     ontheairMoviesButton.classList.remove("onTheAir");
-    document.getElementById("ontheair-movie-series").innerHTML = "Series";
     scriptList("ontheair")
 })

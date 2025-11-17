@@ -1,11 +1,21 @@
 {
-  "minute" : "min.",
+  "minute" : "Minutes",
+  "minuteShort" : "min.",
   "season" : "Season",
+  "seasonShort" : "Seas.",
   "episode" : "Episode",
+  "episodeShort" : "Ep.",
   "sectionMoreButton" : "MORE",
+  "moviesText" : "Movies",
+  "seriesText" : "Series",
+  "movieText" : "Movie",
+  "serieText" : "TV",
 
   "searchPopupSectionTitle" : "Cine-Zenith Library",
   "searchPopupInputPlaceholder" : "Search for movies and TV shows...",
+  "loadingText" : "Loading...",
+  "deepSearchText" : "DEEP SEARCH",
+  "notFoundText" : "No results found.",
 
   "menuFavoritesButton" : "Favorites",
   "menuHome" : "Home",
@@ -20,6 +30,9 @@
   "onTheAirSectionTitle" : "On the Air <b style=\"color: #f1d57a\" id=\"ontheair-movie-series\">Movies</b>",
   "onTheAirSectionMoviesButton" : "Movies",
   "onTheAirSectionSeriesButton" : "Series",
+  "onTheAirSectionListMovieBadge" : "Movie",
+  "onTheAirSectionListSeriesBadge" : "TV",
+  "isOnAirText" : "is on air",
 
   "serviceSectionSubtitle" : "WHAT IS CINE-ZENITH?",
   "serviceSectionTitle" : "A New Way to Discover.",
@@ -40,12 +53,37 @@
   "topRatedSectionTitle" : "Top Rated <b style=\"color: #f1d57a\" id=\"tprated-movie-series\">Movies</b>",
   "topRatedSectionMoviesButton" : "Movies",
   "topRatedSectionSeriesButton" : "Series",
+  "topRatedSectionListMovieBadge" : "Movie",
+  "topRatedSectionListSeriesBadge" : "TV",
 
   "trendingWeekSectionSubtitle" : "Cine-Zenith Library",
   "trendingWeekSectionTitle" : "Weekly Trends",
 
   "homePageSearchSectionTitle" : "Find Your Favorite Movie.",
   "homePageSearchSectionText" : "Explore our entire database. Search for any movie or TV show.",
-  "homePageSearchSectionButton" : "Search Now"
+  "homePageSearchSectionButton" : "Search Now",
+
+  "statusReturningSeries" : "New Episodes",
+  "statusEnded" : "Series Ended",
+  "statusInProduction" : "Coming Soon",
+  "statusDefault" : "Yayında",
+  "statusNewRelease" : "New Release",
+  "statusNowStreaming" : "Now Streaming",
+  "headerStoryline" : "Storyline",
+  "providerSearch" : "Search",
+  "providerSubsText" : "Subscription",
+  "providerNotFoundText" : "Platform Information Not Found",
+  "provideTitle" : "Platforms Available",
+
+  "footerHome" : "Home",
+  "footerMovies" : "Movies",
+  "footerSeries" : "Series",
+  "footerWebSeries" : "Web Series",
+  "footerAbout" : "About",
+  "footerFaq" : "FAQ",
+  "footerHelpCenter" : "Help Center",
+  "footerTerms" : "Terms of use",
+  "footerPrivacy" : "Privacy",
+  "footerCopyrightText" : "All Rights Reserved. / Theme"
 
 }

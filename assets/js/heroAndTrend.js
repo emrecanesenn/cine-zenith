@@ -1,13 +1,15 @@
 import {API_KEY, IMG_DEFAULT_URL, DEFAULT_URL, language} from "./apiSettings.js";
 import apiList from "./apiList.js";
-let LANG = language();
+let LANG = language(), langLoad;
 
 async function heroAndTrending() {
     const scriptObj = await apiList();
+    const lang = await scriptObj.language(localStorage.getItem("lang"))
     const trendData = await scriptObj.trendingAllWeek();
     const heroData = await scriptObj.heroSectionData()
-    await trendingSection(trendData)
+    await trendingSection(trendData, lang)
     await heroSection(heroData)
+    langLoad = await scriptObj.languageLoad
 }
 
 function generateSkeletonCards(count) {
@@ -75,9 +77,9 @@ async function heroSection(data) {
         }
 
         // Diğer DOM Güncellemeleri
-        titleEl.innerHTML = movieData.title;
+        titleEl.innerHTML = `<a style="text-decoration: none; outline: none; color: var(--citrine)" href="details.html?id=${movieData.id}&type=movie">${movieData.title}</a>`;
         releaseDateEl.innerHTML = movieData.release_date.slice(0, 4);
-        runtimeEl.innerHTML = `${movieData.runtime} min`;
+        runtimeEl.innerHTML = `${movieData.runtime} <i data-i18n="minuteShort"></i>`;
 
         // Adult control PG/18+
         const isAdult = movieData.adult;
@@ -132,7 +134,7 @@ async function heroSection(data) {
     }
 }
 
-async function trendingSection(data) {
+async function trendingSection(data, lang) {
     const trendingList = document.getElementById("trending-list");
     const trends = data.slice(0, 8); // İlk 8 popüler öğeyi al
 
@@ -164,10 +166,10 @@ async function trendingSection(data) {
             // 4. EĞER DİZİ İSE (TV)
             if (mediaType === 'tv') {
                 cardMetaHTML = `
-                    <div class="badge badge-outline">TV</div>
+                    <div class="badge badge-outline" data-i18n="serieText"></div>
                     <div class="duration">
                         <ion-icon name="bookmark-outline"></ion-icon>
-                        <span>${details.number_of_seasons} Seasons</span>
+                        <span>${details.number_of_seasons} <b data-i18n="season"></b></span>
                     </div>
                     <div class="rating">
                         <ion-icon name="flame-outline"></ion-icon> <data>${item.popularity.toFixed(0)}</data> </div>
@@ -175,10 +177,10 @@ async function trendingSection(data) {
                 // EĞER FİLM İSE (MOVIE)
             } else if (mediaType === 'movie') {
                 cardMetaHTML = `
-                    <div class="badge badge-outline">MOVIE</div>
+                    <div class="badge badge-outline" data-i18n="movieText"></div>
                     <div class="duration">
                         <ion-icon name="time-outline"></ion-icon>
-                        <span>${details.runtime} min</span>
+                        <span>${details.runtime} <i data-i18n="minuteShort"></i></span>
                     </div>
                     <div class="rating">
                         <ion-icon name="flame-outline"></ion-icon> <data>${item.popularity.toFixed(0)}</data> </div>
@@ -217,6 +219,7 @@ async function trendingSection(data) {
 
         setTimeout(() => {
             trendingList.innerHTML = trendingHTML;
+            langLoad(lang)
         }, delay);
 
     } catch (e) {

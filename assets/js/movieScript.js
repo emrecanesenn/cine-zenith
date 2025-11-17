@@ -6,36 +6,36 @@ let LANG = language();
 
 const cacheApi = {
     ontheair: null,
-    toprated: null
+    toprated: null,
+    scriptObj: null
 }
 
 async function scriptList (eventDetail) {
-    const scriptObj = await apiList();
+    if (!cacheApi.scriptObj) {
+        cacheApi.scriptObj = await  apiList();
+    }
+    const scriptObj = cacheApi.scriptObj;
+    const lang = await scriptObj.language(localStorage.getItem("lang"))
     const isOnTheAir = cacheApi.ontheair;
     const isTopRated = cacheApi.toprated;
     if (eventDetail === "ontheair") {
         if (isOnTheAir) {
-            await onTheAirSection(cacheApi.ontheair)
+            await onTheAirSection(cacheApi.ontheair, lang)
         } else {
             const ontheair = await scriptObj.onTheAirMovies()
-            await onTheAirSection(ontheair)
+            await onTheAirSection(ontheair, lang)
             cacheApi.ontheair = ontheair;
         }
     }
 
     if (eventDetail === "toprated") {
         if (isTopRated) {
-            await topRatedSection(cacheApi.toprated)
+            await topRatedSection(cacheApi.toprated, lang)
         } else {
             const toprateds = await scriptObj.topRatedMovies();
-            await topRatedSection(toprateds)
+            await topRatedSection(toprateds, lang)
             cacheApi.toprated = toprateds;
         }
-    }
-
-    if (eventDetail === "trending") {
-        const trendlist = await scriptObj.trendingAllWeek();
-        await trendingSection(trendlist)
     }
 }
 
@@ -60,7 +60,7 @@ function generateSkeletonCards(count) {
 }
 
 // HOME PAGE - ON THE AIR MOVIES(8)
-async function onTheAirSection(data) {
+async function onTheAirSection(data, lang) {
     const movieList = document.getElementById("on-the-air-list")
     movieList.innerHTML = "";
     const onTheAir = data.slice(0, 8);
@@ -94,10 +94,10 @@ async function onTheAirSection(data) {
                         <span>${movieDetails.release_date.slice(0, 4)}</span>
                     </div>
                     <div class="card-meta">
-                        <div class="badge badge-outline">MOVIE</div>
+                        <div class="badge badge-outline" data-i18n="onTheAirSectionListMovieBadge"></div>
                         <div class="duration">
                             <ion-icon name="time-outline"></ion-icon>
-                            <span>${movieDetails.runtime} min</span>
+                            <span>${movieDetails.runtime} <i data-i18n="minuteShort"></i></span>
                         </div>
                         <div class="rating">
                             <ion-icon name="star"></ion-icon>
@@ -117,26 +117,30 @@ async function onTheAirSection(data) {
 
             setTimeout(() => {
                 movieList.innerHTML = movieHTML;
+                cacheApi.scriptObj.languageLoad(lang, "topRatedSectionTitle");
+                document.getElementById("ontheair-movie-series").innerHTML = lang.moviesText;
             }, delay);
 
         } else {
             // Zaten 1 saniyeden uzun sürdüyse, hemen göster
             movieList.innerHTML = movieHTML;
+            cacheApi.scriptObj.languageLoad(lang, "topRatedSectionTitle");
+            document.getElementById("ontheair-movie-series").innerHTML = lang.moviesText;
         }
 
     } catch (error) {
-        alert(`HATA: ${error}`)
+        console.error(`HATA: ${error}`)
         const errorElapsedTime = Date.now() - startTime;
         const errorDelay = Math.max(0, MINIMUM_DURATION - errorElapsedTime);
 
         setTimeout(() => {
-            movieList.innerHTML = "<li>Veriler yüklenemedi.</li>";
+            movieList.innerHTML = "<li>Failed to load data / Veriler Yüklenemedi</li>";
         }, errorDelay);
     }
 }
 
 // TOP RATED SECTION
-async function topRatedSection(data) {
+async function topRatedSection(data, lang) {
     const movieList = document.getElementById("toprated-list");
     const toprated = data.slice(0, 8); // İlk 8 filmi al
 
@@ -174,10 +178,10 @@ async function topRatedSection(data) {
                       <span>${movieDetails.release_date.slice(0, 4)}</span>
                     </div>
                     <div class="card-meta">
-                      <div class="badge badge-outline">MOVIE</div>
+                      <div class="badge badge-outline" data-i18n="topRatedSectionListMovieBadge"></div>
                       <div class="duration">
                         <ion-icon name="time-outline"></ion-icon>
-                        <span>${movieDetails.runtime} min</span>
+                        <span>${movieDetails.runtime} <i data-i18n="minuteShort"></i></span>
                       </div>
                       <div class="rating">
                         <ion-icon name="star"></ion-icon>
@@ -198,15 +202,19 @@ async function topRatedSection(data) {
 
             setTimeout(() => {
                 movieList.innerHTML = movieHTML;
+                cacheApi.scriptObj.languageLoad(lang, "onTheAirSectionTitle");
+                document.getElementById("tprated-movie-series").innerHTML = lang.moviesText;
             }, delay);
 
         } else {
             // Zaten 1 saniyeden uzun sürdüyse, hemen göster
             movieList.innerHTML = movieHTML;
+            cacheApi.scriptObj.languageLoad(lang, "onTheAirSectionTitle");
+            document.getElementById("tprated-movie-series").innerHTML = lang.moviesText;
         }
 
     } catch (e) {
-        alert(`HATA: ${e}`);
+        console.error(`HATA: ${e}`);
         // Hata durumunda da minimum süreyi bekle
         const errorElapsedTime = Date.now() - startTime;
         const errorDelay = Math.max(0, MINIMUM_DURATION - errorElapsedTime);
@@ -228,7 +236,6 @@ topRatedMoviesButton.addEventListener("click", () => {
     if (topRatedMoviesButton.classList.contains("onTopRated")) return;
     topRatedMoviesButton.classList.add("onTopRated");
     topRatedSeriesButton.classList.remove("onTopRated");
-    document.getElementById("tprated-movie-series").innerHTML = "Movies";
     scriptList("toprated")
 })
 
@@ -238,7 +245,6 @@ ontheairMoviesButton.addEventListener("click", () => {
     if (ontheairMoviesButton.classList.contains("onTheAir")) return;
     ontheairMoviesButton.classList.add("onTheAir");
     ontheairSeriesButton.classList.remove("onTheAir");
-    document.getElementById("ontheair-movie-series").innerHTML = "Movies";
     scriptList("ontheair")
 })
 //

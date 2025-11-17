@@ -1,19 +1,25 @@
 import {API_KEY, DEFAULT_URL, IMG_DEFAULT_URL, language} from "./apiSettings.js";
+import apiList from "./apiList.js";
 let LANG = language();
-let mediaType, mediaId;
+let mediaType, mediaId, langLoad;
 
 async function theMedia(mediaType, ID) {
     try {
+        const scriptObj = await apiList();
+        const lang = await scriptObj.language(localStorage.getItem("lang"));
+        langLoad = scriptObj.languageLoad
+        const prov = await fetch(`${DEFAULT_URL}/${mediaType}/${ID}/watch/providers?api_key=${API_KEY}&${LANG}`);
+        const providers = await prov.json();
         const resolve = await fetch(`${DEFAULT_URL}/${mediaType}/${ID}?api_key=${API_KEY}&${LANG}`)
         if (!resolve.ok) throw new Error(`${mediaType} is not loading`);
         const media = await resolve.json();
 
         const images = await getMediaImages()
 
-        const mediaImage = images.posters;
-        const backImage = images.backdrops;
+        const mediaImage = `${IMG_DEFAULT_URL}original/${media.poster_path}`;
+        const backImage = `${IMG_DEFAULT_URL}original/${media.backdrop_path}`;
 
-        await mediaList(media, mediaImage, backImage)
+        await mediaList(media, mediaImage, backImage, providers ,lang)
     } catch (e) {
         alert(`HATA: ${e}`)
     }
@@ -31,8 +37,7 @@ async function getMediaImages() {
 
         // Gelen veride iki temel dizi bulunur: 'backdrops' ve 'posters'
         return {
-            backdrops: imageData.backdrops, // Yatay Arka Plan Görselleri (Slaytlar için ideal)
-            posters: imageData.posters      // Dikey Afişler (Galeri için ideal)
+            backdrops: imageData.backdrops // Yatay Arka Plan Görselleri (Slaytlar için ideal)// Dikey Afişler (Galeri için ideal)
         };
 
     } catch (error) {
@@ -49,7 +54,7 @@ function getRandomIndex(arrayLength) {
     return Math.floor(Math.random() * arrayLength);
 }
 
-async function mediaList(mediaDetail, posters, backdrops) {
+async function mediaList(mediaDetail, posters, backdrops, providers,lang) {
     const detailTitle = document.getElementById("detail-title");
     const detailPoster = document.getElementById("detail-poster")
     const detailBanner = document.getElementById("detail-banner")
@@ -61,20 +66,20 @@ async function mediaList(mediaDetail, posters, backdrops) {
     const detailStatus = document.getElementById("detail-status")
     const detailPG = document.getElementById("detail-pg")
 
-    const mediaImage = `${IMG_DEFAULT_URL}original/${posters[0].file_path}`;
-    const backImage = `${IMG_DEFAULT_URL}original/${backdrops[getRandomIndex(backdrops.length)].file_path}`;
+    const mediaImage = `${IMG_DEFAULT_URL}original/${posters}`;
+    const backImage = `${IMG_DEFAULT_URL}original/${backdrops}`;
 
 
     if (mediaType === "tv") {
         detailTitle.innerHTML = mediaDetail.name;
 
         detailRuntimeSeasonIcon.setAttribute("name", "albums-outline")
-        detailRuntimeSeason.innerHTML = `${mediaDetail.last_episode_to_air.season_number} Season `
+        detailRuntimeSeason.innerHTML = `${mediaDetail.last_episode_to_air.season_number} ${lang.season} `
 
         const episodeIcon = document.createElement("ion-icon")
         const episodeText = document.createElement("span")
         episodeIcon.setAttribute("name", "play-circle-outline")
-        episodeText.innerHTML = `${mediaDetail.number_of_episodes} Episode`;
+        episodeText.innerHTML = `${mediaDetail.number_of_episodes} ${lang.episode}`;
 
         document.getElementById("detail-runtime-season").appendChild(episodeIcon)
         document.getElementById("detail-runtime-season").appendChild(episodeText)
@@ -84,22 +89,21 @@ async function mediaList(mediaDetail, posters, backdrops) {
         detailPoster.setAttribute("alt", `${mediaDetail.name} is poster`)
 
         if (mediaDetail.status === 'Returning Series') {
-            detailStatus.innerHTML = 'New Episodes';
+            detailStatus.innerHTML = lang.statusReturningSeries;
             detailStatus.style.display = 'block';
         } else if (mediaDetail.status === 'Ended') {
-            detailStatus.innerHTML = 'Series Ended';
+            detailStatus.innerHTML = lang.statusEnded;
             detailStatus.style.display = 'block';
         } else if (mediaDetail.status === 'In Production') {
-            detailStatus.innerHTML = 'Coming Soon';
+            detailStatus.innerHTML = lang.statusInProduction;
             detailStatus.style.display = 'block';
         } else {
-            // Diğer durumlar için veya bilinmiyorsa
-            detailStatus.style.display = 'none'; // Veya varsayılan bir metin
+            detailStatus.style.display = lang.statusDefault; // Veya varsayılan bir metin
         }
 
     } else {
         detailTitle.innerHTML = mediaDetail.title;
-        detailRuntimeSeason.innerHTML = mediaDetail.runtime + " min";
+        detailRuntimeSeason.innerHTML = mediaDetail.runtime + " " + lang.minute;
         detailDate.innerHTML = mediaDetail.release_date;
         detailPoster.setAttribute("alt", `${mediaDetail.title} is poster`)
 
@@ -107,10 +111,10 @@ async function mediaList(mediaDetail, posters, backdrops) {
         const currentYear = new Date().getFullYear();
 
         if (releaseYear === currentYear) {
-            detailStatus.innerHTML = 'New Release';
+            detailStatus.innerHTML = lang.statusNewRelease;
             detailStatus.style.display = 'block';
         } else {
-            detailStatus.innerHTML = 'Now Streaming'; // Veya gizle
+            detailStatus.innerHTML = lang.statusNowStreaming; // Veya gizle
             detailStatus.style.display = 'block';
         }
 
@@ -141,8 +145,59 @@ async function mediaList(mediaDetail, posters, backdrops) {
         detailPG.innerHTML = 'PG';
     }
 
+    renderProviders(providers, (mediaDetail.title || mediaDetail.name))
+    langLoad(lang)
+}
 
+function renderProviders(providers, mediaName) {
+    const provideElem = document.getElementById("isProvide");
+    const targetCountry = 'TR'; // Türkiye'yi hedef alıyoruz
 
+    // 1. Ülke verisinin mevcut olup olmadığını kontrol et
+    const countryData = providers.results[targetCountry];
+
+    if (!countryData) {
+        console.log("Bu içerik için Türkiye'de izleme bilgisi bulunamadı.");
+        provideElem.innerHTML = `<strong data-i18n="providerNotFoundText"></strong>`;
+        return;
+    }
+
+    // 2. Abonelik (flatrate) servislerini çek
+    const streamingServices = countryData.flatrate;
+
+    if (!streamingServices || streamingServices.length === 0) {
+        console.log("Türkiye'de abonelikle izleme seçeneği yok.");
+        provideElem.innerHTML = `<strong data-i18n="providerNotFoundText"></strong>`;
+        return;
+    }
+
+    // 3. Verileri HTML'e dönüştür ve ekle
+    let providerHTML = '';
+
+    provideElem.innerHTML = `<i data-i18n="provideTitle"></i> (${streamingServices.length})`;
+    streamingServices.forEach(provider => {
+        // API'den gelen verileri kullanarak dinamik HTML oluştur
+        const query = encodeURIComponent(`${mediaName} ${provider.provider_name}`);
+        const searchUrl = `https://www.google.com/search?q=${query}`;
+        providerHTML += `
+            <li class="provider-item">
+                <img src="${IMG_DEFAULT_URL}w45/${provider.logo_path}" 
+                     alt="${provider.provider_name} logo" 
+                     class="provider-logo">
+                     
+                <div class="provider-info">
+                    <strong>${provider.provider_name}</strong>
+                    <span data-i18n="providerSubsText"></span> 
+                </div>
+                
+                
+                <a href="${searchUrl}" target="_blank" class="watch-btn" data-i18n="providerSearch"></a>
+            </li>
+        `;
+    });
+
+    // HTML'i DOM'a yerleştirme
+    document.querySelector('.provider-list').innerHTML += providerHTML;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -165,3 +220,19 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = '../../index.html';
     }
 });
+
+const provider = document.getElementById("providers")
+provider.addEventListener("mouseleave", ()=> {
+    provider.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    })
+})
+
+const storyline = document.getElementById("storyline")
+storyline.addEventListener("mouseleave", ()=> {
+    storyline.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    })
+})

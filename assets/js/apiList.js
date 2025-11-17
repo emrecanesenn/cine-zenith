@@ -7,6 +7,34 @@ export default async function apiList() {
          * LANGUAGES CHOICE
          */
 
+        languageLoad(lang, disableWord) {
+            try {
+                document.querySelectorAll('[data-i18n]').forEach(element => {
+                    const key = element.getAttribute('data-i18n');
+                    if (disableWord === key) return;
+                    const translation = lang[key]; // Çeviri metni
+
+                    if (translation) {
+
+                        // 2. Hangi özelliğin hedeflendiğini kontrol et
+                        const targetAttr = element.getAttribute('data-i18n-attr');
+
+                        if (targetAttr) {
+                            // Eğer data-i18n-attr varsa (Örn: "placeholder")
+                            // Elementin o özelliğini (placeholder) çeviri metniyle güncelle
+                            element.setAttribute(targetAttr, translation);
+
+                        } else {
+                            // Varsayılan: Eğer data-i18n-attr yoksa, iç içeriği (innerHTML) güncelle
+                            element.innerHTML = translation;
+                        }
+                    }
+                });
+            } catch (e) {
+                console.error("Language Load Error: " + e)
+            }
+        },
+
         async language(langFiles) {
             try {
                 const resolve = await fetch(`assets/lang/${langFiles}.json`)

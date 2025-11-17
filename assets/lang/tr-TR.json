@@ -1,11 +1,21 @@
 {
-  "minute" : "dk.",
+  "minute" : "Dakika",
+  "minuteShort" : "dk.",
   "season" : "Sezon",
+  "seasonShort" : "Sez.",
   "episode" : "Bölüm",
+  "episodeShort" : "Böl.",
   "sectionMoreButton" : "DAHA FAZLA",
+  "moviesText" : "Filmler",
+  "seriesText" : "Diziler",
+  "movieText" : "Film",
+  "serieText" : "Dizi",
 
   "searchPopupSectionTitle" : "Cine-Zenith Kütüphanesi",
   "searchPopupInputPlaceholder" : "Film ve dizilerde arama yapın...",
+  "loadingText" : "Aranıyor...",
+  "deepSearchText" : "Detaylı Arama",
+  "notFoundText" : "Sonuç bulunamadı.",
 
   "menuFavoritesButton" : "Favorilerim",
   "menuHome" : "Anasayfa",
@@ -20,6 +30,9 @@
   "onTheAirSectionTitle" : "Şu Anda Yayında <b style=\"color: #f1d57a\" id=\"ontheair-movie-series\">Filmler</b>",
   "onTheAirSectionMoviesButton" : "Filmler",
   "onTheAirSectionSeriesButton" : "Diziler",
+  "onTheAirSectionListMovieBadge" : "Film",
+  "onTheAirSectionListSeriesBadge" : "Dizi",
+  "isOnAirText" : "yayında",
 
   "serviceSectionSubtitle" : "CINE-ZENITH NEDİR?",
   "serviceSectionTitle" : "Keşfetmenin Yeni Yolu.",
@@ -40,11 +53,36 @@
   "topRatedSectionTitle" : "En Çok Puan Alan <b style=\"color: #f1d57a\" id=\"tprated-movie-series\">Filmler</b>",
   "topRatedSectionMoviesButton" : "Filmler",
   "topRatedSectionSeriesButton" : "Diziler",
+  "topRatedSectionListMovieBadge" : "Film",
+  "topRatedSectionListSeriesBadge" : "Dizi",
 
   "trendingWeekSectionSubtitle" : "Cine-Zenith Kütüphanesi",
   "trendingWeekSectionTitle" : "Haftalık Trendler",
 
   "homePageSearchSectionTitle" : "Favori Filminizi Bulun.",
   "homePageSearchSectionText" : "Tüm veri tabanımızı keşfedin. Herhangi bir film veya dizi arayın.",
-  "homePageSearchSectionButton" : "Şimdi Ara"
+  "homePageSearchSectionButton" : "Şimdi Ara",
+
+  "statusReturningSeries" : "Yeni Bölümler Mevcut",
+  "statusEnded" : "Dizi Sona Erdi",
+  "statusInProduction" : "Yakında",
+  "statusNewRelease" : "Yeni Çıktı",
+  "statusNowStreaming" : "Şimdi İzle",
+  "statusDefault" : "Yayında",
+  "headerStoryline" : "Olay Örgüsü",
+  "providerSearch" : "Ara",
+  "providerSubsText" : "Abonelik",
+  "providerNotFoundText" : "Platform Bilgisi Bulunamadı",
+  "provideTitle" : "Bulunduğu Platformlar",
+
+  "footerHome" : "Anasayfa",
+  "footerMovies" : "Filmler",
+  "footerSeries" : "Diziler",
+  "footerWebSeries" : "Web Dizileri",
+  "footerAbout" : "Hakkında",
+  "footerFaq" : "SSS",
+  "footerHelpCenter" : "Yardım Merkezi",
+  "footerTerms" : "Kullanım Koşulları",
+  "footerPrivacy" : "Gizlilik",
+  "footerCopyrightText" : "Tüm hakları saklıdır. / Tema Şablonu"
 }
