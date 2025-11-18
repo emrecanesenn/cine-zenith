@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+.details-more {
+    background: url("../images/tv-series-bg.jpg") no-repeat center;
+    background-size: cover;
+    padding-block: var(--section-padding);
+}
+
+/* ======================================================= */
+/* 1. KART STİLİ (.actor-item) */
+/* ======================================================= */
+
+.actor-item {
+    /* Genel Stil */
+    max-height: 270px;
+    width: 200px;
+    background: #0e131c;
+    color: #e0e1dd;
+    padding: 5px;
+    border-radius: 1rem;
+
+    /* Flex ile dikey ortalama */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    /* ÖNEMLİ: Yatayda asla küçülme */
+    flex-shrink: 0;
+}
+
+.actor-item img {
+    width: 100%;
+    height: 180px;
+    border-radius: 1rem;
+    object-fit: cover;
+}
+
+.actor-in-name {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.actor-real-name {
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: #b1b3ae;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* ======================================================= */
+/* 2. FLEXBOX (Yatay Dizilim) */
+/* ======================================================= */
+
+.actors-list {
+    display: flex;
+    gap: 15px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    /* ÖNEMLİ: Taşan içeriğin yeni satıra geçmesini kesinlikle engelle */
+    flex-wrap: nowrap;
+
+    /* Taşan UL'nin kaydırma konteynerini zorlaması için */
+    width: max-content;
+}
+
+
+/* ======================================================= */
+/* 3. SCROLL KONTEYNERİ (Kaydırma Mantığı) */
+/* ======================================================= */
+
+/* ID #actor-list şimdi doğru kaydırma konteyneridir. */
+.actor-list {
+    width: 100%;
+    overflow-x: auto; /* Yatay kaydırma çubuğunu göster! */
+    overflow-y: hidden; /* Dikey kaydırmayı engelle */
+    padding-bottom: 20px; /* Yatay scrollbar için boşluk */
+}
+
+
+/* ======================================================= */
+/* 4. SCROLLBAR ÖZELLEŞTİRMESİ (Webkit - Chrome, Edge, Safari) */
+/* ======================================================= */
+
+.actor-list::-webkit-scrollbar {
+    height: 8px; /* Yatay kaydırma çubuğunun yüksekliği */
+}
+
+.actor-list::-webkit-scrollbar-track {
+    background: #252525;
+    border-radius: 10px;
+}
+
+.actor-list::-webkit-scrollbar-thumb {
+    background-color: var(--yellow-color, #ffc107);
+    border-radius: 10px;
+    border: 2px solid #252525;
+}
+
+.actor-list::-webkit-scrollbar-thumb:hover {
+    background-color: #ffda7d;
+}
+
+/* 5. SCROLLBAR ÖZELLEŞTİRMESİ (Firefox) */
+
+.actor-list {
+    scrollbar-width: thin;
+    scrollbar-color: var(--yellow-color, #ffc107) #252525;
+    font-family: "Outfit", sans-serif;
+}
+
+.actor-title {
+    margin: auto auto 35px;
+    text-align: center;
+    color: papayawhip;
+    border-bottom: 1px solid var(--citrine);
+    width: max-content;
+}
+
+.crew-title {
+    margin: auto auto 35px;
+    text-align: center;
+    color: papayawhip;
+    border-bottom: 1px solid var(--citrine);
+    width: max-content;
+}
+
+.actors-list .actor-more {
+    background: #1c1c19;
+    color: var(--citrine);
+    border: 1px solid var(--citrine);
+    border-radius: 1rem;
+    height: max-content;
+    margin: auto auto auto 15px;
+    padding: 15px;
+    opacity: 0.7;
+    transition-duration: 500ms;
+}
+
+.actor-more:hover {
+    opacity: 1;
+}

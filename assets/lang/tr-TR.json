@@ -75,6 +75,7 @@
   "providerSubsText" : "Abonelik",
   "providerNotFoundText" : "Platform Bilgisi Bulunamadı",
   "provideTitle" : "Bulunduğu Platformlar",
+  "crewListNonProfile" : "assets/images/non-profile-tr.png",
 
   "footerHome" : "Anasayfa",
   "footerMovies" : "Filmler",

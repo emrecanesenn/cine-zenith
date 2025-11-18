@@ -39,7 +39,7 @@
   --gunmetal-1: hsl(229, 15%, 21%);
   --gunmetal-2: hsl(216, 22%, 18%);
   --gainsboro: hsl(0, 7%, 88%);
-  --citrine: hsl(57, 97%, 45%);
+  --citrine: hsl(45, 100%, 51%);
   --xiketic: hsl(253, 21%, 13%);
   --gray-x: hsl(0, 0%, 74%);
   --white: hsl(0, 100%, 100%);
@@ -559,8 +559,8 @@ body.active { overflow: hidden; }
 }
 
 #heroSection.is-loading {
-  opacity: 0.1; /* Örneğin hafifçe karartın. */
-  /* pointer-events: none; Kullanıcının tıklamasını engeller (opsiyonel) */
+  opacity: 0.1;
+  pointer-events: none;
 }
 
 .hero-content {

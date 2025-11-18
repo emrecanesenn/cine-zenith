@@ -13,8 +13,12 @@ async function theMedia(mediaType, ID) {
         const resolve = await fetch(`${DEFAULT_URL}/${mediaType}/${ID}?api_key=${API_KEY}&${LANG}`)
         if (!resolve.ok) throw new Error(`${mediaType} is not loading`);
         const media = await resolve.json();
-
         const images = await getMediaImages()
+
+        const actorResolve = await fetch(`${DEFAULT_URL}/${mediaType}/${mediaId}/credits?api_key=${API_KEY}`)
+        if (!actorResolve.ok) throw new Error("actorList is not loaded");
+        const actors = await actorResolve.json();
+        await actorList(actors, lang);
 
         const mediaImage = `${IMG_DEFAULT_URL}original/${media.poster_path}`;
         const backImage = `${IMG_DEFAULT_URL}original/${media.backdrop_path}`;
@@ -198,6 +202,63 @@ function renderProviders(providers, mediaName) {
 
     // HTML'i DOM'a yerleştirme
     document.querySelector('.provider-list').innerHTML += providerHTML;
+}
+
+async function actorList(actors, lang) {
+    const actorList = document.getElementById("actorsList")
+    let actorItem = "";
+    let count = 0;
+    for (let person of actors.cast) {
+        if (count >= 15) { count = 0; break; }
+        const actorImage = person.profile_path ? `${IMG_DEFAULT_URL}original/${person.profile_path}` : lang.crewListNonProfile;
+        actorItem += `
+            <li class="actor-item">
+                <img src="${actorImage}" alt="${person.name} profile picture">
+                <span class="actor-in-name">${person.character}</span>
+                <span class="actor-real-name">${person.name}</span>
+            </li>
+        `
+        count++;
+    }
+    if (actors.cast.length >= 15) {
+        actorItem += `
+            <button class="actor-more">${lang.sectionMoreButton}</button>
+        `
+    }
+    actorList.innerHTML = actorItem;
+
+
+    /**
+     * Crew Listing
+     */
+
+    const crewList = document.getElementById("crewsList")
+    let crewItem = "";
+    if (!actors.crew.length) {
+        document.querySelector(".crew-title").style.display = "none";
+        return;
+    }
+
+    for (let person of actors.crew) {
+        if (count >= 15) { count = 0; break; }
+        const crewImage = person.profile_path ? `${IMG_DEFAULT_URL}original/${person.profile_path}` : lang.crewListNonProfile;
+        crewItem += `
+            <li class="actor-item">
+                <img src="${crewImage}" alt="${person.name} profile picture">
+                <span class="actor-in-name">${person.job}</span>
+                <span class="actor-real-name">${person.name}</span>
+            </li>
+        `
+        count++;
+    }
+
+    if (actors.crew.length >= 15) {
+        crewItem += `
+        <button class="actor-more">${lang.sectionMoreButton}</button>
+    `
+    }
+
+    crewList.innerHTML = crewItem;
 }
 
 document.addEventListener("DOMContentLoaded", () => {

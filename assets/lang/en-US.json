@@ -75,6 +75,7 @@
   "providerSubsText" : "Subscription",
   "providerNotFoundText" : "Platform Information Not Found",
   "provideTitle" : "Platforms Available",
+  "crewListNonProfile" : "assets/images/non-profile-en.png",
 
   "footerHome" : "Home",
   "footerMovies" : "Movies",
