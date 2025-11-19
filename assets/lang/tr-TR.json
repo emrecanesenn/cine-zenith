@@ -76,6 +76,25 @@
   "providerNotFoundText" : "Platform Bilgisi Bulunamadı",
   "provideTitle" : "Bulunduğu Platformlar",
   "crewListNonProfile" : "assets/images/non-profile-tr.png",
+  "credits" : {
+    "actorTitle" : "Oyuncular",
+    "crewTitle" : "Set Ekibi"
+  },
+  "detailsMenu" : {
+    "detailsCredits" : "Oyuncular / Set Ekibi",
+    "detailsSeasons" : "Sezonlar",
+    "detailsMedia" : "Medya",
+    "detailsSimilarContent" : "Benzer İçerikler"
+  },
+  "section_seasons" : "Sezonlar",
+  "seasonsRateText" : "Puan",
+  "seasonsReleaseDate" : "Yayın Tarihi",
+  "seasonsUnknownDate" : "Bilinmiyor",
+  "seasonsLoadWrong" : "Bölüm yüklemede hata oluştu",
+  "seasonsLoadWrongTitle" : "Sezon bölümleri yüklenemedi.",
+  "seasonsEpisodeNoSummary" : "Bu bölüme ait özet bulunmamaktadır.",
+  "sectionSimilarContent" : "Benzer İçerikler",
+  "moreDetailSectionMedia" : "Görseller",
 
   "footerHome" : "Anasayfa",
   "footerMovies" : "Filmler",

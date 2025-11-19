@@ -126,31 +126,112 @@
       -->
 
       <section class="details-more" style="position: relative; z-index: 2;">
+
+        <!--
+              Details Menu
+           -->
+        <div class="details-more-menu">
+          <ul class="detalis-menu-list">
+
+            <li class="details-menu-item details-credits">
+              <a href="" class="active" id="details-credits"></a>
+            </li>
+
+            <li class="details-menu-item details-seasons">
+              <a href="" id="details-seasons"></a>
+            </li>
+
+            <li class="details-menu-item details-media">
+              <a href="" id="details-media"></a>
+            </li>
+
+            <li class="details-menu-item details-similarContent">
+              <a href="" id="details-similarContent"></a>
+            </li>
+
+          </ul>
+        </div>
+
         <div class="container">
 
-          <h3 class="h3 actor-title">OYUNCULAR</h3>
-          <div class="actor-list actor-list-container-outer">
+          <!--
+              Details Credits - Actors/Crew
+           -->
+          <div class="credits">
+            <h3 class="h3 actor-title">OYUNCULAR</h3>
+            <div class="actor-list actor-list-container-outer">
 
-            <ul id="actorsList" class="actors-list">
+              <ul id="actorsList" class="actors-list"> </ul>
 
+            </div>
 
+            <h3 class="h3 crew-title" style="margin-top: 75px">SET EKİBİ</h3>
+            <div class="actor-list actor-list-container-outer">
 
-            </ul>
+              <ul id="crewsList" class="actors-list"></ul>
 
-          </div>
-
-          <h3 class="h3 crew-title" style="margin-top: 75px">SET EKİBİ</h3>
-          <div class="actor-list actor-list-container-outer">
-
-            <ul id="crewsList" class="actors-list">
-
-
-
-            </ul>
-
+            </div>
           </div>
 
 
+          <!--
+              Details Seasons
+           -->
+
+          <div class="seasons">
+            <div class="seasons-container">
+              <h3 data-i18n="section_seasons"></h3>
+
+              <div class="season-list-wrapper">
+              </div>
+
+              <div id="episodes-container">
+              </div>
+            </div>
+          </div>
+
+          <!--
+              Details Media
+           -->
+
+          <div class="media">
+            <div class="media-container">
+              <h3 data-i18n="moreDetailSectionMedia">Görseller</h3>
+
+              <div class="main-image-display">
+                <img id="main-backdrop-image" src="" alt="Ana Görsel">
+                <div class="image-nav-arrows">
+                  <button id="prev-image-btn" class="nav-arrow">&lt;</button>
+                  <button id="next-image-btn" class="nav-arrow">&gt;</button>
+                </div>
+              </div>
+
+              <div class="thumbnail-navigation-wrapper">
+              </div>
+            </div>
+
+            <div id="lightbox-modal" class="lightbox-modal">
+              <span class="close-lightbox">&times;</span>
+              <div class="lightbox-content">
+                <img id="lightbox-image" src="" alt="Büyütülmüş Görsel">
+                <a class="lightbox-prev">&#10094;</a>
+                <a class="lightbox-next">&#10095;</a>
+              </div>
+            </div>
+          </div>
+
+          <!--
+              Details Similar Content
+           -->
+
+          <div class="similarContent">
+            <div class="similar-content-container">
+              <h3 data-i18n="moreDetailSectionSimilarContent">Benzer İçerikler</h3>
+
+              <div class="similar-list-wrapper">
+              </div>
+            </div>
+          </div>
 
         </div>
       </section>

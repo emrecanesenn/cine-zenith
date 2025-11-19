@@ -76,6 +76,25 @@
   "providerNotFoundText" : "Platform Information Not Found",
   "provideTitle" : "Platforms Available",
   "crewListNonProfile" : "assets/images/non-profile-en.png",
+  "credits" : {
+    "actorTitle" : "Actors",
+    "crewTitle" : "Crew Members"
+  },
+  "detailsMenu" : {
+    "detailsCredits" : "Cast & Crew",
+    "detailsSeasons" : "Seasons",
+    "detailsMedia" : "Media",
+    "detailsSimilarContent" : "Recommendations"
+  },
+  "section_seasons" : "Seasons",
+  "seasonsRateText" : "Score",
+  "seasonsReleaseDate" : "Release Date",
+  "seasonsUnknownDate" : "Unknown",
+  "seasonsLoadWrong" : "An error occurred while loading the partition",
+  "seasonsLoadWrongTitle" : "Season episodes could not be loaded.",
+  "seasonsEpisodeNoSummary" : "There is no summary for this section.",
+  "moreDetailSectionSimilarContent" : "Similar Content",
+  "moreDetailSectionMedia" : "The Media",
 
   "footerHome" : "Home",
   "footerMovies" : "Movies",

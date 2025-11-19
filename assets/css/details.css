@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
+root {
+    --color-primary: #FFD700;
+    --color-primary-darker: #CCA300;
+}
+
 .details-more {
     background: url("../images/tv-series-bg.jpg") no-repeat center;
     background-size: cover;
@@ -152,4 +157,501 @@
 
 .actor-more:hover {
     opacity: 1;
+}
+
+/**
+    Details Menu
+ */
+
+.details-more-menu{
+    height: 45px;
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.detalis-menu-list {
+    display: flex;
+    column-gap: 5px;
+    width: max-content;
+    margin: auto;
+    border-bottom: 1px solid var(--citrine);
+    border-top: 1px solid var(--citrine);
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.details-menu-item {
+    border-radius: 2rem;
+    padding: 5px 10px;
+    margin: auto;
+    cursor: pointer;
+}
+
+.details-menu-item a {
+    text-decoration: none;
+    color: whitesmoke;
+    font-family: "Poppins", sans-serif;
+    transition-duration: 500ms;
+}
+
+.details-menu-item:hover a {
+    color: #f1d57a;
+}
+
+.details-menu-item .active {
+    color: #fbd149;
+}
+
+
+/**
+    Tab Seasons Style
+ */
+
+/* Ana Kapsayıcı ve Başlık */
+.seasons-container {
+    padding: 20px 0;
+    width: 100%;
+}
+
+.seasons-container h3 {
+    font-size: 1.8rem;
+    color: #e5e5e5; /* Açık gri */
+    margin-bottom: 20px;
+
+}
+
+/* 1. Sezon Kartları Alanı (Yatay Kaydırma) */
+.season-list-wrapper {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto; /* Yatay kaydırmayı etkinleştir */
+    padding-bottom: 20px; /* Kaydırma çubuğu için boşluk */
+    scrollbar-width: thin; /* Firefox için ince kaydırma çubuğu */
+    scrollbar-color: var(--color-primary) #333; /* Projenizdeki sarı/turuncu rengi kullanın */
+}
+
+/* Scrollbar özelleştirmeleri (Webkit/Chrome/Edge) */
+.season-list-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+.season-list-wrapper::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary); /* Vurgu rengi */
+    border-radius: 10px;
+}
+.season-list-wrapper::-webkit-scrollbar-track {
+    background: #222;
+}
+
+/* Sezon Kartı */
+.season-card {
+    flex-shrink: 0; /* Kartların küçülmesini engelle */
+    width: 150px;
+    cursor: pointer;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 2px solid transparent;
+    margin: auto;
+}
+
+.season-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Aktif Kart Vurgusu */
+.season-card.active {
+    border-color: var(--color-primary); /* Vurgu rengiyle çerçevele */
+    box-shadow: 0 0 10px var(--color-primary-shadow);
+}
+
+.season-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+.season-info {
+    padding: 10px;
+    text-align: center;
+}
+
+.season-info h4 {
+    font-size: 1rem;
+    color: #fff;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.season-info p {
+    font-size: 0.8rem;
+    color: #aaa;
+    margin: 0;
+}
+
+
+/* 2. Bölüm Listesi Detay Alanı */
+#episodes-container {
+    margin-top: 30px;
+    border-top: 1px solid #333;
+    padding-top: 20px;
+}
+
+/* Bölüm Öğesi */
+.episode-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 15px 0;
+    border-bottom: 1px dashed #282828;
+}
+
+.episode-item:last-child {
+    border-bottom: none;
+}
+
+.episode-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-primary); /* Vurgu rengi */
+    flex-shrink: 0;
+    width: 40px;
+    text-align: center;
+    margin-right: 15px;
+}
+
+.episode-details {
+    flex-grow: 1;
+}
+
+.episode-details h5 {
+    font-size: 1.1rem;
+    color: #fff;
+    margin: 0 0 5px 0;
+}
+
+.episode-details p {
+    font-size: 0.9rem;
+    color: #ccc;
+    line-height: 1.4;
+}
+
+.episode-meta {
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: 5px;
+}
+
+/*
+    Details Media CSS
+ */
+
+/* Ana Kapsayıcı ve Başlık */
+.media-container {
+    padding: 20px 0;
+}
+
+.media-container h3 {
+    font-size: 1.8rem;
+    color: #e5e5e5;
+    margin-bottom: 20px;
+}
+
+/* Ana Görsel Görüntüleme Alanı */
+.main-image-display {
+    position: relative;
+    width: 100%;
+    height: 500px; /* Sabit yükseklik verin */
+    background-color: #0d0d0d;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.main-image-display img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Görseli kapsayıcıya sığdır */
+    object-position: center;
+    transition: opacity 0.3s ease-in-out; /* Görsel geçiş efekti */
+}
+
+/* Gezinme Okları (Ana Görsel İçinde) */
+.image-nav-arrows {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    padding: 0 10px;
+    pointer-events: none; /* Okların üzerine gelince fareye tepki vermesin, sadece butona */
+}
+
+.nav-arrow {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: background-color 0.3s, color 0.3s;
+    pointer-events: auto; /* Butonların tıklanabilir olmasını sağlar */
+}
+
+.nav-arrow:hover {
+    background-color: var(--color-primary) #333;
+    color: #000;
+}
+
+/* Thumbnail Navigasyon Alanı (Yatay Kaydırma) */
+.thumbnail-navigation-wrapper {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary) #333;
+}
+
+.thumbnail-navigation-wrapper::-webkit-scrollbar {
+    height: 6px;
+}
+.thumbnail-navigation-wrapper::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary) #333;
+    border-radius: 10px;
+}
+.thumbnail-navigation-wrapper::-webkit-scrollbar-track {
+    background: #222;
+}
+
+.thumbnail-item {
+    flex-shrink: 0;
+    width: 120px;
+    height: 70px;
+    border-radius: 5px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+.thumbnail-item.active {
+    border-color: var(--color-primary) #333;
+    transform: scale(1.05);
+}
+
+.thumbnail-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* LIGHTBOX MODAL STYLES */
+.lightbox-modal {
+    display: none; /* Varsayılan olarak gizli */
+    position: fixed;
+    z-index: 9999; /* Diğer her şeyin üstünde */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9); /* Yarı şeffaf siyah arka plan */
+    align-items: center; /* İçeriği dikey ortala */
+    justify-content: center; /* İçeriği yatay ortala */
+}
+
+.lightbox-content {
+    position: relative;
+    margin: auto;
+    padding: 0;
+    max-width: 90%;
+    max-height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-content img {
+    max-width: 100%;
+    max-height: 100vh; /* Tam ekran yüksekliğini aşmasın */
+    display: block;
+    object-fit: contain; /* Görselin tamamını göster */
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+    from {transform: scale(0.8)}
+    to {transform: scale(1)}
+}
+
+.close-lightbox {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+    z-index: 10000; /* Kapatma butonu en önde */
+}
+
+.close-lightbox:hover,
+.close-lightbox:focus {
+    color: var(--color-primary) #333;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.lightbox-prev, .lightbox-next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.lightbox-prev {
+    left: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.lightbox-next {
+    right: 0;
+    border-radius: 0 3px 3px 0;
+}
+
+.lightbox-prev:hover,
+.lightbox-next:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+/**
+    Details Similar Content CSS
+ */
+
+/* Ana Kapsayıcı ve Başlık */
+.similar-content-container {
+    padding: 20px 0;
+}
+
+.similar-content-container h3 {
+    font-size: 1.8rem;
+    color: #e5e5e5; /* Açık gri */
+    margin-bottom: 20px;
+}
+
+/* Benzer İçerik Kartları Alanı (Yatay Kaydırma) */
+.similar-list-wrapper {
+    display: flex;
+    gap: 20px; /* Kartlar arası boşluk */
+    overflow-x: auto; /* Yatay kaydırmayı etkinleştir */
+    padding-bottom: 20px; /* Kaydırma çubuğu için boşluk */
+
+    /* Scrollbar stili (Genel stilinizden alacaktır, ancak gerekirse tekrar tanımlayın) */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary) #333;
+}
+
+/* Webkit tabanlı tarayıcılar (Chrome, Edge, Safari) için */
+.similar-list-wrapper::-webkit-scrollbar {
+    height: 8px; /* Yatay scrollbar yüksekliği */
+}
+
+/* Scrollbar'ın arka planı */
+.similar-list-wrapper::-webkit-scrollbar-track {
+    background: #444444 !important; /* Koyuluk derecesi (track) */
+    border-radius: 10px;
+}
+
+/* Scrollbar'ın çekme çubuğu (thumb) */
+.similar-list-wrapper::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary) !important; /* Vurgu renginiz */
+    border-radius: 10px;
+    border: 2px solid #444444; /* Track rengiyle aynı çerçeve rengi */
+}
+
+/* Çekme çubuğunun üzerine gelince renk değişimi */
+.similar-list-wrapper::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-primary-darker, #FFC107); /* Vurgunun biraz daha koyu tonu */
+}
+
+.similar-content-container .similar-list-wrapper::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary) !important; /* Sadece burası önemli */
+    border-radius: 10px;
+    border: 2px solid #282828;
+}
+/* Track (yol) için */
+.similar-content-container .similar-list-wrapper::-webkit-scrollbar-track {
+    background: #282828 !important;
+    border-radius: 10px;
+}
+
+/* İçerik Kartı */
+.content-card {
+    flex-shrink: 0; /* Kartların küçülmesini engelle */
+    width: 150px; /* Standart poster genişliği */
+    text-decoration: none; /* Link stilini kaldır */
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.content-card:hover {
+    transform: translateY(-5px);
+    opacity: 0.8;
+}
+
+.card-poster {
+    width: 100%;
+    height: 225px; /* Posterin oranına uygun yükseklik (150x225) */
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.card-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+    white-space: nowrap; /* Tek satırda kalmasını sağla */
+    overflow: hidden; /* Taşmayı gizle */
+    text-overflow: ellipsis; /* Taşan kısım için üç nokta koy */
+    margin-bottom: 3px;
+}
+
+.card-rating {
+    font-size: 0.8rem;
+    color: var(--color-primary); /* Vurgu rengi */
+    display: flex;
+    align-items: center;
+}
+
+.card-rating ion-icon {
+    margin-right: 4px;
+    font-size: 0.9rem;
 }
