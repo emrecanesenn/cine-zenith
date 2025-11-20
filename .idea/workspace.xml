@@ -5,11 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="93892eae-53c0-4c88-8185-6d884f6a28aa" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/assets/css/person.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/personBackground.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/js/person.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/personDetail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/header.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/css/details.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/details.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/details.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/details.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/lang/en-US.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/lang/en-US.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/lang/tr-TR.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/lang/tr-TR.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/details.html" beforeDir="false" afterPath="$PROJECT_DIR$/details.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +25,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -150,6 +155,7 @@
       <workItem from="1763413186115" duration="4322000" />
       <workItem from="1763496526151" duration="7012000" />
       <workItem from="1763565009005" duration="17233000" />
+      <workItem from="1763668614611" duration="6931000" />
     </task>
     <servers />
   </component>

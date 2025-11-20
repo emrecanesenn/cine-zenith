@@ -281,9 +281,9 @@ async function getSimilarContent(mediaType, ID) {
 function createSimilarContentCards(similarMediaData, lang) {
     const similarListWrapper = document.querySelector('.similar-list-wrapper');
     similarListWrapper.innerHTML = ''; // Önceki içeriği temizle
-
     if (!similarMediaData || similarMediaData.length === 0) {
         similarListWrapper.innerHTML = `<p style="color: #aaa; text-align: center;">${lang.similarContentNotFound}</p>`;
+        document.querySelector(".details-similarContent").style.display = "none";
         return;
     }
 
@@ -330,7 +330,9 @@ async function actorList(actors, lang) {
         const actorImage = person.profile_path ? `${IMG_DEFAULT_URL}original/${person.profile_path}` : lang.crewListNonProfile;
         actorItem += `
             <li class="actor-item">
+                <a href="personDetail.html?id=${person.id}">
                 <img src="${actorImage}" alt="${person.name} profile picture">
+                </a>
                 <span class="actor-in-name">${person.character}</span>
                 <span class="actor-real-name">${person.name}</span>
             </li>

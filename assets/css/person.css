@@ -1,0 +1,327 @@
+/* ======================================================= */
+/* 0. GENEL TANIMLAR & FONT */
+/* ======================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+    /* Mevcut Renk Paletiniz */
+    --color-primary: #FFD700;       /* Altın Sarısı */
+    --color-dark-bg: #0c0c0c;       /* Ana Koyu Arka Plan */
+    --color-card-bg: #1a1a1a;       /* Kart/Blok Arka Planı */
+    --color-text-light: #f0f0f0;    /* Açık Yazı Rengi */
+    --color-text-dimmed: #aaa;      /* İkincil Yazı Rengi */
+    --color-contrast-grey: #404040; /* Ayrıştırıcı Çizgi */
+
+    /* Yeni Kullanılacak Gölge ve Geçiş Ayarları */
+    --shadow-high: 0 10px 30px rgba(0, 0, 0, 0.6);
+    --shadow-low: 0 4px 10px rgba(0, 0, 0, 0.3);
+    --border-radius: 12px;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+}
+
+/* ======================================================= */
+/* 1. ARKA PLAN AYARLARI (Gelecekte Görsel Eklemek İçin) */
+/* ======================================================= */
+.person-header {
+    padding: 120px 0 50px;
+    position: relative;
+    overflow: hidden; /* Taşmayı engelle */
+}
+
+/* Arka Plan Gölgesi ve Bulanıklığı (Opsiyonel) */
+.person-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Koyu Overlay */
+    z-index: 0;
+
+    background-image: url('../images/service-bg.jpg');
+    backdrop-filter: blur(5px);
+    background-size: cover;
+}
+
+.person-container {
+    display: flex;
+    gap: 50px;
+    position: relative; /* Z-index'i yukarı çekmek için */
+    z-index: 1;
+    padding: 0 15px;
+}
+
+/* ======================================================= */
+/* 2. SOL BLOK: PROFİL FOTOĞRAFI & SOSYAL MEDYA */
+/* ======================================================= */
+.person-profile-figure {
+    flex-shrink: 0;
+    width: 300px;
+    padding-top: 20px; /* Üst kısımla boşluk */
+}
+
+#person-profile-img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    object-fit: cover;
+    box-shadow: var(--shadow-high);
+    margin-bottom: 30px;
+    border: 3px solid var(--color-card-bg); /* Hafif çerçeve */
+}
+
+/* Sosyal Medya */
+.person-socials {
+    padding: 20px;
+    background-color: var(--color-card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-low);
+}
+
+.person-socials .title {
+    color: var(--color-primary);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed var(--color-contrast-grey);
+    padding-bottom: 5px;
+}
+
+.social-links {
+    display: flex;
+    gap: 20px;
+    justify-content: center; /* Ortalamak için */
+}
+
+.social-links a ion-icon {
+    font-size: 2rem;
+    color: var(--color-text-dimmed);
+    transition: color 300ms, transform 300ms;
+}
+
+.social-links a:hover ion-icon {
+    color: var(--color-primary);
+    transform: translateY(-3px);
+}
+
+/* ======================================================= */
+/* 3. SAĞ BLOK: BİLGİ & BİYOGRAFİ */
+/* ======================================================= */
+.person-detail-content {
+    flex-grow: 1;
+}
+
+.person-name-title {
+    font-size: 3.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: var(--color-text-light);
+    margin-bottom: 10px;
+}
+
+.person-meta-info {
+    margin-bottom: 30px;
+    padding: 15px 0;
+    border-top: 1px solid var(--color-contrast-grey);
+    border-bottom: 1px solid var(--color-contrast-grey);
+}
+
+.person-subtitle {
+    color: var(--color-primary);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.person-meta {
+    color: var(--color-text-dimmed);
+    font-size: 1rem;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.person-meta ion-icon {
+    color: var(--color-primary);
+    font-size: 1.1rem;
+}
+
+/* Biyografi */
+.biography {
+    margin-top: 40px;
+}
+
+.biography .title {
+    color: var(--color-text-light);
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    border-left: 5px solid var(--color-primary);
+    padding-left: 15px;
+}
+
+.biography-text {
+    color: var(--color-text-light);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.read-more-btn {
+    background: var(--color-primary);
+    color: #000;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 15px;
+    transition: opacity 300ms;
+}
+.read-more-btn:hover {
+    opacity: 0.9;
+}
+
+
+/* ======================================================= */
+/* 4. KARİYER & FİLMOGRAFİ */
+/* ======================================================= */
+
+.person-career {
+    padding: 50px 0 100px;
+    background-color: var(--color-dark-bg); /* Alt kısım arka plan */
+}
+
+.career-title {
+    font-size: 2.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: var(--color-text-light);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Sekmeli Menü Stili */
+.career-menu {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.career-btn {
+    background: transparent;
+    color: var(--color-text-light);
+    border: 1px solid var(--color-contrast-grey);
+    padding: 12px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 300ms;
+}
+
+.career-btn:hover {
+    background: var(--color-card-bg);
+    border-color: var(--color-primary);
+}
+
+.career-btn.active {
+    background: var(--color-primary);
+    color: var(--color-dark-bg); /* Aktif yazı rengi */
+    border-color: var(--color-primary);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Filmografi Kart Listesi (Grid) */
+.filmography-list-wrapper {
+    display: grid;
+    /* responsive grid: 5 kart sığdırmaya çalışır, min 180px */
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 40px 25px;
+}
+
+/* Filmografi Kartı (person.js'te oluşturduğunuz .career-content-card için) */
+.career-content-card {
+    /* Genel kart stili detay sayfanızdaki .content-card ile birleşecektir. */
+    /* Burada sadece role özel ek stilleri tanımlayalım */
+    text-decoration: none;
+}
+
+/* Filmografi Kartının Altındaki Meta Bilgisi */
+.career-content-card .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--color-text-dimmed);
+    margin-top: 5px;
+}
+
+.career-content-card .role-detail {
+    font-style: italic;
+    color: var(--color-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60%; /* Rol adının taşmasını engelle */
+}
+
+/* ======================================================= */
+/* 5. RESPONSIVE DÜZENLEMELER */
+/* ======================================================= */
+
+@media (max-width: 1024px) {
+    .person-name-title {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .person-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 30px;
+    }
+    .person-profile-figure {
+        width: 60%;
+        max-width: 300px;
+    }
+    .biography .title {
+        text-align: center;
+    }
+    .person-detail-content {
+        padding: 0 15px; /* İç padding ekle */
+    }
+    .person-name-title {
+        font-size: 2.5rem;
+    }
+    .filmography-list-wrapper {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Daha dar kartlar */
+    }
+}
+
+@media (max-width: 500px) {
+    .person-profile-figure {
+        width: 80%;
+    }
+    .career-menu {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .career-btn {
+        width: 100%;
+    }
+    .filmography-list-wrapper {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+}

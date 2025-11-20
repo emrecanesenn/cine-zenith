@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head id="header">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/css/loader.css">
+</head>
+
+<body id="#top" class="pageDetails">
+
+<script src="assets/js/script.js" type="module" defer></script>
+<script src="assets/js/searchPopup.js" type="module" defer></script>
+<script src="assets/js/person.js" type="module" defer></script>
+<script src="assets/js/apiList.js" type="module" defer></script>
+
+
+<div id="page-loader" class="cz-loader-container minimalist">
+    <div class="cz-minimal-lens-ring"></div>
+    <p class="cz-loader-text">CINE-ZENITH</p>
+</div>
+
+<div class="search-modal" id="search-modal">
+    <h2 class="h3 section-title">CINE-ZENITH LIBRARY</h2>
+    <div class="search-modal-content">
+        <input type="search" name="search" placeholder="Search for movies and TV shows..." class="search-modal-input" id="search-modal-input">
+        <ul class="search-results-list" id="search-results-list"></ul>
+    </div>
+</div>
+
+<div class="search-overlay" id="search-overlay"></div>
+
+<header id="menu" class="header"></header>
+<main>
+    <article>
+
+        <section class="person-header">
+            <div class="container person-container">
+
+                <figure class="person-profile-figure">
+                    <img id="person-profile-img" src="" alt="Kişi Fotoğrafı">
+                    <div class="person-socials">
+                        <h4 class="h4 title" data-i18n="personSocialMediaTitle">Sosyal Medya</h4>
+                        <div id="social-links" class="social-links">
+                        </div>
+                    </div>
+                </figure>
+
+                <div class="person-detail-content">
+
+                    <h1 id="person-name" class="h1 person-name-title"></h1>
+
+                    <div class="person-meta-info">
+                        <p id="person-known-for" class="person-subtitle"></p>
+                        <p id="person-birthday" class="person-meta"></p>
+                        <p id="person-birthplace" class="person-meta"></p>
+                    </div>
+
+                    <div class="biography" id="biography">
+                        <h3 class="h3 title" data-i18n="personBiographyTitle">Biyografi</h3>
+                        <p id="person-overview" class="biography-text"></p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="person-career" style="position: relative; z-index: 2;">
+            <div class="container">
+
+                <h2 class="h2 career-title" data-i18n="personFilmographyTitle">Filmografi</h2>
+
+                <div class="career-menu">
+                    <button id="career-cast-btn" class="career-btn active" data-role="cast">Oynadığı Roller</button>
+                    <button id="career-crew-btn" class="career-btn" data-role="crew">Ekip Üyeliği</button>
+                </div>
+
+                <div id="filmography-list-wrapper" class="filmography-list-wrapper">
+                    <p class="loading-text">Yükleniyor...</p>
+                </div>
+            </div>
+        </section>
+
+    </article>
+</main>
+
+
+<footer id="footer" class="footer"></footer>
+
+<a href="#top" class="go-top" id="data-go-top">
+    <ion-icon name="chevron-up active"></ion-icon>
+</a>
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>

@@ -2,7 +2,10 @@
 
 root {
     --color-primary: #FFD700;
-    --color-primary-darker: #CCA300;
+    --color-dark-bg: #121212;
+    --color-card-bg: #1e1e1e;
+    --color-text-light: #f0f0f0;
+    --color-contrast-grey: #404040;
 }
 
 .details-more {
@@ -164,42 +167,82 @@ root {
  */
 
 .details-more-menu{
-    height: 45px;
+    height: auto;
     width: 100%;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
 }
 
 .detalis-menu-list {
     display: flex;
-    column-gap: 5px;
-    width: max-content;
-    margin: auto;
-    border-bottom: 1px solid var(--citrine);
-    border-top: 1px solid var(--citrine);
-    padding-bottom: 10px;
-    padding-top: 10px;
+    flex-wrap: wrap;
+
+    border: none;
+    border-top: 1px solid var(--color-contrast-grey, #404040);
+    border-bottom: 1px solid var(--color-contrast-grey, #404040);
+
+    justify-content: center;
+
+    column-gap: 15px;
+    row-gap: 10px;
+
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 15px 10px;
+    list-style: none;
 }
 
+/* Menü Öğesi: Daha Tok ve Belirgin Bir Buton Görünümü */
 .details-menu-item {
-    border-radius: 2rem;
-    padding: 5px 10px;
-    margin: auto;
+    /* Otomatik boşluk yerine içeriğe göre ortalama */
+    margin: 0;
+
+    /* Yüksekliği otomatik yapın */
+    height: auto;
+
+    background: transparent; /* Arka planı transparan yaptık */
+    border: 1px solid transparent; /* Geçişler için varsayılan kenarlık */
+    border-radius: 25px; /* Daha yuvarlak butonlar */
+    padding: 8px 16px; /* İç boşluğu artırdık */
     cursor: pointer;
+    transition: all 300ms ease; /* Tüm geçişlere yumuşaklık ekle */
+
+    /* Flex item'ın içeriğini ortalama (gerekirse) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .details-menu-item a {
     text-decoration: none;
-    color: whitesmoke;
+    color: var(--color-text-light, whitesmoke);
     font-family: "Poppins", sans-serif;
-    transition-duration: 500ms;
+    font-weight: 500;
+    font-size: 1rem;
+    transition-duration: 300ms;
+}
+
+/* 🌟 HOVER ETKİSİ: Hafif bir arka plan ve renk değişimi */
+.details-menu-item:hover {
+    background: var(--color-card-bg, #1e1e1e);
+    border-color: var(--color-contrast-grey, #404040);
 }
 
 .details-menu-item:hover a {
-    color: #f1d57a;
+    color: var(--color-primary, #FFD700);
 }
 
+/* 🥇 AKTİF SEÇİM: En güçlü vurgu burada olmalı */
 .details-menu-item .active {
-    color: #fbd149;
+    color: #000 !important;
+    font-weight: 600;
+}
+
+/* AKTİF KAPSAYICI (LI) STİLİ */
+.details-menu-item:has(.active) {
+    background: var(--color-primary, #fbd149);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    transform: translateY(-2px);
 }
 
 
