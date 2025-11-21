@@ -245,14 +245,13 @@ body {
 .filmography-list-wrapper {
     display: grid;
     /* responsive grid: 5 kart sığdırmaya çalışır, min 180px */
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, auto));
     gap: 40px 25px;
+    justify-content: start;
 }
 
-/* Filmografi Kartı (person.js'te oluşturduğunuz .career-content-card için) */
+/* Filmografi Kartı */
 .career-content-card {
-    /* Genel kart stili detay sayfanızdaki .content-card ile birleşecektir. */
-    /* Burada sadece role özel ek stilleri tanımlayalım */
     text-decoration: none;
 }
 

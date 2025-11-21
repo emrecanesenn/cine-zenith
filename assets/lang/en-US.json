@@ -109,6 +109,8 @@
   "readMore": "Read More",
   "filmographyCastNotFound": "No cast credits found.",
   "filmographyCrewNotFound": "No crew credits found.",
+  "personSectionRolls" : "Cast Credits",
+  "personSectionCrew" : "Crew",
 
   "footerHome" : "Home",
   "footerMovies" : "Movies",

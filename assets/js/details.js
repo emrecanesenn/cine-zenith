@@ -6,14 +6,15 @@ import apiList from "./apiList.js";
 // ====================================================================
 let LANG = language();
 let mediaType, mediaId, langLoad, menu;
+
 let allBackdrops = []; // Tüm görselleri tutacak dizi
 let currentImageIndex = 0; // Şu an gösterilen görselin indeksi
 
 // DOM Elementleri (Global scope'da tanımlanır, böylece her yerden erişilebilir)
-const mainBackdropImage = document.getElementById('main-backdrop-image'); // Media sekmesinde olmalı
-const prevImageBtn = document.getElementById('prev-image-btn'); // Media sekmesinde olmalı
-const nextImageBtn = document.getElementById('next-image-btn'); // Media sekmesinde olmalı
-const thumbnailNavigationWrapper = document.querySelector('.thumbnail-navigation-wrapper'); // Media sekmesinde olmalı
+const mainBackdropImage = document.getElementById('main-backdrop-image');
+const prevImageBtn = document.getElementById('prev-image-btn');
+const nextImageBtn = document.getElementById('next-image-btn');
+const thumbnailNavigationWrapper = document.querySelector('.thumbnail-navigation-wrapper');
 
 // Lightbox DOM Elementleri (HTML'in en altında eklenmiş varsayılır)
 const lightboxModal = document.getElementById('lightbox-modal');
@@ -33,11 +34,12 @@ async function theMedia(mediaType, ID) {
         langLoad = scriptObj.languageLoad;
 
         // Promise.all ile paralel veri çekme mantığına geçiş (Performans için)
-        const [provRes, mediaRes, actorRes, imagesData, similarRes] = await Promise.all([
+        const [provRes, mediaRes, mediaResTR, actorRes, imagesData, similarRes] = await Promise.all([
             fetch(`${DEFAULT_URL}/${mediaType}/${ID}/watch/providers?api_key=${API_KEY}&${LANG}`),
             fetch(`${DEFAULT_URL}/${mediaType}/${ID}?api_key=${API_KEY}&${LANG}`),
+            fetch(`${DEFAULT_URL}/${mediaType}/${ID}?api_key=${API_KEY}`),
             fetch(`${DEFAULT_URL}/${mediaType}/${ID}/credits?api_key=${API_KEY}`),
-            getMediaImages(mediaType, ID), // Görsel fonksiyonunu doğrudan çağır
+            getMediaImages(mediaType, ID),
             getSimilarContent(mediaType, ID)
         ]);
 
@@ -46,6 +48,7 @@ async function theMedia(mediaType, ID) {
 
         const providers = await provRes.json();
         const media = await mediaRes.json();
+        const mediaTR = await mediaResTR.json();
         const actors = await actorRes.json();
         const similarContentData = similarRes;
 
@@ -81,7 +84,7 @@ async function theMedia(mediaType, ID) {
 
         const mediaImage = `${IMG_DEFAULT_URL}original/${media.poster_path}`;
         const backImage = `${IMG_DEFAULT_URL}original/${media.backdrop_path}`;
-        await mediaList(media, mediaImage, backImage, providers ,lang);
+        await mediaList(media, mediaTR, mediaImage, backImage, providers ,lang);
 
     } catch (e) {
         alert(`HATA: ${e}`);
@@ -117,7 +120,7 @@ function getRandomIndex(arrayLength) {
     return Math.floor(Math.random() * arrayLength);
 }
 
-async function mediaList(mediaDetail, posters, backdrops, providers,lang) {
+async function mediaList(mediaDetail, mediaDetailTR, posters, backdrops, providers,lang) {
     const detailTitle = document.getElementById("detail-title");
     const detailPoster = document.getElementById("detail-poster")
     const detailBanner = document.getElementById("detail-banner")
@@ -186,7 +189,7 @@ async function mediaList(mediaDetail, posters, backdrops, providers,lang) {
     detailPoster.setAttribute("src", `${mediaImage}`) // Poster Image
     detailBanner.style.background = `url("${backImage}") no-repeat center`;
 
-    detailOverview.innerHTML = mediaDetail.overview; // Media Contents
+    detailOverview.innerHTML = mediaDetail.overview || mediaDetailTR.overview; // Media Contents
 
     // Genre Listing
     const genreNames = mediaDetail.genres.map(genre => genre.name);
@@ -363,7 +366,9 @@ async function actorList(actors, lang) {
         const crewImage = person.profile_path ? `${IMG_DEFAULT_URL}original/${person.profile_path}` : lang.crewListNonProfile;
         crewItem += `
             <li class="actor-item">
-                <img src="${crewImage}" alt="${person.name} profile picture">
+                <a href="personDetail.html?id=${person.id}">
+                    <img src="${crewImage}" alt="${person.name} profile picture">
+                </a>
                 <span class="actor-in-name">${person.job}</span>
                 <span class="actor-real-name">${person.name}</span>
             </li>

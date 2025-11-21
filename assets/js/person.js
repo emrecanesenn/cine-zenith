@@ -55,8 +55,9 @@ async function thePerson(ID) {
         const langStrings = langModule; // Dil dizelerini al
 
         // 1. API Çağrıları (Promise.all ile tüm verileri paralel çekme)
-        const [personRes, creditsRes, externalRes] = await Promise.all([
+        const [personRes, personResEN, creditsRes, externalRes] = await Promise.all([
             fetch(`${DEFAULT_URL}/person/${ID}?api_key=${API_KEY}&${LANG}`),
+            fetch(`${DEFAULT_URL}/person/${ID}?api_key=${API_KEY}`),
             fetch(`${DEFAULT_URL}/person/${ID}/combined_credits?api_key=${API_KEY}&${LANG}`),
             fetch(`${DEFAULT_URL}/person/${ID}/external_ids?api_key=${API_KEY}`)
         ]);
@@ -64,6 +65,7 @@ async function thePerson(ID) {
         if (!personRes.ok) throw new Error("Kişi bilgileri yüklenemedi.");
 
         const person = await personRes.json();
+        const personTR = await personResEN.json();
         const credits = await creditsRes.json();
         const external = await externalRes.json();
 
@@ -74,7 +76,7 @@ async function thePerson(ID) {
         };
 
         // 2. DOM Manipülasyonları
-        await renderPersonHeader(person, langStrings);
+        await renderPersonHeader(person, personTR, langStrings);
         await renderSocialLinks(external);
 
         // 3. Filmografiyi Varsayılan Role Göre Yükle (Oynadığı Roller - Cast)
@@ -94,7 +96,7 @@ async function thePerson(ID) {
 // DOM OLUŞTURMA FONKSİYONLARI
 // ====================================================================
 
-function renderPersonHeader(personData, langStrings) {
+function renderPersonHeader(personData, personDataTR, langStrings) {
 
     // 1. Profil Resmi
     const profilePath = personData.profile_path
@@ -105,18 +107,40 @@ function renderPersonHeader(personData, langStrings) {
 
     // 2. Temel Bilgiler
     personName.textContent = personData.name;
-    personKnownFor.textContent = personData.known_for_department || langStrings.knownForUnknown;
 
-    personBirthday.textContent = personData.birthday
-        ? `${langStrings.birthday}: ${formatDate(personData.birthday)}`
-        : langStrings.birthdayUnknown;
+    // Kişinin Bulunduğu Meslek Alanı (Oyunculuk / Yapımcılık)
 
-    personBirthplace.textContent = personData.place_of_birth
-        ? `${langStrings.birthPlace}: ${personData.place_of_birth}`
-        : langStrings.birthPlaceUnknown;
+    const departmentKey = personData.known_for_department;
+    let translatedDepartment;
+
+    if (!departmentKey) {
+        translatedDepartment = langStrings.knownForUnknown;
+
+    } else if (localStorage.getItem("lang") === 'tr-TR') {
+        translatedDepartment = langStrings.department[departmentKey] || departmentKey;
+
+    } else {
+        translatedDepartment = departmentKey;
+    }
+
+    // 4. Sonucu DOM'a (ve büyük harfle) atama
+    personKnownFor.textContent = translatedDepartment.toUpperCase();
+
+
+    // Doğum Tarihi
+    const birthdayIcon = '<ion-icon name="calendar-outline"></ion-icon>';
+    personBirthday.innerHTML = personData.birthday
+        ? `${birthdayIcon} ${langStrings.birthday}: ${formatDate(personData.birthday)}`
+        : `${birthdayIcon} ${langStrings.birthdayUnknown}`;
+
+    // Doğum Yeri
+    const birthplaceIcon = '<ion-icon name="location-outline"></ion-icon>';
+    personBirthplace.innerHTML = personData.place_of_birth
+        ? `${birthplaceIcon} ${langStrings.birthPlace}: ${personData.place_of_birth}`
+        : `${birthplaceIcon} ${langStrings.birthPlaceUnknown}`;
 
     // 3. Biyografi
-    const biographyText = personData.biography || langStrings.biographyNotFound;
+    const biographyText = personData.biography || personDataTR.biography || langStrings.biographyNotFound;
 
     // Biyografi uzunluğunu kontrol etme (örnek olarak ilk 1000 karakter)
     if (biographyText.length > 1000) {
