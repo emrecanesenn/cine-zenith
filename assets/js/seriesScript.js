@@ -2,6 +2,7 @@
 
 import {API_KEY, DEFAULT_URL, IMG_DEFAULT_URL, language} from './apiSettings.js';
 import apiList from "./apiList.js";
+import {favorite} from "./script.js";
 let LANG = language();
 
 const cacheApi = {
@@ -118,6 +119,10 @@ async function onTheAirSection(onTheAir, lang) {
                                           <ion-icon name="star"></ion-icon>
                                           <data>${seriesDetails.vote_average.toFixed(1)}</data>
                                       </div>
+                                      <button id="OTAFavoriteButton">
+                                        <ion-icon name="heart"></ion-icon>
+                                        <span data-i18n="heroSectionFavoriteButton"></span>
+                                      </button>
                                   </div>
                               </div>
                         </li>
@@ -136,6 +141,21 @@ async function onTheAirSection(onTheAir, lang) {
             seriesList.innerHTML = seriesHTML || "<li>Yayında olan dizi bulunamadı.</li>";
             cacheApi.scriptObj.languageLoad(lang, "topRatedSectionTitle");
             document.getElementById("ontheair-movie-series").innerHTML = lang.seriesText;
+
+            const favoriteButton = document.querySelectorAll("#on-the-air-list li button")
+            let otaCount = 0;
+
+            cacheApi.ontheair.forEach(favoriteDetails => {
+                if (otaCount >= 8) return "";
+                const item = favoriteDetails; // Orijinal trend verisi
+                const button = favoriteButton[otaCount];
+                const icon = button.querySelector("ion-icon")
+                favorite.get(item.id, "tv", icon)
+                button.addEventListener("click", () => {
+                    favorite.set(item.id, "tv", icon)
+                });
+                otaCount++;
+            });
         }, delay);
 
     } catch (error) {

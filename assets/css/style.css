@@ -653,6 +653,17 @@ body.active { overflow: hidden; }
   border-width: 1px;
 }
 
+#OTAFavoriteButton {
+  display: flex;
+  color: wheat;
+}
+
+#OTAFavoriteButton ion-icon {
+  color: darkred;
+  margin-right: 5px;
+  margin-top: 2px;
+}
+
 
 
 
@@ -906,6 +917,17 @@ body .service .container {
 }
 
 .tv-series .section-title { margin-bottom: 50px; }
+
+#trendSectionFavorite {
+  display: flex;
+  color: wheat;
+}
+
+#trendSectionFavorite ion-icon {
+  color: darkred;
+  margin-right: 5px;
+  margin-top: 2px;
+}
 
 
 

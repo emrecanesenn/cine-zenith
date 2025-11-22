@@ -2,6 +2,7 @@
 
 import {API_KEY, DEFAULT_URL, IMG_DEFAULT_URL, language} from './apiSettings.js';
 import apiList from "./apiList.js";
+import {favorite} from "./script.js";
 let LANG = language();
 
 const cacheApi = {
@@ -103,6 +104,10 @@ async function onTheAirSection(data, lang) {
                             <ion-icon name="star"></ion-icon>
                             <data>${movieDetails.vote_average.toFixed(1)}</data>
                         </div>
+                        <button id="OTAFavoriteButton">
+                            <ion-icon name="heart"></ion-icon>
+                            <span data-i18n="heroSectionFavoriteButton"></span>
+                        </button>
                     </div>
                 </div>
             </li>
@@ -119,6 +124,20 @@ async function onTheAirSection(data, lang) {
                 movieList.innerHTML = movieHTML;
                 cacheApi.scriptObj.languageLoad(lang, "topRatedSectionTitle");
                 document.getElementById("ontheair-movie-series").innerHTML = lang.moviesText;
+
+
+                const favoriteList = document.querySelectorAll("#on-the-air-list li button ion-icon")
+                const favoriteButton = document.querySelectorAll("#on-the-air-list li button")
+                let otaCount = 0;
+                allMovieDetails.forEach(favoriteDetails => {
+                    const item = favoriteDetails; // Orijinal trend verisi
+                    const element = favoriteList[otaCount]
+                    favorite.get(item.id, "movie", element)
+                    favoriteButton[otaCount].addEventListener("click", () => {
+                        favorite.set(item.id, "movie", element)
+                    });
+                    otaCount++;
+                });
             }, delay);
 
         } else {
@@ -126,6 +145,20 @@ async function onTheAirSection(data, lang) {
             movieList.innerHTML = movieHTML;
             cacheApi.scriptObj.languageLoad(lang, "topRatedSectionTitle");
             document.getElementById("ontheair-movie-series").innerHTML = lang.moviesText;
+
+
+            const favoriteList = document.querySelectorAll("#on-the-air-list li button ion-icon")
+            const favoriteButton = document.querySelectorAll("#on-the-air-list li button")
+            let otaCount = 0;
+            allMovieDetails.forEach(favoriteDetails => {
+                const item = favoriteDetails; // Orijinal trend verisi
+                const element = favoriteList[otaCount]
+                favorite.get(item.id, "movie", element)
+                favoriteButton[otaCount].addEventListener("click", () => {
+                    favorite.set(item.id, "movie", element)
+                });
+                otaCount++;
+            });
         }
 
     } catch (error) {

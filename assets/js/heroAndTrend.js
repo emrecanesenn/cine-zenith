@@ -1,5 +1,6 @@
 import {API_KEY, IMG_DEFAULT_URL, DEFAULT_URL, language} from "./apiSettings.js";
 import apiList from "./apiList.js";
+import {favorite} from "./script.js"
 let LANG = language(), langLoad;
 let lang;
 
@@ -128,6 +129,15 @@ async function heroSection(data, langu = lang) {
         heroSectionEl.classList.remove('is-loading');
         heroContentEl.classList.remove('is-loading');
 
+        // Favorite Button
+
+        const favoriteElement = document.querySelector("#heroFavoriteButton ion-icon")
+        favorite.get(movieData.id, "movie", favoriteElement)
+
+        document.getElementById("heroFavoriteButton").addEventListener("click", () => {
+            favorite.set(movieData.id, "movie", favoriteElement)
+        })
+
     } catch (e) {
         heroSectionEl.classList.remove('is-loading');
         heroContentEl.classList.remove('is-loading');
@@ -173,7 +183,12 @@ async function trendingSection(data, lang) {
                         <span>${details.number_of_seasons} <b data-i18n="season"></b></span>
                     </div>
                     <div class="rating">
-                        <ion-icon name="flame-outline"></ion-icon> <data>${item.popularity.toFixed(0)}</data> </div>
+                        <ion-icon name="flame-outline"></ion-icon> <data>${item.popularity.toFixed(0)}</data> 
+                    </div>
+                    <button id="trendSectionFavorite" class>
+                        <ion-icon name="heart"></ion-icon>
+                        <span data-i18n="heroSectionFavoriteButton"></span>
+                    </button>
                 `;
                 // EĞER FİLM İSE (MOVIE)
             } else if (mediaType === 'movie') {
@@ -184,7 +199,12 @@ async function trendingSection(data, lang) {
                         <span>${details.runtime} <i data-i18n="minuteShort"></i></span>
                     </div>
                     <div class="rating">
-                        <ion-icon name="flame-outline"></ion-icon> <data>${item.popularity.toFixed(0)}</data> </div>
+                        <ion-icon name="flame-outline"></ion-icon> <data>${item.popularity.toFixed(0)}</data>
+                    </div>
+                    <button id="trendSectionFavorite">
+                        <ion-icon name="heart"></ion-icon>
+                        <span data-i18n="heroSectionFavoriteButton"></span>
+                    </button>
                 `;
             }
 
@@ -220,8 +240,23 @@ async function trendingSection(data, lang) {
 
         setTimeout(() => {
             trendingList.innerHTML = trendingHTML;
-            langLoad(lang)
+            langLoad(lang);
+
+            const trendFavoriteList = document.querySelectorAll("#trending-list li button ion-icon")
+            const trendFavoriteButton = document.querySelectorAll("#trending-list li button")
+            let trendCount = 0;
+            allDetails.forEach((details, index) => {
+                const item = trends[index]; // Orijinal trend verisi
+                const mediaType = item.media_type;
+                const element = trendFavoriteList[trendCount]
+                favorite.get(item.id, mediaType, element)
+                trendFavoriteButton[trendCount].addEventListener("click", () => {
+                    favorite.set(item.id, mediaType, element)
+                });
+                trendCount++;
+            });
         }, delay);
+
 
     } catch (e) {
         alert(`HATA: ${e}`);

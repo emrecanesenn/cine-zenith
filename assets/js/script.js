@@ -1,6 +1,8 @@
 'use strict';
 
 import apiList from "./apiList.js";
+import favoriteSystem from "./favorite.js"
+let favorite;
 
 async function language(langFiles) {
   const apiScript = await apiList()
@@ -49,6 +51,12 @@ async function initializeApp() {
     document.querySelector("#language #en-US").selected = false;
     document.querySelector("#language #tr-TR").selected = true;
   }
+
+  /**
+   * Favorite System
+   */
+
+  favorite = favoriteSystem();
 
 
 
@@ -182,5 +190,7 @@ document.addEventListener("DOMContentLoaded", async function()  {
 
   selectedFunction()
 })
+
+export {favorite};
 
 
