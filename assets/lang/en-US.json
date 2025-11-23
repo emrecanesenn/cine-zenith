@@ -8,6 +8,7 @@
   "sectionMoreButton" : "MORE",
   "moviesText" : "Movies",
   "seriesText" : "Series",
+  "allText" : "All",
   "movieText" : "Movie",
   "serieText" : "TV",
 
@@ -111,6 +112,8 @@
   "filmographyCrewNotFound": "No crew credits found.",
   "personSectionRolls" : "Cast Credits",
   "personSectionCrew" : "Crew",
+
+  "favoriteListTittle" : "Favorites",
 
   "footerHome" : "Home",
   "footerMovies" : "Movies",

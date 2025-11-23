@@ -1,5 +1,6 @@
 import {API_KEY, DEFAULT_URL, IMG_DEFAULT_URL, language} from "./apiSettings.js";
 import apiList from "./apiList.js";
+import {favorite} from "./script.js";
 
 // ====================================================================
 // GLOBAL VE SLIDER DEĞİŞKENLERİ
@@ -135,6 +136,8 @@ async function mediaList(mediaDetail, mediaDetailTR, posters, backdrops, provide
     const mediaImage = `${IMG_DEFAULT_URL}original/${posters}`;
     const backImage = `${IMG_DEFAULT_URL}original/${backdrops}`;
 
+    const mediaName = mediaType === "tv" ? mediaDetail.name : mediaDetail.title;
+
 
     if (mediaType === "tv") {
         detailTitle.innerHTML = mediaDetail.name;
@@ -213,6 +216,13 @@ async function mediaList(mediaDetail, mediaDetailTR, posters, backdrops, provide
 
     renderProviders(providers, (mediaDetail.title || mediaDetail.name))
     langLoad(lang)
+
+    const favoriteButton = document.getElementById("detailsFavoriteButton")
+    const element = favoriteButton.querySelector("ion-icon")
+    favorite.get(Number(mediaId), mediaType, element)
+    favoriteButton.addEventListener("click", () => {
+        favorite.set(Number(mediaId), mediaType, element, mediaName)
+    });
 }
 
 function renderProviders(providers, mediaName) {
@@ -295,7 +305,7 @@ function createSimilarContentCards(similarMediaData, lang) {
         const title = item.title || item.name;
         const posterUrl = item.poster_path
             ? `${IMG_DEFAULT_URL}w300/${item.poster_path}`
-            : 'assets/images/no-poster-available.png'; // Varsayılan görsel
+            : 'assets/images/non-profile-tr.png'; // Varsayılan görsel
         const itemType = item.media_type || mediaType; // item.media_type bazen döner, dönmezse ana tipi kullan
 
         // Detay sayfasına yönlendirecek linki oluştur (Örn: /details.html?type=movie&id=123)

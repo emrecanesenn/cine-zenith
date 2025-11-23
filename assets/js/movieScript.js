@@ -134,7 +134,7 @@ async function onTheAirSection(data, lang) {
                     const element = favoriteList[otaCount]
                     favorite.get(item.id, "movie", element)
                     favoriteButton[otaCount].addEventListener("click", () => {
-                        favorite.set(item.id, "movie", element)
+                        favorite.set(item.id, "movie", element, item.title)
                     });
                     otaCount++;
                 });
@@ -155,7 +155,7 @@ async function onTheAirSection(data, lang) {
                 const element = favoriteList[otaCount]
                 favorite.get(item.id, "movie", element)
                 favoriteButton[otaCount].addEventListener("click", () => {
-                    favorite.set(item.id, "movie", element)
+                    favorite.set(item.id, "movie", element, item.title)
                 });
                 otaCount++;
             });
@@ -220,6 +220,10 @@ async function topRatedSection(data, lang) {
                         <ion-icon name="star"></ion-icon>
                         <data>${movieDetails.vote_average.toFixed(1)}</data>
                       </div>
+                      <button id="TopRatedFavoriteButton">
+                        <ion-icon name="heart"></ion-icon>
+                        <span data-i18n="heroSectionFavoriteButton"></span>
+                      </button>
                     </div>
                 </div>
             </li>
@@ -237,6 +241,19 @@ async function topRatedSection(data, lang) {
                 movieList.innerHTML = movieHTML;
                 cacheApi.scriptObj.languageLoad(lang, "onTheAirSectionTitle");
                 document.getElementById("tprated-movie-series").innerHTML = lang.moviesText;
+
+                const favoriteButton = document.querySelectorAll("#toprated-list li button")
+                let TopRatedCount = 0;
+                allMovieDetails.forEach(favoriteDetails => {
+                    const item = favoriteDetails; // Orijinal trend verisi
+                    const button = favoriteButton[TopRatedCount]
+                    const element = favoriteButton[TopRatedCount].querySelector("ion-icon")
+                    favorite.get(item.id, "movie", element)
+                    button.addEventListener("click", () => {
+                        favorite.set(item.id, "movie", element, item.title)
+                    });
+                    TopRatedCount++;
+                });
             }, delay);
 
         } else {
@@ -244,6 +261,19 @@ async function topRatedSection(data, lang) {
             movieList.innerHTML = movieHTML;
             cacheApi.scriptObj.languageLoad(lang, "onTheAirSectionTitle");
             document.getElementById("tprated-movie-series").innerHTML = lang.moviesText;
+
+            const favoriteButton = document.querySelectorAll("#toprated-list li button")
+            let TopRatedCount = 0;
+            allMovieDetails.forEach(favoriteDetails => {
+                const item = favoriteDetails; // Orijinal trend verisi
+                const button = favoriteButton[TopRatedCount]
+                const element = favoriteButton[TopRatedCount].querySelector("ion-icon")
+                favorite.get(item.id, "movie", element)
+                button.addEventListener("click", () => {
+                    favorite.set(item.id, "movie", element, item.title)
+                });
+                TopRatedCount++;
+            });
         }
 
     } catch (e) {

@@ -1,0 +1,282 @@
+/* GENEL AYARLAR VE DEĞİŞKENLER */
+:root {
+    --bg-color: #141414; /* Netflix Dark */
+    --card-bg: #1f1f1f;
+    --primary-color: #e50914; /* Aksan rengi (kırmızı) */
+    --text-white: #ffffff;
+    --text-gray: #b3b3b3;
+    --gradient-overlay: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%);
+    --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    color: var(--text-white);
+    font-family: var(--font-main);
+
+    /* ARKA PLAN AYARLARI */
+    background-color: var(--bg-color); /* Eğer resim yüklenmezse görünecek renk */
+
+    /*
+       Burada Base64 formatında gömülü bir SVG var.
+       İçinde: Play ikonu, kare film parçası ve küçük noktalar var.
+    */
+    background-image:
+        /* 1. Katman: İçeriğin okunması için koyu bir degrade (perde) */
+            linear-gradient(to bottom, rgba(20, 20, 20, 0.95), rgba(20, 20, 20, 0.85)),
+
+                /* 2. Katman: Mini ikonlar (Play üçgeni, Film karesi vb.) */
+            url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3Cpath d='M20 20l10 6-10 6V20zm25 5a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm-30 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+
+    background-attachment: fixed; /* Sayfa kaydırılsa da arka plan sabit kalsın */
+    background-size: 200px 200px; /* Desen boyutunu ayarlar */
+}
+
+/* WRAPPER */
+.library-container {
+    max-width: 1400px;
+    margin: 100px auto 0;
+    padding: 40px 20px;
+    min-height: 80vh; /* Footer dibe yapışsın diye */
+}
+
+/* ÜST HEADER ALANI */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.header-left {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 30px;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* FILTRE BUTONLARI */
+.filter-tabs {
+    display: flex;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 30px;
+    padding: 4px;
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-white);
+    padding: 8px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    background-color: var(--text-white);
+    color: var(--bg-color);
+}
+
+.tab-btn:hover:not(.active) {
+    color: var(--text-gray);
+}
+
+/* ARAMA ÇUBUĞU */
+.search-wrapper {
+    position: relative;
+    width: 250px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 15px 10px 40px;
+    background-color: black;
+    border: 1px solid #333;
+    border-radius: 4px;
+    color: white;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--text-white);
+    background-color: #1f1f1f;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-gray);
+    font-size: 0.9rem;
+}
+
+/* GRID YAPISI */
+.media-grid {
+    display: grid;
+    /* Responsive kolon ayarı: Sığabildiği kadar 200px'lik kolon açar */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
+}
+
+/* KART TASARIMI */
+.media-card {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    border-radius: 8px;
+    overflow: hidden; /* Köşelerin oval kalması için */
+    aspect-ratio: 2 / 3; /* Film posteri oranı */
+}
+
+.card-image-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.card-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+/* Kart Hover Efektleri */
+.media-card:hover {
+    z-index: 10;
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+.media-card:hover img {
+    transform: scale(1.1); /* Resim hafifçe zoom yapar */
+    filter: brightness(0.4); /* Resim kararır */
+}
+
+/* OVERLAY (BİLGİ KATMANI) */
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* İkonlar üstte, yazı altta */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.media-card:hover .card-overlay {
+    opacity: 1;
+}
+
+/* BUTONLAR (PLAY ve SİL) */
+.card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.card-actions button {
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s;
+    backdrop-filter: blur(4px);
+}
+
+.card-actions button:hover {
+    background: white;
+    color: black;
+    transform: scale(1.1);
+}
+
+.card-actions .remove-btn:hover {
+    background: var(--primary-color); /* Silme butonu kırmızı olur */
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* KART BİLGİLERİ */
+.card-info {
+    transform: translateY(20px); /* Aşağıdan yukarı animasyon için */
+    transition: transform 0.3s ease;
+}
+
+.media-card:hover .card-info {
+    transform: translateY(0);
+}
+
+.card-info h3 {
+    font-size: 1rem;
+    margin: 0 0 5px 0;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.meta-data {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.75rem;
+    color: #ddd;
+    margin-bottom: 5px;
+}
+
+.rating i {
+    color: #ffd700; /* Yıldız sarısı */
+    margin-right: 3px;
+}
+
+.quality {
+    border: 1px solid #ddd;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-size: 0.65rem;
+}
+
+.genre {
+    font-size: 0.8rem;
+    color: var(--text-gray);
+    margin: 0;
+}
+
+/* RESPONSIVE AYARLAR */
+@media (max-width: 768px) {
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-right, .search-wrapper {
+        width: 100%;
+    }
+
+    .media-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* Mobilde kartlar daha küçük */
+    }
+}

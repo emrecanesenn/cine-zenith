@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cine-Zenith - Movie Library</title>
+  <link rel="shortcut icon" href="assets/images/favicon.png" type="image/png">
+  <!-- İkonlar için FontAwesome kütüphanesini ekliyoruz -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* CSS kodları aşağıda ayrı olarak verilecek, ancak tek dosya istersen buraya yapıştırabilirsin */
+  </style>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/loader.css">
+  <link rel="stylesheet" href="assets/css/favorite.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<script src="assets/js/script.js" type="module" defer></script>
+<script src="assets/js/searchPopup.js" type="module" defer></script>
+<script src="assets/js/favorite.js" type="module" defer></script>
+<script src="assets/js/favoritePage.js" type="module" defer></script>
+
+
+<div id="page-loader" class="cz-loader-container minimalist">
+  <div class="cz-minimal-lens-ring"></div>
+  <p class="cz-loader-text">CINE-ZENITH</p>
+</div>
+
+<div class="search-modal" id="search-modal">
+  <h2 class="h3 section-title">CINE-ZENITH LIBRARY</h2>
+
+  <div class="search-modal-content">
+    <input type="search" name="search" placeholder="Search for movies and TV shows..." class="search-modal-input" id="search-modal-input">
+
+    <ul class="search-results-list" id="search-results-list">
+    </ul>
+  </div>
+</div>
+
+<div class="search-overlay" id="search-overlay"></div>
+
+<!--
+      - #HEADER
+    -->
+<header id="menu" class="header"></header>
+
+
+
+
+
+<!--
+    ANA İÇERİK ALANI
+ -->
+<main class="library-container">
+
+  <!-- Üst Kontrol Paneli (Başlık, Filtre, Arama) -->
+  <header class="page-header">
+    <div class="header-left">
+      <ion-icon name="heart" style="font-size: 35px; margin-right: -15px ;color: firebrick"></ion-icon>
+      <h1 class="page-title" data-i18n="favoriteListTittle">Favorites</h1>
+      <div class="filter-tabs" id="fav-filter-tabs">
+        <button id="fav-all" class="tab-btn active" type="button" data-i18n="allText">All</button>
+        <button id="fav-movies" class="tab-btn" type="button" data-i18n="moviesText">Movies</button>
+        <button id="fav-series" class="tab-btn" type="button" data-i18n="seriesText">Series</button>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="search-wrapper">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" class="search-input" placeholder="Search in favorites...">
+      </div>
+    </div>
+  </header>
+
+  <!-- İçerik Grid Yapısı -->
+  <section class="media-grid" id="favorite-media-grid">
+    <p>Favoriler Yüklenemedi!</p>
+  </section>
+</main>
+
+<!--
+  - #FOOTER
+-->
+
+<footer id="footer" class="footer"></footer>
+
+
+
+
+
+<!--
+  - #GO TO TOP
+-->
+
+<a href="#top" class="go-top" id="data-go-top">
+  <ion-icon name="chevron-up active"></ion-icon>
+</a>
+
+
+<!--
+  - ionicon link
+-->
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+<div id="toast-notification" class="toast-hidden">
+  <ion-icon name="checkmark-circle"></ion-icon>
+  <span id="toast-message"></span>
+</div>
+</html>

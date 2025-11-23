@@ -14,6 +14,18 @@ root {
     padding-block: var(--section-padding);
 }
 
+#detailsFavoriteButton {
+    display: flex;
+    color: #f1d57a;
+    font-size: 1rem;
+}
+
+#detailsFavoriteButton ion-icon {
+    margin-top: 2px;
+    margin-right: 4px;
+    color: firebrick;
+}
+
 /* ======================================================= */
 /* 1. KART STİLİ (.actor-item) */
 /* ======================================================= */

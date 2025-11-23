@@ -23,7 +23,9 @@ async function compFetch(sectionID, filePath) {
     const resolve = await fetch(filePath)
     if (!resolve.ok) throw new Error("Dosya düzgün yüklenemedi!");
 
-    section.innerHTML = await resolve.text();
+    if (section) {
+      section.innerHTML = await resolve.text();
+    }
 
   } catch (err) {
     console.error(`HATA: ${err}`);

@@ -8,6 +8,7 @@
   "sectionMoreButton" : "DAHA FAZLA",
   "moviesText" : "Filmler",
   "seriesText" : "Diziler",
+  "allText" : "Tümü",
   "movieText" : "Film",
   "serieText" : "Dizi",
 
@@ -127,6 +128,7 @@
     "Management" : "Yönetim",
     "Creator" : "Yapımcı"
   },
+  "favoriteListTittle" : "Favoriler",
 
   "footerHome" : "Anasayfa",
   "footerMovies" : "Filmler",

@@ -135,7 +135,7 @@ async function heroSection(data, langu = lang) {
         favorite.get(movieData.id, "movie", favoriteElement)
 
         document.getElementById("heroFavoriteButton").addEventListener("click", () => {
-            favorite.set(movieData.id, "movie", favoriteElement)
+            favorite.set(movieData.id, "movie", favoriteElement, movieData.title)
         })
 
     } catch (e) {
@@ -248,10 +248,11 @@ async function trendingSection(data, lang) {
             allDetails.forEach((details, index) => {
                 const item = trends[index]; // Orijinal trend verisi
                 const mediaType = item.media_type;
+                const mediaName = mediaType === "tv" ? item.name : item.title;
                 const element = trendFavoriteList[trendCount]
                 favorite.get(item.id, mediaType, element)
                 trendFavoriteButton[trendCount].addEventListener("click", () => {
-                    favorite.set(item.id, mediaType, element)
+                    favorite.set(item.id, mediaType, element, mediaName)
                 });
                 trendCount++;
             });
