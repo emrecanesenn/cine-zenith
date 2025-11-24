@@ -1,0 +1,260 @@
+/* --- DISCOVERY PAGE LAYOUT --- */
+
+/* Ana Taşıyıcı: Yan Yana Düzen */
+.discovery-container {
+    max-width: 1400px;
+    margin: 100px auto 0;
+    padding: 40px 20px;
+    display: grid;
+    grid-template-columns: 280px 1fr; /* Sol menü 280px, sağ kalan alan */
+    gap: 40px;
+    align-items: start; /* Sidebar yukarı yapışık olsun */
+}
+
+/* --- SIDEBAR STİLLERİ --- */
+.filter-sidebar {
+    background-color: #1f1f1f; /* Panel rengi */
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #333;
+    position: sticky; /* Sayfa kaydığında sabit kalsın */
+    top: 100px; /* Header yüksekliğine göre ayarlayabilirsin */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #333;
+}
+
+.filter-header h2 {
+    font-size: 1.2rem;
+    margin: 0;
+    color: var(--text-white);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.reset-link {
+    background: none;
+    border: none;
+    color: var(--text-gray);
+    cursor: pointer;
+    font-size: 0.85rem;
+    text-decoration: underline;
+}
+
+.reset-link:hover {
+    color: var(--primary-color);
+}
+
+/* Filtre Grupları */
+.filter-group {
+    margin-bottom: 25px;
+}
+
+.group-title {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-gray);
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+/* Özel Input Tasarımı */
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper input {
+    width: 100%;
+    background: #141414;
+    border: 1px solid #333;
+    padding: 10px 10px 10px 35px; /* İkon için soldan boşluk */
+    border-radius: 6px;
+    color: white;
+    font-family: inherit;
+    box-sizing: border-box; /* Taşmayı engeller */
+}
+
+.input-wrapper i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    font-size: 0.8rem;
+}
+
+/* Type Selector (Radyo Butonlar) */
+.type-selector {
+    display: flex;
+    background: #141414;
+    padding: 4px;
+    border-radius: 6px;
+    justify-content: space-between;
+}
+
+.type-option {
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+}
+
+.type-option input {
+    display: none; /* Varsayılan radyoyu gizle */
+}
+
+.type-option span {
+    display: block;
+    padding: 8px 0;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    color: #888;
+    transition: all 0.3s;
+}
+
+/* Seçili Olan Type */
+.type-option input:checked + span {
+    background-color: #333;
+    color: white;
+    font-weight: 600;
+}
+
+/* Genre Tags (Checkboxlar) */
+.genre-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.genre-tag {
+    cursor: pointer;
+}
+
+.genre-tag input {
+    display: none;
+}
+
+.genre-tag span {
+    display: inline-block;
+    padding: 6px 12px;
+    background: #141414;
+    border: 1px solid #333;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: #aaa;
+    transition: all 0.2s ease;
+}
+
+/* Seçili Olan Genre */
+.genre-tag input:checked + span {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.genre-tag:hover span {
+    border-color: #666;
+}
+
+/* Range Slider (Rating) */
+.range-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+#rating-value {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+input[type=range] {
+    width: 100%;
+    accent-color: var(--primary-color); /* Modern tarayıcılarda slider rengi */
+    cursor: pointer;
+    height: 4px;
+    background: #333;
+    border-radius: 2px;
+    margin: 10px 0;
+}
+
+.range-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #555;
+}
+
+/* Dropdown Select */
+.custom-select {
+    width: 100%;
+    background: #141414;
+    color: white;
+    border: 1px solid #333;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Uygula Butonu */
+.apply-btn {
+    width: 100%;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+
+.apply-btn:hover {
+    background-color: #b20710; /* Daha koyu kırmızı */
+}
+
+/* --- SONUÇ ALANI --- */
+.results-header {
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 10px;
+}
+
+.results-header h3 {
+    font-weight: 400;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.highlight-count {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* Responsive Sidebar */
+@media (max-width: 900px) {
+    .discovery-container {
+        grid-template-columns: 1fr; /* Yan yana değil alt alta */
+        gap: 20px;
+    }
+
+    .filter-sidebar {
+        position: static; /* Yapışkanlığı kaldır */
+        width: auto;
+    }
+
+    .genre-grid {
+        display: flex;
+        overflow-x: auto; /* Yatay kaydırma mobilde güzel olur */
+        padding-bottom: 5px;
+        flex-wrap: nowrap; /* Mobilde tek satırda kaysın */
+    }
+}

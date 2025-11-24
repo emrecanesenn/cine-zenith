@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cine-Zenith - Discovery</title>
+    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/png">
+    <!-- İkonlar için FontAwesome kütüphanesini ekliyoruz -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS kodları aşağıda ayrı olarak verilecek, ancak tek dosya istersen buraya yapıştırabilirsin */
+    </style>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/loader.css">
+    <link rel="stylesheet" href="assets/css/favorite.css">
+    <link rel="stylesheet" href="assets/css/discovery.css">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<script src="assets/js/script.js" type="module" defer></script>
+<script src="assets/js/searchPopup.js" type="module" defer></script>
+<script src="assets/js/favorite.js" type="module" defer></script>
+<script src="assets/js/discovery.js" type="module" defer></script>
+
+<div id="page-loader" class="cz-loader-container minimalist">
+    <div class="cz-minimal-lens-ring"></div>
+    <p class="cz-loader-text">CINE-ZENITH</p>
+</div>
+
+<div class="search-modal" id="search-modal">
+    <h2 class="h3 section-title">CINE-ZENITH LIBRARY</h2>
+
+    <div class="search-modal-content">
+        <input type="search" name="search" placeholder="Search for movies and TV shows..." class="search-modal-input" id="search-modal-input">
+
+        <ul class="search-results-list" id="search-results-list">
+        </ul>
+    </div>
+</div>
+
+<div class="search-overlay" id="search-overlay"></div>
+
+<!--
+      - #HEADER
+    -->
+<header id="menu" class="header" style="z-index: 11"></header>
+
+
+
+<main class="discovery-container">
+
+    <!-- SOL TARAFTAKİ FİLTRE MENÜSÜ -->
+    <aside class="filter-sidebar">
+        <div class="filter-header">
+            <h2><i class="fa-solid fa-sliders"></i> Filters</h2>
+            <button id="reset-btn" class="reset-link">Reset All</button>
+        </div>
+
+        <!-- Arama Input -->
+        <div class="filter-group">
+            <label class="group-title">Search Keyword</label>
+            <div class="input-wrapper">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="search-input" placeholder="Avengers, Batman...">
+            </div>
+        </div>
+
+        <!-- Tip (Film/Dizi) - Radyo Buton Görünümlü -->
+        <div class="filter-group">
+            <label class="group-title">Type</label>
+            <div class="type-selector">
+                <label class="type-option">
+                    <input type="radio" name="type" value="all" checked>
+                    <span>All</span>
+                </label>
+                <label class="type-option">
+                    <input type="radio" name="type" value="movies">
+                    <span>Movies</span>
+                </label>
+                <label class="type-option">
+                    <input type="radio" name="type" value="series">
+                    <span>Series</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Türler (Genres) - Checkbox ama Etiket Görünümlü -->
+        <div class="filter-group">
+            <label class="group-title">Genres</label>
+            <div class="genre-grid">
+                <label class="genre-tag">
+                    <input type="checkbox" value="action">
+                    <span>Action</span>
+                </label>
+                <label class="genre-tag">
+                    <input type="checkbox" value="adventure">
+                    <span>Adventure</span>
+                </label>
+                <label class="genre-tag">
+                    <input type="checkbox" value="comedy">
+                    <span>Comedy</span>
+                </label>
+                <label class="genre-tag">
+                    <input type="checkbox" value="drama">
+                    <span>Drama</span>
+                </label>
+                <label class="genre-tag">
+                    <input type="checkbox" value="horror">
+                    <span>Horror</span>
+                </label>
+                <label class="genre-tag">
+                    <input type="checkbox" value="scifi">
+                    <span>Sci-Fi</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- IMDB Puanı - Range Slider -->
+        <div class="filter-group" id="group-range">
+            <div class="range-header">
+                <label class="group-title">Min. Rating</label>
+                <span id="rating-value">0</span>
+            </div>
+            <input type="range" id="rating-range" min="0" max="10" step="0.1" value="0">
+            <div class="range-labels">
+                <span>0</span>
+                <span>10</span>
+            </div>
+        </div>
+
+        <!-- Sıralama -->
+        <div class="filter-group">
+            <label class="group-title">Sort By</label>
+            <select class="custom-select">
+                <option value="popularity">Popularity</option>
+                <option value="newest">Newest Releases</option>
+                <option value="rating">Top Rated</option>
+            </select>
+        </div>
+
+        <button id="apply-btn" class="apply-btn">Apply Filters</button>
+    </aside>
+
+    <!-- SAĞ TARAFTAKİ SONUÇ ALANI -->
+    <section class="results-section">
+        <div class="results-header">
+            <h3 style="display: flex; column-gap: 8px;">Found <span class="highlight-count"> </span> matches</h3>
+            <!-- İstersen buraya ekstra hızlı sıralama butonları koyabilirsin -->
+        </div>
+
+        <!-- KART GRİD (Favorilerdeki yapının aynısı) -->
+        <div class="media-grid" id="results-grid">
+
+        </div>
+    </section>
+
+</main>
+
+<!--
+  - #FOOTER
+-->
+
+<footer id="footer" class="footer"></footer>
+
+
+
+
+
+<!--
+  - #GO TO TOP
+-->
+
+<a href="#top" class="go-top" id="data-go-top">
+    <ion-icon name="chevron-up active"></ion-icon>
+</a>
+
+
+<!--
+  - ionicon link
+-->
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+<div id="toast-notification" class="toast-hidden">
+    <ion-icon name="checkmark-circle"></ion-icon>
+    <span id="toast-message"></span>
+</div>
+</html>
