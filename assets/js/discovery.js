@@ -20,7 +20,7 @@ function getGenreName(id, type) {
     return genre ? genre.name : 'Bilinmiyor';
 }
 
-let keywords = [], genres = [];
+let genres = [];
 let type = sessionStorage.getItem("type") || "all", rating = sessionStorage.getItem("rating");
 let searchTimeoutToken = null;
 
@@ -62,39 +62,52 @@ async function genreData() {
 }
 
 async function filterData() {
-    let page = 1;
+
     try {
-        let genreList = genres.join(",");
-        let keywordList = keywords.join(",");
-        const rate = rating !== 0 ? rating : "";
+        const searchQuery = document.getElementById("search-input").value.trim();
+        if (searchQuery) {
+            const resolve = await fetch(`${DEFAULT_URL}/search/multi?api_key=${API_KEY}&query=${encodeURIComponent(searchQuery)}&page=1&${LANG}`)
+            if (!resolve.ok) throw new Error("Input Search Error")
 
-        const [moviesRes, seriesRes] = await Promise.all([
-            fetch(`${DEFAULT_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genreList}&vote_average.gte=${rate}&sort_by=${document.querySelector(".custom-select").value}&${LANG}`),
-            fetch(`${DEFAULT_URL}/discover/tv?api_key=${API_KEY}&with_genres=${genreList}&vote_average.gte=${rate}&sort_by=popularity.desc&${LANG}`)
-            // /discover/movie?api_key=...&with_genres=35|18&vote_average.gte=7.0&sort_by=popularity.desc
-        ])
-        if (!moviesRes.ok && !seriesRes.ok) throw new Error("Fetch Error - Series and Movies");
+            const resultData = await resolve.json()
+            const mediaList = resultData.results;
 
-        const movieData = await moviesRes.json();
-        const tvData = await  seriesRes.json();
-        const movieList = await movieData.results;
-        const tvList = await tvData.results;
+            document.querySelector(".highlight-count").innerHTML = mediaList.length;
+            renderProviders(mediaList, false, "query")
 
-        switch (type) {
-            case "all" :
-                document.querySelector(".highlight-count").innerHTML = movieList.length + tvList.length
-                renderProviders(movieList, tvList, type)
-                break;
-            case "movies" :
-                document.querySelector(".highlight-count").innerHTML = movieList.length
-                renderProviders(movieList, false, type)
-                break;
-            case "series" :
-                document.querySelector(".highlight-count").innerHTML = tvList.length
-                renderProviders(tvList, false, type)
-                break;
-            default :
-                throw new Error("List type error");
+        } else {
+            let genreList = genres.join(",");
+            const rate = rating !== 0 ? rating : "";
+
+            const [moviesRes, seriesRes] = await Promise.all([
+                fetch(`${DEFAULT_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genreList}&vote_average.gte=${rate}&sort_by=${document.querySelector(".custom-select").value}&${LANG}`),
+                fetch(`${DEFAULT_URL}/discover/tv?api_key=${API_KEY}&with_genres=${genreList}&vote_average.gte=${rate}&sort_by=${document.querySelector(".custom-select").value}&${LANG}`)
+                // /discover/movie?api_key=...&with_genres=35|18&vote_average.gte=7.0&sort_by=popularity.desc
+            ])
+            if (!moviesRes.ok && !seriesRes.ok) throw new Error("Fetch Error - Series and Movies");
+
+            const movieData = await moviesRes.json();
+            const tvData = await  seriesRes.json();
+            const movieList = await movieData.results;
+            const tvList = await tvData.results;
+
+            switch (type) {
+                case "all" :
+                    document.querySelector(".highlight-count").innerHTML = movieList.length + tvList.length
+                    renderProviders(movieList, tvList, type)
+                    break;
+                case "movies" :
+                    document.querySelector(".highlight-count").innerHTML = movieList.length
+                    renderProviders(movieList, false, type)
+                    break;
+                case "series" :
+                    document.querySelector(".highlight-count").innerHTML = tvList.length
+                    renderProviders(tvList, false, type)
+                    break;
+                default :
+                    throw new Error("List type error");
+            }
+
         }
 
     } catch (e) {
@@ -125,28 +138,28 @@ function renderProviders(data1, data2 = false, dataType) {
                         return getGenreName(item, "movie")
                     })
                     .join(', ');
-
+                const posterLink = media.poster_path ? `${IMG_DEFAULT_URL}original/${media.poster_path}` : `assets/images/non-poster.png`
                 listText += `
-            <article class="media-card">
-                <div class="card-image-wrapper">
-                    <img src="${IMG_DEFAULT_URL}original/${media.poster_path}" alt="${media.title} poster">
-                    <div class="card-overlay">
-                        <div class="card-actions">
-                            <button class="play-btn"><i class="fa-solid fa-play"></i></button>
-                            <button class="fav-btn"><ion-icon name="heart-outline"></ion-icon></button>
-                        </div>
-                        <div class="card-info">
-                            <h3>${media.title}</h3>
-                            <div class="meta-data">
-                                <span class="rating"><i class="fa-solid fa-star"></i> ${media.vote_average.toFixed(1)}</span>
-                                <span class="year">${media.release_date.slice(0, 4)} - <b>${lang.movieText}</b></span>
+                <article class="media-card">
+                    <div class="card-image-wrapper">
+                        <img src="${posterLink}" alt="${media.title} poster">
+                        <div class="card-overlay">
+                            <div class="card-actions">
+                                <button class="play-btn"><i class="fa-solid fa-play"></i></button>
+                                <button class="fav-btn"><ion-icon name="heart-outline"></ion-icon></button>
                             </div>
-                            <p class="genre">${genreList}</p>
+                            <div class="card-info">
+                                <h3>${media.title}</h3>
+                                <div class="meta-data">
+                                    <span class="rating"><i class="fa-solid fa-star"></i> ${media.vote_average.toFixed(1)}</span>
+                                    <span class="year">${media.release_date.slice(0, 4)} - <b>${lang.movieText}</b></span>
+                                </div>
+                                <p class="genre">${genreList}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </article>
-            `
+                </article>
+                `
             }
 
             for (let media of data2) {
@@ -158,27 +171,28 @@ function renderProviders(data1, data2 = false, dataType) {
                     })
                     .join(', ');
 
+                const posterLink = media.poster_path ? `${IMG_DEFAULT_URL}original/${media.poster_path}` : `assets/images/non-poster.png`
                 listText += `
-            <article class="media-card">
-                <div class="card-image-wrapper">
-                    <img src="${IMG_DEFAULT_URL}original/${media.poster_path}" alt="${media.name} poster">
-                    <div class="card-overlay">
-                        <div class="card-actions">
-                            <button class="play-btn"><i class="fa-solid fa-play"></i></button>
-                            <button class="fav-btn"><ion-icon name="heart-outline"></ion-icon></button>
-                        </div>
-                        <div class="card-info">
-                            <h3>${media.name}</h3>
-                            <div class="meta-data">
-                                <span class="rating"><i class="fa-solid fa-star"></i> ${media.vote_average.toFixed(1)}</span>
-                                <span class="year">${media.first_air_date.slice(0, 4)} - <b>${lang.serieText}</b></span>
+                <article class="media-card">
+                    <div class="card-image-wrapper">
+                        <img src="${posterLink}" alt="${media.name} poster">
+                        <div class="card-overlay">
+                            <div class="card-actions">
+                                <button class="play-btn"><i class="fa-solid fa-play"></i></button>
+                                <button class="fav-btn"><ion-icon name="heart-outline"></ion-icon></button>
                             </div>
-                            <p class="genre">${genreList}</p>
+                            <div class="card-info">
+                                <h3>${media.name}</h3>
+                                <div class="meta-data">
+                                    <span class="rating"><i class="fa-solid fa-star"></i> ${media.vote_average.toFixed(1)}</span>
+                                    <span class="year">${media.first_air_date.slice(0, 4)} - <b>${lang.serieText}</b></span>
+                                </div>
+                                <p class="genre">${genreList}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </article>
-            `
+                </article>
+                `
             }
         } else if (dataType === "movies") {
             for (let media of data1) {
@@ -190,28 +204,28 @@ function renderProviders(data1, data2 = false, dataType) {
                         return getGenreName(item, "movie")
                     })
                     .join(', ');
-
+                const posterLink = media.poster_path ? `${IMG_DEFAULT_URL}original/${media.poster_path}` : `assets/images/non-poster.png`
                 listText += `
-            <article class="media-card">
-                <div class="card-image-wrapper">
-                    <img src="${IMG_DEFAULT_URL}original/${media.poster_path}" alt="${media.title} poster">
-                    <div class="card-overlay">
-                        <div class="card-actions">
-                            <button class="play-btn"><i class="fa-solid fa-play"></i></button>
-                            <button class="fav-btn"><ion-icon name="heart-outline"></ion-icon></button>
-                        </div>
-                        <div class="card-info">
-                            <h3>${media.title}</h3>
-                            <div class="meta-data">
-                                <span class="rating"><i class="fa-solid fa-star"></i> ${media.vote_average.toFixed(1)}</span>
-                                <span class="year">${media.release_date.slice(0, 4)} - <b>${lang.movieText}</b></span>
+                <article class="media-card">
+                    <div class="card-image-wrapper">
+                        <img src="${posterLink}" alt="${media.title} poster">
+                        <div class="card-overlay">
+                            <div class="card-actions">
+                                <button class="play-btn"><i class="fa-solid fa-play"></i></button>
+                                <button class="fav-btn"><ion-icon name="heart-outline"></ion-icon></button>
                             </div>
-                            <p class="genre">${genreList}</p>
+                            <div class="card-info">
+                                <h3>${media.title}</h3>
+                                <div class="meta-data">
+                                    <span class="rating"><i class="fa-solid fa-star"></i> ${media.vote_average.toFixed(1)}</span>
+                                    <span class="year">${media.release_date.slice(0, 4)} - <b>${lang.movieText}</b></span>
+                                </div>
+                                <p class="genre">${genreList}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </article>
-            `
+                </article>
+                `
             }
         } else if (dataType === "series") {
             for (let media of data1) {
@@ -222,28 +236,84 @@ function renderProviders(data1, data2 = false, dataType) {
                         return getGenreName(item, "tv")
                     })
                     .join(', ');
-
+                const posterLink = media.poster_path ? `${IMG_DEFAULT_URL}original/${media.poster_path}` : `assets/images/non-poster.png`
                 listText += `
-            <article class="media-card">
-                <div class="card-image-wrapper">
-                    <img src="${IMG_DEFAULT_URL}original/${media.poster_path}" alt="${media.name} poster">
-                    <div class="card-overlay">
-                        <div class="card-actions">
-                            <button class="play-btn"><i class="fa-solid fa-play"></i></button>
-                            <button class="fav-btn"><ion-icon name="heart-outline"></ion-icon></button>
-                        </div>
-                        <div class="card-info">
-                            <h3>${media.name}</h3>
-                            <div class="meta-data">
-                                <span class="rating"><i class="fa-solid fa-star"></i> ${media.vote_average.toFixed(1)}</span>
-                                <span class="year">${media.first_air_date.slice(0, 4)} - <b>${lang.serieText}</b></span>
+                <article class="media-card">
+                    <div class="card-image-wrapper">
+                        <img src="${posterLink}" alt="${media.name} poster">
+                        <div class="card-overlay">
+                            <div class="card-actions">
+                                <button class="play-btn"><i class="fa-solid fa-play"></i></button>
+                                <button class="fav-btn"><ion-icon name="heart-outline"></ion-icon></button>
                             </div>
-                            <p class="genre">${genreList}</p>
+                            <div class="card-info">
+                                <h3>${media.name}</h3>
+                                <div class="meta-data">
+                                    <span class="rating"><i class="fa-solid fa-star"></i> ${media.vote_average.toFixed(1)}</span>
+                                    <span class="year">${media.first_air_date.slice(0, 4)} - <b>${lang.serieText}</b></span>
+                                </div>
+                                <p class="genre">${genreList}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </article>
+                </article>
             `
+            }
+        } else if(dataType === "query") {
+            for (let media of data1) {
+                const idsArray = media.genre_ids ?? [];
+                const genreList = idsArray
+                    .map(item => {
+                        return getGenreName(item, "all")
+                    })
+                    .join(', ');
+                const posterLink = media.poster_path ? `${IMG_DEFAULT_URL}original/${media.poster_path}` : `assets/images/non-poster.png`
+
+                if (media.media_type === "tv") {
+                    listText += `
+                    <article class="media-card">
+                        <div class="card-image-wrapper">
+                            <img src="${posterLink}" alt="${media.name} poster">
+                            <div class="card-overlay">
+                                <div class="card-actions">
+                                    <button class="play-btn"><i class="fa-solid fa-play"></i></button>
+                                    <button class="fav-btn"><ion-icon name="heart-outline"></ion-icon></button>
+                                </div>
+                                <div class="card-info">
+                                    <h3>${media.name}</h3>
+                                    <div class="meta-data">
+                                        <span class="rating"><i class="fa-solid fa-star"></i> ${media.vote_average.toFixed(1)}</span>
+                                        <span class="year">${media.first_air_date.slice(0, 4)} - <b>${lang.serieText}</b></span>
+                                    </div>
+                                    <p class="genre">${genreList}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    `
+                } else if(media.media_type === "movie") {
+                    listText += `
+                    <article class="media-card">
+                        <div class="card-image-wrapper">
+                            <img src="${posterLink}" alt="${media.title} poster">
+                            <div class="card-overlay">
+                                <div class="card-actions">
+                                    <button class="play-btn"><i class="fa-solid fa-play"></i></button>
+                                    <button class="fav-btn"><ion-icon name="heart-outline"></ion-icon></button>
+                                </div>
+                                <div class="card-info">
+                                    <h3>${media.title}</h3>
+                                    <div class="meta-data">
+                                        <span class="rating"><i class="fa-solid fa-star"></i> ${media.vote_average.toFixed(1)}</span>
+                                        <span class="year">${media.release_date.slice(0, 4)} - <b>${lang.movieText}</b></span>
+                                    </div>
+                                    <p class="genre">${genreList}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    `
+                }
             }
         } else throw new Error("Render Providers Error");
 
@@ -255,7 +325,6 @@ function renderProviders(data1, data2 = false, dataType) {
 }
 
 document.addEventListener("DOMContentLoaded", async function() {
-    sessionStorage.setItem("keyword", JSON.stringify(keywords))
     sessionStorage.setItem("type", "all")
     sessionStorage.setItem("genres", JSON.stringify(genres))
     sessionStorage.setItem("rating", JSON.stringify(0))
@@ -270,82 +339,37 @@ document.getElementById("apply-btn").addEventListener("click", filterData) // AP
 
 
 /*
- *  SEARCH INPUT - KEYWORDS SETTINGS SECTION
+ *  SEARCH INPUT
  */
 
-async function fetchKeywordIds(rawQuery) {
-    const applyBtn = document.getElementById("apply-btn");
-    applyBtn.disabled = true;
-
-    if (!rawQuery.trim()) {
-        keywords.length = 0;
-        sessionStorage.setItem("keyword", JSON.stringify(keywords));
-        applyBtn.disabled = false;
-        return;
-    }
-
-    try {
-        // 1. Raw sorguyu virgülle ayır, boşlukları temizle ve boş girdileri at (Örn: "avenger, batman" -> ["avenger", "batman"])
-        const individualQueries = rawQuery
-            .split(',')
-            .map(q => q.trim())
-            .filter(q => q.length > 0);
-
-        const fetchPromises = individualQueries.map(query =>
-            // 2. Her bir kelime için API'ya ayrı istek gönder (Promise.all kullanacağız)
-            fetch(`${DEFAULT_URL}/search/keyword?api_key=${API_KEY}&query=${encodeURIComponent(query)}`)
-        );
-
-        const responses = await Promise.all(fetchPromises);
-
-        // Yanıtları kontrol et ve JSON'a çevir
-        const validResponses = responses.filter(res => res.ok);
-        const allKeywordData = await Promise.all(validResponses.map(res => res.json()));
-
-        // 3. Tüm sonuçlardaki ID'leri birleştir ve tekilleştir
-        let combinedIds = [];
-        allKeywordData.forEach(data => {
-            const newIds = data.results
-                .slice(0, 5) // Her sorgudan ilk 5 sonucu al
-                .map(item => item.id.toString());
-            combinedIds.push(...newIds);
-        });
-
-        // ID'leri tekilleştir (Aynı ID birden fazla arama sonucuyla gelmiş olabilir)
-        const uniqueIds = Array.from(new Set(combinedIds));
-
-        // 4. Global diziyi ve Session Storage'ı güncelle
-        keywords.length = 0;
-        keywords.push(...uniqueIds);
-        sessionStorage.setItem("keyword", JSON.stringify(keywords));
-
-    } catch (e) {
-        console.error("Anahtar Kelime ID Çekme Hatası:", e);
-        alert("Anahtar kelime aramasında bir hata oluştu.");
-    } finally {
-        applyBtn.disabled = false;
-    }
-}
-
-/**
- * Fonksiyonun çağrılmasını geciktirir (Debounce işlemi).
- * searchTimeoutToken değişkenini global kapsamda kullanır.
- */
-function debouncKeyword(callback, delay = 500) {
-    // 🔥 searchTimeoutToken'ı global olarak temizle
-    clearTimeout(searchTimeoutToken);
-    searchTimeoutToken = setTimeout(callback, delay);
-}
-
-
-// document.getElementById("search-input").addEventListener("input", ...) bloğu
 document.getElementById("search-input").addEventListener("input", (event) => {
-    const rawQuery = event.target.value; // Ham metni direkt al
+    let typeList = document.querySelectorAll(".type-selector input")
+    let genreList = document.querySelectorAll(".genre-grid input")
+    let range = document.getElementById("rating-range")
+    let customSelect = document.querySelector(".custom-select")
+    let container = document.getElementById("discoverFilter")
+    if (!event.target.value.trim()) {
+        container.style.opacity = "1";
+        for (let item of typeList) {
+            item.disabled = false;
+        }
+        for (let item of genreList) {
+            item.disabled = false;
+        }
+        range.disabled = false;
+        customSelect.disabled = false;
+    } else {
+        container.style.opacity = "0.4";
+        for (let item of typeList) {
+            item.disabled = true;
+        }
+        for (let item of genreList) {
+            item.disabled = true;
+        }
+        range.disabled = true;
+        customSelect.disabled = true;
 
-    // Gecikmeli çalıştırma
-    debouncKeyword(() => {
-        fetchKeywordIds(rawQuery); // Ham metni gönder
-    }, 500);
+    }
 });
 
 /*
@@ -354,7 +378,7 @@ document.getElementById("search-input").addEventListener("input", (event) => {
 
 async function listingGenres() {
     try {
-        const dataType = type;
+        const dataType = sessionStorage.getItem("type");
         const filterGenresList = document.querySelector(".genre-grid")
         filterGenresList.innerHTML = "";
         let text = "";

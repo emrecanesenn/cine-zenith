@@ -305,7 +305,7 @@ function createSimilarContentCards(similarMediaData, lang) {
         const title = item.title || item.name;
         const posterUrl = item.poster_path
             ? `${IMG_DEFAULT_URL}w300/${item.poster_path}`
-            : 'assets/images/non-profile-tr.png'; // Varsayılan görsel
+            : `assets/images/non-poster.png`; // Varsayılan görsel
         const itemType = item.media_type || mediaType; // item.media_type bazen döner, dönmezse ana tipi kullan
 
         // Detay sayfasına yönlendirecek linki oluştur (Örn: /details.html?type=movie&id=123)
@@ -340,7 +340,7 @@ async function actorList(actors, lang) {
     // Cast Listing
     for (let person of actors.cast) {
         if (count >= 15) { break; } // İlk 15 kişi
-        const actorImage = person.profile_path ? `${IMG_DEFAULT_URL}original/${person.profile_path}` : lang.crewListNonProfile;
+        const actorImage = person.profile_path ? `${IMG_DEFAULT_URL}original/${person.profile_path}` : `assets/images/non-profile.png`;
         actorItem += `
             <li class="actor-item">
                 <a href="personDetail.html?id=${person.id}">
@@ -373,7 +373,7 @@ async function actorList(actors, lang) {
 
     for (let person of actors.crew) {
         if (count >= 15) { break; } // İlk 15 kişi
-        const crewImage = person.profile_path ? `${IMG_DEFAULT_URL}original/${person.profile_path}` : lang.crewListNonProfile;
+        const crewImage = person.profile_path ? `${IMG_DEFAULT_URL}original/${person.profile_path}` : "assets/images/non-profile.png";
         crewItem += `
             <li class="actor-item">
                 <a href="personDetail.html?id=${person.id}">
@@ -405,7 +405,7 @@ function createSeasonCards(seasonsData, lang) {
 
         const posterUrl = season.poster_path
             ? `${IMG_DEFAULT_URL}w300/${season.poster_path}`
-            : 'assets/images/non-profile-tr.png'; // Kendi varsayılan görseliniz
+            : 'assets/images/non-poster.png'; // Kendi varsayılan görseliniz
 
         const card = document.createElement('div');
         card.className = 'season-card';
@@ -488,7 +488,7 @@ async function loadEpisodes(tvId, seasonNumber, lang) {
 function updateMediaDisplay(index) {
     if (allBackdrops.length === 0) {
         if(mainBackdropImage) {
-            mainBackdropImage.src = 'assets/images/no-image-available.png'; // Varsayılan görsel
+            mainBackdropImage.src = 'assets/images/non-media.png'; // Varsayılan görsel
             mainBackdropImage.alt = 'Görsel yok';
         }
         return;
@@ -528,7 +528,7 @@ function createMediaGallery(imagesData) {
     }
 
     allBackdrops.forEach((image, index) => {
-        const thumbnailUrl = `${IMG_DEFAULT_URL}w300/${image.file_path}`;
+        const thumbnailUrl =`${IMG_DEFAULT_URL}w300/${image.file_path}`;
 
         const thumbnail = document.createElement('div');
         thumbnail.className = 'thumbnail-item';
