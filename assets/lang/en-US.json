@@ -112,6 +112,10 @@
   "personSectionRolls" : "Cast Credits",
   "personSectionCrew" : "Crew",
 
+  "discoveryTypeCastCrew" : "Cast & Crew",
+  "discoveryTypeMovie" : "Movie",
+  "discoveryTypeTV" : "TV",
+
   "favoriteListTittle" : "Favorites",
 
   "footerHome" : "Home",

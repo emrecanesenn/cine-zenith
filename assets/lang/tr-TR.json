@@ -127,6 +127,11 @@
     "Management" : "Yönetim",
     "Creator" : "Yapımcı"
   },
+
+  "discoveryTypeCastCrew" : "Oyuncu & Ekip",
+  "discoveryTypeMovie" : "Film",
+  "discoveryTypeTV" : "Dizi",
+
   "favoriteListTittle" : "Favoriler",
 
   "footerHome" : "Anasayfa",

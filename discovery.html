@@ -67,7 +67,7 @@
             <label class="group-title">Search Keyword</label>
             <div class="input-wrapper">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="search-input" placeholder="Avengers, Batman...">
+                <input type="text" id="search-input" placeholder="Search for something...">
             </div>
         </div>
 
@@ -77,20 +77,23 @@
                 <label class="group-title">Type</label>
                 <div class="type-selector">
                     <label class="type-option">
-                        <input type="radio" name="type" value="all" checked>
-                        <span>All</span>
+                        <input type="radio" name="type" value="movies" checked>
+                        <span data-i18n="discoveryTypeMovie">Movies</span>
                     </label>
-                    <label class="type-option">
-                        <input type="radio" name="type" value="movies">
-                        <span>Movies</span>
-                    </label>
+
                     <label class="type-option">
                         <input type="radio" name="type" value="series">
-                        <span>Series</span>
+                        <span data-i18n="discoveryTypeTV">Series</span>
+                    </label>
+
+                    <label class="type-option cast">
+                        <input type="radio" name="type" value="cast">
+                        <span data-i18n="discoveryTypeCastCrew">Oyuncu/Ekip</span>
                     </label>
                 </div>
             </div>
 
+            <div id="displayCastType">
             <!-- Türler (Genres) - Checkbox ama Etiket Görünümlü -->
             <div class="filter-group">
                 <label class="group-title">Genres</label>
@@ -149,6 +152,7 @@
                 </select>
             </div>
         </div>
+        </div>
 
         <button id="apply-btn" class="apply-btn">Apply Filters</button>
     </aside>
@@ -156,7 +160,7 @@
     <!-- SAĞ TARAFTAKİ SONUÇ ALANI -->
     <section class="results-section">
         <div class="results-header">
-            <h3 style="display: flex; column-gap: 8px;">Found <span class="highlight-count"> </span> matches</h3>
+            <h3 style="display: flex; column-gap: 8px;">a</h3>
             <!-- İstersen buraya ekstra hızlı sıralama butonları koyabilirsin -->
         </div>
 
@@ -164,6 +168,20 @@
         <div class="media-grid" id="results-grid">
 
         </div>
+        <br><br>
+        <hr>
+        <nav data-pagination style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 20px;">
+            <a href="#" id="prev-btn" class="nav-btn" style="font-size: 24px;">
+                <ion-icon name="caret-back"></ion-icon>
+            </a>
+
+            <ul id="pagination" style="display: flex; list-style: none; gap: 5px; padding: 0;">
+            </ul>
+
+            <a href="#" id="next-btn" class="nav-btn" style="font-size: 24px;">
+                <ion-icon name="caret-forward"></ion-icon>
+            </a>
+        </nav>
     </section>
 
 </main>

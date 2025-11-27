@@ -101,7 +101,7 @@ function renderPersonHeader(personData, personDataTR, langStrings) {
     // 1. Profil Resmi
     const profilePath = personData.profile_path
         ? `${IMG_DEFAULT_URL}w300/${personData.profile_path}`
-        : 'assets/images/non-profile-en.png';
+        : 'assets/images/non-profile.png';
     personProfileImg.src = profilePath;
     personProfileImg.alt = personData.name;
 
@@ -205,7 +205,7 @@ function renderFilmography(role) {
         const title = item.title || item.name;
         const posterUrl = item.poster_path
             ? `${IMG_DEFAULT_URL}w300/${item.poster_path}`
-            : 'assets/images/non-profile-tr.png';
+            : 'assets/images/non-poster.png';
         const year = (item.release_date || item.first_air_date || '----').substring(0, 4);
         const roleDetail = role === 'cast' ? item.character : item.job;
 
